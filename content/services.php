@@ -1,0 +1,370 @@
+<?php
+
+/*
+| Services. Keyed by URL slug: /services/{slug}.
+| Set 'enabled' => false to hide a service everywhere (nav, pages, sitemap, contact form).
+| Owner: confirm each service is actively offered before launch.
+*/
+
+return [
+
+    'custom-software-development' => [
+        'enabled' => true,
+        'title' => 'Custom Software Development',
+        'icon' => 'code',
+        'summary' => 'Software designed around your processes, not the other way round, from internal tools to complete business platforms.',
+        'meta_title' => 'Custom Software Development Services',
+        'meta_description' => 'Custom software development for businesses that have outgrown spreadsheets and off-the-shelf tools. Discovery, architecture, development, testing and long-term support.',
+        'intro' => [
+            'Off-the-shelf software is built for the average business. When your workflows, data, or customer experience are what set you apart, forcing them into a generic product creates friction, workarounds, and hidden costs.',
+            'We design and build custom software around how your business actually operates. Every engagement starts with understanding the problem, then turns it into a maintainable, secure product that your team can rely on and extend.',
+        ],
+        'benefits' => [
+            ['title' => 'Built around your workflow', 'text' => 'Features map directly to how your teams work, which removes manual steps and duplicated data entry.'],
+            ['title' => 'You own the product', 'text' => 'Source code, documentation, and infrastructure access are yours. There are no per-seat licences for software you paid to build.'],
+            ['title' => 'Room to grow', 'text' => 'A modular architecture lets new features, users, and integrations be added without starting over.'],
+            ['title' => 'Security from day one', 'text' => 'Access control, input validation, and secure data handling are part of the design, not an afterthought.'],
+        ],
+        'deliverables' => [
+            'Discovery workshop and written requirements',
+            'Solution architecture and technology recommendation',
+            'UX wireframes and interface design',
+            'Iterative development with regular demos',
+            'Automated and manual testing',
+            'Deployment, documentation, and handover',
+            'Optional maintenance and support plan',
+        ],
+        'approach' => [
+            ['title' => 'Understand', 'text' => 'We map current processes, pain points, users, and success criteria before writing code.'],
+            ['title' => 'Define', 'text' => 'A prioritised scope, architecture, and delivery plan keep budget and timeline transparent.'],
+            ['title' => 'Build iteratively', 'text' => 'Short cycles deliver working software early so you can give feedback on real features.'],
+            ['title' => 'Launch and evolve', 'text' => 'We deploy carefully, monitor, and keep improving the product as your needs change.'],
+        ],
+        'faqs' => [
+            ['q' => 'How much does custom software cost?', 'a' => 'It depends on scope, integrations, and complexity. After a short discovery call we provide a clear estimate, and we can phase delivery so you start with the highest-value features.'],
+            ['q' => 'How long does a typical project take?', 'a' => 'Small internal tools can take a few weeks, while larger platforms are usually delivered in phases over several months. You will see working software at regular intervals throughout.'],
+            ['q' => 'Can you improve or take over existing software?', 'a' => 'Yes. We start with a code and architecture review, then recommend whether to refactor, extend, or gradually replace parts of the system.'],
+        ],
+        'related' => ['web-application-development', 'api-development-integration', 'erp-crm-solutions'],
+    ],
+
+    'website-design-development' => [
+        'enabled' => true,
+        'title' => 'Website Design & Development',
+        'icon' => 'globe',
+        'summary' => 'Fast, accessible, search-friendly websites that present your business clearly and turn visitors into enquiries.',
+        'meta_title' => 'Website Design and Development Services',
+        'meta_description' => 'Professional website design and development: responsive, fast-loading, SEO-ready business websites with an easy-to-update content structure.',
+        'intro' => [
+            'Your website is often the first conversation a prospect has with your business. If it is slow, hard to use on a phone, or unclear about what you offer, that conversation ends quickly.',
+            'We design and develop business websites that are clear, fast, and built on solid technical foundations, so they look professional, load quickly on mobile networks, and give search engines the structure they need.',
+        ],
+        'benefits' => [
+            ['title' => 'Mobile-first design', 'text' => 'Layouts are designed for small screens first and scale up gracefully to tablets and desktops.'],
+            ['title' => 'Performance focused', 'text' => 'Optimised images, minimal scripts, and efficient code help pages load quickly and support Core Web Vitals.'],
+            ['title' => 'SEO foundations', 'text' => 'Semantic markup, metadata, sitemaps, structured data, and clean URLs are built in from the start.'],
+            ['title' => 'Easy to maintain', 'text' => 'Content is organised so updates do not require rebuilding pages or editing complex code.'],
+        ],
+        'deliverables' => [
+            'Sitemap and content structure',
+            'Custom visual design aligned with your brand',
+            'Responsive development for all screen sizes',
+            'Contact forms with spam protection',
+            'Technical SEO setup and analytics readiness',
+            'Accessibility and performance checks',
+            'Launch support and hosting guidance',
+        ],
+        'approach' => [
+            ['title' => 'Goals and audience', 'text' => 'We clarify who the site is for, what visitors need, and which actions matter most.'],
+            ['title' => 'Structure and design', 'text' => 'Information architecture and visual design are reviewed with you before development.'],
+            ['title' => 'Development', 'text' => 'Clean, lightweight code with reusable components keeps the site fast and consistent.'],
+            ['title' => 'Test and launch', 'text' => 'Cross-device testing, SEO checks, and a careful go-live, including redirects from old URLs.'],
+        ],
+        'faqs' => [
+            ['q' => 'Will my website work well on mobile phones?', 'a' => 'Yes. Every site is designed mobile-first and tested across common phone, tablet, and desktop sizes.'],
+            ['q' => 'Can you redesign my existing website?', 'a' => 'Yes. We review your current content and search visibility, then plan the redesign and redirects so existing traffic is protected.'],
+            ['q' => 'Do you guarantee search rankings?', 'a' => 'No one can honestly guarantee rankings. We build a technically sound, well-structured site that gives your content the best foundation to perform in search.'],
+        ],
+        'related' => ['ecommerce-development', 'web-application-development', 'cloud-deployment-consulting'],
+    ],
+
+    'web-application-development' => [
+        'enabled' => true,
+        'title' => 'Web Application Development',
+        'icon' => 'layers',
+        'summary' => 'Secure, scalable browser-based applications such as portals, dashboards, and SaaS products your users can reach from anywhere.',
+        'meta_title' => 'Web Application Development Services',
+        'meta_description' => 'Web application development for portals, dashboards, booking systems, and SaaS products. Secure architecture, responsive interfaces, and scalable back ends.',
+        'intro' => [
+            'Web applications let customers, partners, and staff work from any device without installing software. They power customer portals, booking systems, internal dashboards, marketplaces, and SaaS products.',
+            'We build web applications with secure authentication, clear user interfaces, and back ends designed to handle growth in users and data.',
+        ],
+        'benefits' => [
+            ['title' => 'Access anywhere', 'text' => 'Users work from any modern browser on desktop or mobile, with no installation required.'],
+            ['title' => 'Role-based security', 'text' => 'Permissions, audit trails, and secure sessions protect sensitive data and actions.'],
+            ['title' => 'Scalable architecture', 'text' => 'Well-structured databases, caching, and background processing keep the app responsive as usage grows.'],
+            ['title' => 'Integrated with your tools', 'text' => 'Connect payments, email, CRMs, accounting, or other systems through APIs.'],
+        ],
+        'deliverables' => [
+            'Product scope and user roles',
+            'UX flows, wireframes, and UI design',
+            'Front-end and back-end development',
+            'Authentication, permissions, and admin tools',
+            'Third-party integrations',
+            'Automated tests and staging environment',
+            'Production deployment and monitoring setup',
+        ],
+        'approach' => [
+            ['title' => 'Product definition', 'text' => 'We define users, core journeys, and an initial release that delivers value quickly.'],
+            ['title' => 'Architecture', 'text' => 'Technology choices are matched to your scale, budget, and in-house skills.'],
+            ['title' => 'Iterative delivery', 'text' => 'Features are built, demonstrated, and refined in short cycles on a staging environment.'],
+            ['title' => 'Launch and scale', 'text' => 'We release, measure usage, and plan the next set of improvements with you.'],
+        ],
+        'faqs' => [
+            ['q' => 'What is the difference between a website and a web application?', 'a' => 'A website mainly presents information. A web application lets users log in, manage data, and complete tasks, like a booking system, portal, or dashboard.'],
+            ['q' => 'Can you build a minimum viable product (MVP)?', 'a' => 'Yes. We help you identify the smallest set of features that proves the idea, then build it on a foundation that can grow.'],
+            ['q' => 'Will the application be secure?', 'a' => 'Security is part of every stage: secure authentication, validation, encryption in transit, least-privilege access, and dependency updates.'],
+        ],
+        'related' => ['custom-software-development', 'api-development-integration', 'cloud-deployment-consulting'],
+    ],
+
+    'mobile-app-development' => [
+        'enabled' => true,
+        'title' => 'Mobile App Development',
+        'icon' => 'smartphone',
+        'summary' => 'Android and iOS applications with intuitive interfaces, reliable performance, and secure connections to your systems.',
+        'meta_title' => 'Mobile App Development for Android and iOS',
+        'meta_description' => 'Mobile app development for Android and iOS: user-focused design, cross-platform or native builds, secure APIs, and app store release support.',
+        'intro' => [
+            'A mobile app puts your service directly in your customers’ pockets, or gives field teams the tools they need away from a desk.',
+            'We plan, design, and build mobile applications that are easy to use, perform well on a wide range of devices, and connect securely to your back-end systems.',
+        ],
+        'benefits' => [
+            ['title' => 'One codebase where it fits', 'text' => 'Cross-platform frameworks can reduce cost and time to market while keeping a native feel.'],
+            ['title' => 'User-centred design', 'text' => 'Interfaces follow platform conventions so the app feels familiar from the first launch.'],
+            ['title' => 'Secure connectivity', 'text' => 'Apps communicate with your systems through authenticated, encrypted APIs.'],
+            ['title' => 'Release support', 'text' => 'We help prepare store listings and builds and guide you through the review process.'],
+        ],
+        'deliverables' => [
+            'App concept and feature prioritisation',
+            'UX flows and interface design',
+            'Cross-platform or native development',
+            'Back-end API and admin panel (if required)',
+            'Push notifications and analytics setup',
+            'Device testing and beta distribution',
+            'App store submission support',
+        ],
+        'approach' => [
+            ['title' => 'Discovery', 'text' => 'We define users, key journeys, and whether cross-platform or native is the better fit.'],
+            ['title' => 'Prototype', 'text' => 'Clickable prototypes validate the experience before full development.'],
+            ['title' => 'Build and test', 'text' => 'Features are developed in sprints and tested on real devices.'],
+            ['title' => 'Release and improve', 'text' => 'We support store submission, then iterate based on feedback and usage data.'],
+        ],
+        'faqs' => [
+            ['q' => 'Should I build a native or cross-platform app?', 'a' => 'Cross-platform suits most business apps and reduces cost. Native development can be better for heavy device integration or graphics. We recommend an approach based on your requirements.'],
+            ['q' => 'Do I need a back end for my app?', 'a' => 'Most apps that store user data, process payments, or sync between devices need a secure back end and API. We can build or integrate one.'],
+            ['q' => 'Will you help publish the app?', 'a' => 'Yes. We help prepare builds, store listings, and privacy information, and guide you through the review process.'],
+        ],
+        'related' => ['api-development-integration', 'web-application-development', 'custom-software-development'],
+    ],
+
+    'erp-crm-solutions' => [
+        'enabled' => true,
+        'title' => 'ERP & CRM Solutions',
+        'icon' => 'grid',
+        'summary' => 'Connected systems for operations, sales, and customer relationships, with your data in one place instead of scattered across tools.',
+        'meta_title' => 'Custom ERP and CRM Development',
+        'meta_description' => 'Custom ERP and CRM solutions that bring sales, operations, inventory, and customer data together. Tailored modules, integrations, reporting, and migration.',
+        'intro' => [
+            'As businesses grow, information often ends up spread across spreadsheets, inboxes, and disconnected applications. Teams spend time reconciling data instead of serving customers.',
+            'We build and tailor ERP and CRM solutions that centralise your operational and customer data, automate routine work, and give decision-makers accurate, timely reports.',
+        ],
+        'benefits' => [
+            ['title' => 'Single source of truth', 'text' => 'Sales, operations, and finance work from the same up-to-date data.'],
+            ['title' => 'Modules that fit', 'text' => 'Include only the modules you need: leads, quotations, inventory, purchasing, invoicing, HR, and more.'],
+            ['title' => 'Automated workflows', 'text' => 'Approvals, reminders, and status updates run automatically, which reduces manual follow-up.'],
+            ['title' => 'Clear reporting', 'text' => 'Dashboards and exports surface the numbers that matter to each role.'],
+        ],
+        'deliverables' => [
+            'Process mapping and module definition',
+            'Data model and role-based permissions',
+            'Custom modules and dashboards',
+            'Data migration from existing sources',
+            'Integrations with accounting, email, or e-commerce',
+            'User training and documentation',
+            'Ongoing enhancements and support',
+        ],
+        'approach' => [
+            ['title' => 'Process mapping', 'text' => 'We document how work flows between teams today and where it breaks down.'],
+            ['title' => 'Phased modules', 'text' => 'Core modules launch first, with further modules added in planned phases.'],
+            ['title' => 'Migration', 'text' => 'Existing data is cleaned, mapped, and imported with validation checks.'],
+            ['title' => 'Adoption', 'text' => 'Training and feedback sessions help teams adopt the new system confidently.'],
+        ],
+        'faqs' => [
+            ['q' => 'Should we customise an existing ERP/CRM or build our own?', 'a' => 'It depends on how standard your processes are. We assess both options, including licensing and long-term costs, before recommending a path.'],
+            ['q' => 'Can you migrate data from our spreadsheets or old system?', 'a' => 'Yes. We plan migration carefully, clean and map the data, and validate the results before go-live.'],
+            ['q' => 'Can the system grow with us?', 'a' => 'Yes. A modular design lets you add users, modules, and integrations as the business expands.'],
+        ],
+        'related' => ['custom-software-development', 'api-development-integration', 'ai-integration-automation'],
+    ],
+
+    'api-development-integration' => [
+        'enabled' => true,
+        'title' => 'API Development & Integration',
+        'icon' => 'plug',
+        'summary' => 'Reliable APIs and integrations that connect your applications, partners, and third-party services so data flows automatically.',
+        'meta_title' => 'API Development and System Integration Services',
+        'meta_description' => 'API development and integration services: secure REST APIs, third-party integrations, payment gateways, webhooks, and data synchronisation between systems.',
+        'intro' => [
+            'Modern businesses rely on many systems: payment gateways, CRMs, accounting tools, logistics providers, and internal applications. When they do not talk to each other, people end up copying data by hand.',
+            'We design secure, well-documented APIs and build integrations that keep your systems in sync, reduce errors, and open the door to new digital products.',
+        ],
+        'benefits' => [
+            ['title' => 'Less manual work', 'text' => 'Automated data exchange removes repetitive copying between systems.'],
+            ['title' => 'Secure by design', 'text' => 'Authentication, rate limiting, validation, and logging protect your data and services.'],
+            ['title' => 'Well documented', 'text' => 'Clear API documentation makes it easier for partners and future developers to integrate.'],
+            ['title' => 'Resilient', 'text' => 'Retries, queues, and monitoring handle temporary failures in third-party services.'],
+        ],
+        'deliverables' => [
+            'Integration requirements and data mapping',
+            'REST API design and documentation',
+            'Third-party API and webhook integrations',
+            'Payment gateway integration',
+            'Authentication and access control',
+            'Error handling, logging, and monitoring',
+            'Integration tests',
+        ],
+        'approach' => [
+            ['title' => 'Map the data', 'text' => 'We identify systems, data ownership, and how records should move between them.'],
+            ['title' => 'Design contracts', 'text' => 'Endpoints, payloads, and error formats are agreed and documented up front.'],
+            ['title' => 'Build and test', 'text' => 'Integrations are developed against sandbox environments with automated tests.'],
+            ['title' => 'Monitor', 'text' => 'Logging and alerts help detect and resolve failures quickly in production.'],
+        ],
+        'faqs' => [
+            ['q' => 'Can you integrate with a specific third-party service?', 'a' => 'If the service provides an API, webhooks, or data export, integration is usually possible. We review its documentation during discovery.'],
+            ['q' => 'Do you build APIs for mobile apps?', 'a' => 'Yes. We build secure back-end APIs for mobile and web clients, including authentication and push notification support.'],
+            ['q' => 'What happens if a connected service is down?', 'a' => 'We design integrations with retries, queues, and clear error logging so temporary outages do not cause lost data.'],
+        ],
+        'related' => ['custom-software-development', 'mobile-app-development', 'ai-integration-automation'],
+    ],
+
+    'ai-integration-automation' => [
+        'enabled' => true,
+        'title' => 'AI Integration & Automation',
+        'icon' => 'sparkles',
+        'summary' => 'Practical automation and AI features, from document processing to smart assistants, applied where they save real time.',
+        'meta_title' => 'AI Integration and Business Process Automation',
+        'meta_description' => 'Practical AI integration and workflow automation: AI assistants, document processing, data extraction, and automated business workflows built responsibly.',
+        'intro' => [
+            'Artificial intelligence and automation can remove hours of repetitive work, but only when they are applied to the right problems with the right safeguards.',
+            'We help you identify practical opportunities, then integrate AI models and automation into your existing tools and workflows, with attention to accuracy, privacy, and human oversight.',
+        ],
+        'benefits' => [
+            ['title' => 'Time back for your team', 'text' => 'Automate repetitive tasks such as data entry, document handling, and routine responses.'],
+            ['title' => 'Grounded in your data', 'text' => 'AI features can draw on your own documents and knowledge base for more relevant results.'],
+            ['title' => 'Human in the loop', 'text' => 'Review steps and clear limits keep people in control of important decisions.'],
+            ['title' => 'Privacy aware', 'text' => 'We consider data handling, access, and provider policies before sending data to any model.'],
+        ],
+        'deliverables' => [
+            'Automation opportunity assessment',
+            'Proof of concept for priority use cases',
+            'AI assistant or chatbot integration',
+            'Document classification and data extraction',
+            'Workflow automation between applications',
+            'Evaluation, monitoring, and usage controls',
+            'Team guidance and documentation',
+        ],
+        'approach' => [
+            ['title' => 'Identify', 'text' => 'We find tasks where automation offers clear, measurable value.'],
+            ['title' => 'Prototype', 'text' => 'A focused proof of concept tests feasibility and accuracy with real examples.'],
+            ['title' => 'Integrate', 'text' => 'Successful prototypes are built into your systems with safeguards and logging.'],
+            ['title' => 'Measure', 'text' => 'We monitor quality and cost, and refine prompts, rules, and workflows over time.'],
+        ],
+        'faqs' => [
+            ['q' => 'Is AI right for my business?', 'a' => 'Not every problem needs AI. We start by identifying repetitive or information-heavy tasks and recommend AI only where it is the most practical solution.'],
+            ['q' => 'Is our data safe?', 'a' => 'We review what data is processed, where, and under which provider terms, and design solutions that limit exposure of sensitive information.'],
+            ['q' => 'Can AI work with our existing systems?', 'a' => 'Yes. AI features are usually integrated through APIs into the tools your team already uses.'],
+        ],
+        'related' => ['api-development-integration', 'erp-crm-solutions', 'custom-software-development'],
+    ],
+
+    'ecommerce-development' => [
+        'enabled' => true,
+        'title' => 'E-commerce Development',
+        'icon' => 'cart',
+        'summary' => 'Online stores with smooth checkout, secure payments, and the integrations needed to run day-to-day operations.',
+        'meta_title' => 'E-commerce Website Development',
+        'meta_description' => 'E-commerce development: fast online stores, secure payment gateways, product and order management, and integrations with inventory, shipping, and accounting.',
+        'intro' => [
+            'Selling online takes more than a product catalogue. Customers expect fast pages, clear product information, and a checkout that just works. Behind the scenes, you need reliable order, stock, and payment handling.',
+            'We build e-commerce experiences on suitable platforms or custom stacks, focusing on performance, conversion, and operational efficiency.',
+        ],
+        'benefits' => [
+            ['title' => 'Smooth checkout', 'text' => 'A simple, trustworthy checkout flow reduces abandoned carts.'],
+            ['title' => 'Secure payments', 'text' => 'Integration with established payment gateways that handle card data securely.'],
+            ['title' => 'Operational integrations', 'text' => 'Connect inventory, shipping, invoicing, and marketing tools.'],
+            ['title' => 'Search-friendly catalogue', 'text' => 'Structured product pages with clean URLs and rich metadata.'],
+        ],
+        'deliverables' => [
+            'Platform recommendation (hosted or custom)',
+            'Store design and product page templates',
+            'Catalogue, cart, and checkout development',
+            'Payment gateway and shipping integration',
+            'Order, customer, and inventory management',
+            'Product data import',
+            'Performance and SEO optimisation',
+        ],
+        'approach' => [
+            ['title' => 'Plan', 'text' => 'We review products, fulfilment, payments, and growth plans to choose the right platform.'],
+            ['title' => 'Design', 'text' => 'Store templates are designed for clarity and fast mobile shopping.'],
+            ['title' => 'Build and integrate', 'text' => 'Catalogue, checkout, and operational integrations are developed and tested end to end.'],
+            ['title' => 'Launch and optimise', 'text' => 'After launch we refine performance and checkout based on real usage.'],
+        ],
+        'faqs' => [
+            ['q' => 'Which e-commerce platform should I use?', 'a' => 'Hosted platforms suit many stores, while custom builds help when you need unusual pricing, workflows, or integrations. We recommend based on your products and operations.'],
+            ['q' => 'Can you migrate my existing store?', 'a' => 'Yes. We migrate products, customers, and orders where possible and set up redirects to protect search traffic.'],
+            ['q' => 'Is online payment secure?', 'a' => 'We integrate established payment gateways so sensitive card data is handled by the provider and not stored on your server.'],
+        ],
+        'related' => ['website-design-development', 'api-development-integration', 'cloud-deployment-consulting'],
+    ],
+
+    'cloud-deployment-consulting' => [
+        'enabled' => true,
+        'title' => 'Cloud, Deployment & Technical Consulting',
+        'icon' => 'cloud',
+        'summary' => 'Hosting, deployment, and architecture guidance that keeps your applications secure, reliable, and cost-effective.',
+        'meta_title' => 'Cloud Deployment and Technical Consulting',
+        'meta_description' => 'Cloud and deployment services plus technical consulting: hosting setup, CI/CD, performance and security reviews, architecture advice, and technology roadmaps.',
+        'intro' => [
+            'Good software can still fail in production if hosting, deployments, backups, or monitoring are overlooked. And choosing the wrong technology early can be expensive to undo.',
+            'We help you plan and run reliable infrastructure, automate deployments, and make informed technology decisions, whether you are launching a new product or improving an existing one.',
+        ],
+        'benefits' => [
+            ['title' => 'Reliable releases', 'text' => 'Automated, repeatable deployments reduce downtime and human error.'],
+            ['title' => 'Right-sized hosting', 'text' => 'Infrastructure matched to real usage avoids paying for capacity you do not need.'],
+            ['title' => 'Security and backups', 'text' => 'Hardening, SSL, access control, and backup routines protect your applications.'],
+            ['title' => 'Independent advice', 'text' => 'Clear, practical recommendations on architecture and technology choices.'],
+        ],
+        'deliverables' => [
+            'Hosting and infrastructure setup',
+            'CI/CD pipeline configuration',
+            'SSL, domain, and email configuration',
+            'Backup and monitoring setup',
+            'Performance and security review',
+            'Architecture and technology roadmap',
+            'Documentation and knowledge transfer',
+        ],
+        'approach' => [
+            ['title' => 'Assess', 'text' => 'We review current systems, risks, costs, and goals.'],
+            ['title' => 'Recommend', 'text' => 'You receive a prioritised plan with clear trade-offs.'],
+            ['title' => 'Implement', 'text' => 'We set up or improve infrastructure, pipelines, and safeguards.'],
+            ['title' => 'Hand over', 'text' => 'Documentation and walkthroughs let your team operate with confidence.'],
+        ],
+        'faqs' => [
+            ['q' => 'Do I need cloud hosting or is shared hosting enough?', 'a' => 'Many business websites run well on quality shared hosting. Applications with heavier workloads or scaling needs benefit from cloud or VPS hosting. We recommend what fits your usage and budget.'],
+            ['q' => 'Can you review our existing application?', 'a' => 'Yes. We offer architecture, performance, and security reviews with a written report and prioritised recommendations.'],
+            ['q' => 'Do you offer ongoing maintenance?', 'a' => 'Yes. Maintenance can include updates, monitoring, backups, and small improvements on an agreed schedule.'],
+        ],
+        'related' => ['web-application-development', 'website-design-development', 'custom-software-development'],
+    ],
+];

@@ -1,0 +1,74 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Optional server-level HTTPS redirect. The app already redirects when FORCE_CANONICAL_URL=true;
+    # enable this only after confirming SSL works (avoid loops behind proxies/CDNs).
+    # RewriteCond %{HTTPS} !=on
+    # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Block hidden files (.env, .git, etc.) except .well-known (SSL validation)
+    RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+    # Remove /index.php from URLs to avoid duplicates
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.php(?:/([^\s?]*))?[\s?]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Deny direct access to sensitive file types if present
+<FilesMatch "\.(env|log|sql|bak|sh|ini|lock|md|json|yml|yaml|xml\.dist)$">
+    Require all denied
+</FilesMatch>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser caching. CSS/JS/icons are versioned with ?v=<mtime>, so they can be cached long-term.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/avif "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+</IfModule>
+
+AddType font/woff2 .woff2

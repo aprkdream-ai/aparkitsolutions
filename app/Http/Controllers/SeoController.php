@@ -47,6 +47,71 @@ class SeoController extends Controller
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
+    /** llms.txt (https://llmstxt.org): a Markdown overview of the site for AI assistants and AI search. */
+    public function llms()
+    {
+        $c = config('site.contact');
+        $line = fn (string $title, string $url, ?string $desc = null) => "- [{$title}]({$url})".($desc ? ": {$desc}" : '');
+
+        $out = ['# '.config('site.name'), ''];
+        $out[] = '> '.config('site.name').' is a custom software development company in India. We build websites, web and mobile applications, ERP/CRM systems, APIs and integrations, AI automation, and e-commerce platforms for businesses. '.config('site.slogans.0').'.';
+        $out[] = '';
+        $facts = array_filter([
+            'Founded: 2024',
+            $c['address'] ? 'Address: '.$c['address'] : null,
+            $c['phone'] ? 'Phone / WhatsApp: '.$c['phone'] : null,
+            'Contact form: '.route('contact'),
+            'Languages: '.implode(', ', $c['languages'] ?: ['English']),
+            'Projects delivered: '.Content::projects()->count().' across '.Content::industries()->count().' industries',
+        ]);
+        foreach ($facts as $f) {
+            $out[] = '- '.$f;
+        }
+
+        $out[] = '';
+        $out[] = '## Services';
+        foreach (Content::services() as $s) {
+            $out[] = $line($s['title'], route('services.show', $s['slug']), $s['summary']);
+        }
+
+        $out[] = '';
+        $out[] = '## Portfolio (selected projects)';
+        foreach (Content::projects()->reject(fn ($p) => $p['draft'])->sortByDesc('featured')->take(15) as $p) {
+            $out[] = $line($p['title'], route('portfolio.show', $p['slug']), $p['summary']);
+        }
+        $out[] = $line('All projects', route('portfolio.index'));
+
+        $out[] = '';
+        $out[] = '## Industries';
+        foreach (Content::industries()->reject(fn ($i) => $i['draft']) as $i) {
+            $out[] = $line($i['title'], route('industries.show', $i['slug']), $i['summary']);
+        }
+
+        $out[] = '';
+        $out[] = '## Technology';
+        foreach (Content::list('tech') as $group => $items) {
+            $out[] = "- {$group}: ".implode(', ', $items);
+        }
+
+        $out[] = '';
+        $out[] = '## Insights';
+        foreach (Content::posts()->reject(fn ($p) => $p['draft']) as $p) {
+            $out[] = $line($p['title'], route('blog.show', $p['slug']), $p['description']);
+        }
+
+        $out[] = '';
+        $out[] = '## Company';
+        $out[] = $line('About us', route('about'), 'Mission, values, approach, and team');
+        $out[] = $line('Contact', route('contact'), 'Start a project or ask a question');
+
+        $out[] = '';
+        $out[] = '## Optional';
+        $out[] = $line('Sitemap', route('sitemap'));
+        $out[] = $line('Privacy Policy', route('legal.privacy'));
+
+        return response(implode("\n", $out)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+    }
+
     public function robots()
     {
         $lines = config('site.indexable')

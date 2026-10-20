@@ -24,6 +24,8 @@ public/assets/             css/app.css (+ app.min.css), js/app.js, fonts (Inter,
 ```
 
 ## Rendering & data flow
+- **Sessions:** only `/contact*` routes use the session/CSRF middleware. All other routes are in a `withoutMiddleware([...session, cookies, CSRF])` group with `PublicPageCache` (CDN-cacheable, no cookies). Don't use `session()`, `old()` or `$errors` outside the contact page.
+- **CSS:** inlined by default (`inline_css()` helper, `INLINE_CSS=true`). The CSS file is still built for `INLINE_CSS=false`.
 - Controllers build `$seo = Seo::make(title, description, ['breadcrumbs'=>…])->schema([...])` and pass content arrays to views.
 - `AppServiceProvider` shares nav items (sections with no content are hidden) and footer services, defines the `contact` rate limiter, and sets trusted proxies.
 - Drafts: `'draft' => true` entries show only with `CONTENT_SHOW_DRAFTS=true`, and always carry `noindex`. They are excluded from the sitemap.

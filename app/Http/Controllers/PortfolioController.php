@@ -17,7 +17,7 @@ class PortfolioController extends Controller
 
         $seo = Seo::make(
             'Portfolio & Case Studies',
-            'Projects delivered by APARK IT Solutions: trading and fintech platforms, AI-powered SaaS, CRM and ERP systems, e-commerce stores, booking systems, and business websites.',
+            'Software projects by APARK IT Solutions: fintech and trading platforms, AI SaaS, CRM and ERP systems, e-commerce stores, booking apps, and business websites.',
             ['canonical' => route('portfolio.index'), 'breadcrumbs' => ['Portfolio' => null]]
         );
         // Filtered views and an empty portfolio are not indexed.
@@ -32,7 +32,15 @@ class PortfolioController extends Controller
     {
         $project = Content::find('projects', $slug) ?? abort(404);
 
-        $seo = Seo::make($project['title'].' — Case Study', $project['summary'], [
+        $title = $project['title'].' — '.$project['category'].' Case Study';
+        if (mb_strlen($title) > Seo::TITLE_MAX) {
+            $title = $project['title'].' — Case Study';
+        }
+        $seo = Seo::make($title, $project['summary'], [
+            'fillers' => [
+                'Built by APARK IT Solutions with '.implode(', ', array_slice($project['tech'] ?? [], 0, 3)).'.',
+                'View the full case study.',
+            ],
             'image' => $project['image'] ?? null,
             'breadcrumbs' => ['Portfolio' => route('portfolio.index'), $project['title'] => null],
         ]);

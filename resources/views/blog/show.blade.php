@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@php($url = urlencode(route('blog.show', $post['slug'])))
 <x-page-hero :seo="$seo" :title="$post['title']" :lead="$post['description']">
     <div class="page-hero-meta">
         <span><x-icon name="folder" /><a href="{{ route('blog.category', $categorySlug) }}">{{ $post['category'] }}</a></span>
@@ -25,13 +24,7 @@
                 <ul class="chips mt-lg" aria-label="Tags">@foreach ($post['tags'] as $tag)<li class="chip chip--mint">#{{ $tag }}</li>@endforeach</ul>
             @endif
 
-            <div class="share">
-                <span>Share:</span>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><x-icon name="LinkedIn" /></a>
-                <a href="https://twitter.com/intent/tweet?url={{ $url }}&amp;text={{ urlencode($post['title']) }}" target="_blank" rel="noopener" aria-label="Share on X"><x-icon name="X" /></a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank" rel="noopener" aria-label="Share on Facebook"><x-icon name="Facebook" /></a>
-                <a href="mailto:?subject={{ rawurlencode($post['title']) }}&amp;body={{ $url }}" aria-label="Share by email"><x-icon name="mail" /></a>
-            </div>
+            @include('partials.share')
 
             <div class="author-box">
                 <img class="brand-mark" src="{{ asset('assets/img/brand/apark-mark.png') }}" alt="" width="40" height="40">
@@ -43,7 +36,7 @@
             <div class="aside-card aside-card--teal">
                 <h2>Need help with a project?</h2>
                 <p>Talk to us about your software, website, or automation needs.</p>
-                <a class="btn btn--light btn--block" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light btn--block" href="{{ route('contact') }}">Get Expert Advice <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
             @if ($related->isNotEmpty())
                 <div class="aside-card">

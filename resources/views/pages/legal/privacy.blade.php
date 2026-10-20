@@ -44,5 +44,5 @@
 <p>We may update this policy from time to time. The “last updated” date at the top shows when it was last revised.</p>
 
 <h2>Contact</h2>
-<p>For privacy questions or requests, please {!! $email ? 'email <a href="mailto:'.e($email).'">'.e($email).'</a> or ' : '' !!}use our <a href="{{ route('contact') }}">contact form</a>.</p>
+<p>For privacy questions or requests, please {!! $email ? 'email <a href="mailto:'.email_obfuscate($email).'">'.email_obfuscate($email).'</a> or ' : '' !!}use our <a href="{{ route('contact') }}">contact form</a>.</p>
 @endsection

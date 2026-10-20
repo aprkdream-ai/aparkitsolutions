@@ -10,12 +10,13 @@ return [
 
     'custom-software-development' => [
         'enabled' => true,
+        'short' => 'Bespoke Software', // footer link text
         'tech' => ['Laravel', 'Node.js', 'Python', 'Django', 'Flask', 'React.js', 'MySQL', 'PostgreSQL', 'REST APIs'],
         'title' => 'Custom Software Development',
         'icon' => 'code',
         'summary' => 'Software designed around your processes, not the other way round, from internal tools to complete business platforms.',
         'meta_title' => 'Custom Software Development Services',
-        'meta_description' => 'Custom software development for businesses that have outgrown spreadsheets and off-the-shelf tools. Discovery, architecture, development, testing and long-term support.',
+        'meta_description' => 'Custom software development for businesses that have outgrown spreadsheets and off-the-shelf tools: discovery, architecture, development, and long-term support.',
         'intro' => [
             'Off-the-shelf software is built for the average business. When your workflows, data, or customer experience are what set you apart, forcing them into a generic product creates friction, workarounds, and hidden costs.',
             'We design and build custom software around how your business actually operates. Every engagement starts with understanding the problem, then turns it into a maintainable, secure product that your team can rely on and extend.',
@@ -51,6 +52,7 @@ return [
 
     'website-design-development' => [
         'enabled' => true,
+        'short' => 'Business Websites', // footer link text
         'tech' => ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'Laravel', 'Next.js', 'MySQL'],
         'title' => 'Website Design & Development',
         'icon' => 'globe',
@@ -92,6 +94,7 @@ return [
 
     'web-application-development' => [
         'enabled' => true,
+        'short' => 'Web Apps & Portals', // footer link text
         'tech' => ['Laravel', 'Node.js', 'React.js', 'Next.js', 'Django', 'MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'WebSocket'],
         'title' => 'Web Application Development',
         'icon' => 'layers',
@@ -133,6 +136,7 @@ return [
 
     'mobile-app-development' => [
         'enabled' => true,
+        'short' => 'Android & iOS Apps', // footer link text
         'tech' => ['React Native', 'Expo', 'Flutter', 'Android', 'iOS', 'Laravel / Node.js APIs'],
         'title' => 'Mobile App Development',
         'icon' => 'smartphone',
@@ -174,6 +178,7 @@ return [
 
     'erp-crm-solutions' => [
         'enabled' => true,
+        'short' => 'ERP & CRM Systems', // footer link text
         'tech' => ['Laravel', 'CodeIgniter', 'Django', 'React.js', 'MySQL', 'PostgreSQL', 'Multi-tenant SaaS'],
         'title' => 'ERP & CRM Solutions',
         'icon' => 'grid',
@@ -215,6 +220,7 @@ return [
 
     'api-development-integration' => [
         'enabled' => true,
+        'short' => 'API Integrations', // footer link text
         'tech' => ['REST APIs', 'WebSocket', 'Laravel', 'Node.js', 'Python', 'Razorpay', 'Stripe', 'PayPal', 'NSE/BSE', 'KYC & OTP', 'WhatsApp', 'Google Maps'],
         'title' => 'API Development & Integration',
         'icon' => 'plug',
@@ -256,6 +262,7 @@ return [
 
     'ai-integration-automation' => [
         'enabled' => true,
+        'short' => 'AI & Automation', // footer link text
         'tech' => ['AI / LLM APIs', 'OCR', 'n8n', 'Python', 'NumPy', 'Pandas'],
         'title' => 'AI Integration & Automation',
         'icon' => 'sparkles',
@@ -297,6 +304,7 @@ return [
 
     'ecommerce-development' => [
         'enabled' => true,
+        'short' => 'Online Stores', // footer link text
         'tech' => ['Laravel', 'Node.js', 'React.js', 'MySQL', 'Razorpay', 'Stripe', 'PayPal'],
         'title' => 'E-commerce Development',
         'icon' => 'cart',
@@ -338,6 +346,7 @@ return [
 
     'cloud-deployment-consulting' => [
         'enabled' => true,
+        'short' => 'Cloud & Consulting', // footer link text
         'tech' => ['AWS', 'Docker', 'Nginx', 'Linux', 'CI/CD', 'Git / GitHub', 'cPanel / Hostinger'],
         'title' => 'Cloud, Deployment & Technical Consulting',
         'icon' => 'cloud',

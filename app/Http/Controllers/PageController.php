@@ -37,8 +37,8 @@ class PageController extends Controller
     {
         return view('pages.about', [
             'seo' => Seo::make(
-                'About Us',
-                'Learn about APARK IT Solutions: our mission, values, and the practical, transparent approach we bring to software, web, and automation projects.',
+                'About Us — Software Development Team',
+                'Learn about APARK IT Solutions: our mission, values, team, and the practical, transparent approach we bring to software, web, and automation projects.',
                 ['breadcrumbs' => ['About' => null]]
             )->schema(Seo::organization()),
             'tech' => Content::list('tech'),
@@ -49,9 +49,9 @@ class PageController extends Controller
     public function legal(string $page)
     {
         $titles = [
-            'privacy' => ['Privacy Policy', 'How APARK IT Solutions collects, uses, and protects personal information submitted through this website.'],
-            'terms' => ['Terms and Conditions', 'The terms that govern use of the APARK IT Solutions website.'],
-            'cookies' => ['Cookie Policy', 'Information about the cookies used on the APARK IT Solutions website.'],
+            'privacy' => ['Privacy Policy', 'How APARK IT Solutions collects, uses, stores, and protects the personal information you share through this website and its contact form.'],
+            'terms' => ['Terms and Conditions', 'The terms and conditions that govern your use of the APARK IT Solutions website, its content, and the information published on it.'],
+            'cookies' => ['Cookie Policy', 'Which cookies the APARK IT Solutions website uses, including essential session cookies and Google Analytics, and how you can control them.'],
         ];
         [$title, $description] = $titles[$page];
 

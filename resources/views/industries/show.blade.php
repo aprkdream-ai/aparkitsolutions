@@ -2,7 +2,7 @@
 
 @section('content')
 <x-page-hero :seo="$seo" eyebrow="Industry" :title="$industry['title']" :lead="$industry['summary']">
-    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
+    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Talk to Our Team <x-icon name="arrow-right" class="icon-arrow" /></a></div>
     <x-slot:aside>
         <div class="glass">
             <div class="hero-feature">
@@ -40,7 +40,7 @@
         <aside>
             <div class="aside-card aside-card--teal">
                 <h2>Talk to us about your {{ \Illuminate\Support\Str::lower($industry['title']) }} project</h2>
-                <a class="btn btn--light btn--block" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light btn--block" href="{{ route('contact') }}">Plan Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         </aside>
     </div>

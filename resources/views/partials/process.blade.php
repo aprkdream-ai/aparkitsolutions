@@ -10,7 +10,7 @@
         <li>
             <span class="timeline-node"><x-icon :name="$icon" /></span>
             <span class="timeline-step">Step {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
-            <h3>{{ $title }}</h3>
+            <p class="timeline-title">{{ $title }}</p>
             <p>{{ $text }}</p>
         </li>
     @endforeach

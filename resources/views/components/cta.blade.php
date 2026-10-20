@@ -10,13 +10,13 @@
             <h2>{{ $title }}</h2>
             <p>{{ $text }}</p>
             <div class="btn-row">
-                <a class="btn btn--light" href="{{ route('contact', $service ? ['service' => $service] : []) }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light" href="{{ route('contact', $service ? ['service' => $service] : []) }}">Discuss Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
                 @if ($wa = whatsapp_url())
                     <a class="btn btn--ghost-light" href="{{ $wa }}" target="_blank" rel="noopener"><x-icon name="whatsapp" /> Chat on WhatsApp</a>
                 @elseif ($email = config('site.contact.email'))
-                    <a class="btn btn--ghost-light" href="mailto:{{ $email }}"><x-icon name="mail" /> {{ $email }}</a>
+                    <a class="btn btn--ghost-light" href="mailto:{{ email_obfuscate($email) }}"><x-icon name="mail" /> {{ email_obfuscate($email) }}</a>
                 @else
-                    <a class="btn btn--ghost-light" href="{{ route('services.index') }}">Explore Our Services</a>
+                    <a class="btn btn--ghost-light" href="{{ route('services.index') }}">View All Services</a>
                 @endif
             </div>
         </div>

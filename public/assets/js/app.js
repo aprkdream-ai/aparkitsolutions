@@ -190,6 +190,15 @@
 
   // Pause the project marquee while it is off-screen (saves GPU/battery while scrolling)
   var marquee = document.querySelector('.marquee');
+  if (marquee) {
+    var track = marquee.querySelector('.marquee-track');
+    Array.prototype.slice.call(track.children).forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.querySelectorAll('a').forEach(function (a) { a.setAttribute('tabindex', '-1'); });
+      track.appendChild(c);
+    });
+  }
   if (marquee && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { marquee.classList.toggle('is-offscreen', !en.isIntersecting); });

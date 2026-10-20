@@ -27,7 +27,7 @@ class Seo
     {
         $seo = new static(
             title: $title ?? config('site.seo.default_title'),
-            description: $description ?? config('site.seo.default_description'),
+            description: static::fitDescription($description ?? config('site.seo.default_description'), $options['fillers'] ?? []),
             canonical: $options['canonical'] ?? null,
             image: $options['image'] ?? null,
             type: $options['type'] ?? 'website',
@@ -77,11 +77,50 @@ class Seo
         return $this;
     }
 
+    public const TITLE_MAX = 60;
+
+    public const DESC_MIN = 120;
+
+    public const DESC_MAX = 160;
+
+    /** Appends the brand only when the result stays within 60 characters (search engines show the site name anyway). */
     public function fullTitle(): string
     {
         $name = config('site.name');
+        if (str_contains($this->title, $name)) {
+            return $this->title;
+        }
+        $branded = $this->title.config('site.seo.title_separator').$name;
 
-        return str_contains($this->title, $name) ? $this->title : $this->title.config('site.seo.title_separator').$name;
+        return mb_strlen($branded) <= self::TITLE_MAX ? $branded : $this->title;
+    }
+
+    /**
+     * Keeps meta descriptions within 120–160 characters: short ones are extended with contextual
+     * filler sentences (then a generic company sentence), long ones are trimmed at a word boundary.
+     */
+    public static function fitDescription(string $text, array $fillers = []): string
+    {
+        $text = trim(preg_replace('/\s+/', ' ', $text));
+        $fillers[] = 'APARK IT Solutions builds custom software, websites, web and mobile apps for growing businesses.';
+        $fillers[] = 'Talk to us about your project.';
+
+        foreach ($fillers as $sentence) {
+            if (mb_strlen($text) >= self::DESC_MIN) {
+                break;
+            }
+            $candidate = rtrim($text, ' .').'. '.$sentence;
+            if (mb_strlen($candidate) <= self::DESC_MAX) {
+                $text = $candidate;
+            }
+        }
+
+        if (mb_strlen($text) > self::DESC_MAX) {
+            $cut = mb_substr($text, 0, self::DESC_MAX - 1);
+            $text = rtrim(mb_substr($cut, 0, mb_strrpos($cut, ' ')), ' ,;:—-').'…';
+        }
+
+        return $text;
     }
 
     public function imageUrl(): string
@@ -170,9 +209,16 @@ class Seo
 
     public function jsonLd(): string
     {
-        return json_encode(
+        $json = json_encode(
             ['@context' => 'https://schema.org', '@graph' => $this->schema],
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP
         );
+
+        // Hide email addresses from plain-text scrapers; "\u0040" is still "@" to any JSON parser.
+        foreach (array_filter([config('site.contact.email')]) as $email) {
+            $json = str_replace($email, str_replace('@', '\\u0040', $email), $json);
+        }
+
+        return $json;
     }
 }

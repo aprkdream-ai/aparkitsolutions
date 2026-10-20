@@ -13,8 +13,8 @@ class IndustryController extends Controller
         abort_if($industries->isEmpty(), 404);
 
         $seo = Seo::make(
-            'Industries We Serve',
-            'Software, web, and automation solutions tailored to the industries APARK IT Solutions works with.',
+            'Industries We Serve — Software Solutions',
+            'Software, web, and automation solutions for healthcare, fintech, education, real estate, retail, travel, HR, SaaS, logistics, and manufacturing businesses.',
             ['breadcrumbs' => ['Industries' => null]]
         );
         if ($industries->every(fn ($i) => $i['draft'])) {
@@ -28,7 +28,12 @@ class IndustryController extends Controller
     {
         $industry = Content::find('industries', $slug) ?? abort(404);
 
+        $count = Content::projects()->where('industry', $slug)->count();
         $seo = Seo::make($industry['title'].' Software Solutions', $industry['summary'], [
+            'fillers' => [
+                "See {$count} ".\Illuminate\Support\Str::plural('project', $count).' we have delivered in this sector.',
+                'Custom software, web and mobile apps by APARK IT Solutions.',
+            ],
             'breadcrumbs' => ['Industries' => route('industries.index'), $industry['title'] => null],
         ]);
         if ($industry['draft']) {

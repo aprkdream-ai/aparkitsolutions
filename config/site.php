@@ -64,6 +64,9 @@ return [
         ],
     ],
 
+    // Inline the minified CSS into each page instead of a render-blocking <link> (~7 KB gzipped)
+    'inline_css' => (bool) env('INLINE_CSS', true),
+
     // Google Analytics 4 measurement ID (loaded only when the site is indexable, i.e. production)
     'analytics' => [
         'ga4' => env('GA_MEASUREMENT_ID'),
@@ -80,8 +83,8 @@ return [
 
     'seo' => [
         'title_separator' => ' | ',
-        'default_title' => 'APARK IT Solutions — Custom Software, Web & App Development',
-        'default_description' => 'APARK IT Solutions builds custom software, websites, web and mobile applications, integrations, and automation that help businesses grow. Talk to us about your project.',
+        'default_title' => 'Custom Software Development Company | APARK IT Solutions',
+        'default_description' => 'APARK IT Solutions is a custom software development company in India building websites, web & mobile apps, ERP/CRM, APIs and AI automation.',
         'default_image' => 'assets/img/og-default.png',
         'twitter_handle' => env('SEO_TWITTER_HANDLE'),
         'google_verification' => env('SEO_GOOGLE_VERIFICATION'),
@@ -104,9 +107,9 @@ return [
         ['label' => 'Home', 'route' => 'home'],
         ['label' => 'About', 'route' => 'about'],
         ['label' => 'Services', 'route' => 'services.index'],
-        ['label' => 'Portfolio', 'route' => 'portfolio.index', 'requires' => 'projects'],
-        ['label' => 'Industries', 'route' => 'industries.index', 'requires' => 'industries'],
-        ['label' => 'Insights', 'route' => 'blog.index'],
+        ['label' => 'Portfolio', 'route' => 'portfolio.index', 'requires' => 'projects', 'footer' => 'Our Work'],
+        ['label' => 'Industries', 'route' => 'industries.index', 'requires' => 'industries', 'footer' => 'Industries We Serve'],
+        ['label' => 'Insights', 'route' => 'blog.index', 'footer' => 'Articles & Insights'],
         ['label' => 'Contact', 'route' => 'contact'],
     ],
 ];

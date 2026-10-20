@@ -12,7 +12,25 @@
 - [x] Custom 404/419/429/500/503 pages (noindex)
 - [x] Lighthouse 12 run locally against Apache with PHP-FPM (2026-10-19): Performance 98–100, Accessibility 100, Best Practices 100, SEO 100 (with indexing enabled)
 
+## SEOptimer audit fixes (2026-10-20)
+- [x] Titles 30–60 and descriptions 120–160 on all 65 pages (`Seo::fullTitle()` drops the brand suffix when too long; `Seo::fitDescription()` extends or trims). Enforced by `SeoAuditTest`
+- [x] Home keyword alignment: title, description, H1 kicker, and H2s use "custom software development"; marquee and tile label noise removed
+- [x] Email privacy: emails are HTML-entity encoded (`email_obfuscate()`), and "@" is escaped in JSON-LD
+- [x] Address: `<address>` with schema.org PostalAddress microdata (footer and contact), ending in "India"
+- [x] `/llms.txt`, generated from content
+- [x] Render-blocking CSS removed (CSS inlined, `INLINE_CSS`); GA loads on first interaction or after 5 s
+- [x] Public pages are session-less (no cookies) with `Cache-Control: public, s-maxage=600`; the contact routes keep their session
+- [x] HSTS header includes `preload`
+
+## Seobility-style checks (2026-10-20)
+- [x] Home headings 57 → 28: card, step and footer labels are styled `<p>` elements, not `<h3>`/`<h2>` (keep it that way; enforced by test)
+- [x] Social sharing: `partials/share.blade.php` (LinkedIn, X, Facebook, WhatsApp) in the footer site-wide, and in the article on blog posts (footer copy hidden there)
+- [x] Anchor texts: no empty anchors (icon links have visually hidden text); unique CTA wording per page; footer uses short service labels (`short` in content/services.php) and footer nav labels (`footer` in config/site.nav). Only the nav "Home" + breadcrumb "Home" repeats remain on inner pages (standard)
+
 ## Remaining (owner)
+- [ ] HSTS preload: after confirming every subdomain works over HTTPS, submit aparkitsolutions.com at https://hstspreload.org. This removes the http→https redirect for Chrome, Edge and Firefox. Hard to undo
+- [ ] Link building (Links grade D+): Google Business Profile; Clutch, GoodFirms, DesignRush, Justdial, IndiaMART listings; ask clients for a "Developed by APARK IT Solutions" footer link (Estate Nine already has one); LinkedIn company posts linking case studies
+- [ ] Optional: Instagram and YouTube profiles (add the URLs to `SOCIAL_INSTAGRAM` / `SOCIAL_YOUTUBE`). Facebook Pixel is only worth it when running Facebook ads
 - [ ] Set `APP_URL` to the final https domain and `SITE_INDEXABLE=true` in production
 - [ ] Verify Search Console (`SEO_GOOGLE_VERIFICATION`) and Bing; submit the sitemap
 - [ ] Create or claim the Google Business Profile for the Waidhan address (matches the LocalBusiness schema)

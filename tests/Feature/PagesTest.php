@@ -57,7 +57,7 @@ class PagesTest extends TestCase
         $this->get('/portfolio/bigul')->assertOk()->assertSee('https://bigul.co/', false)->assertSee('Key features');
         $this->get('/industries')->assertOk()->assertSee('Healthcare');
         $this->get('/industries/fintech')->assertOk()->assertSee('Projects we have delivered')->assertSee('Reco');
-        $this->get('/')->assertSee('Selected projects')->assertSee('Qonsistic');
+        $this->get('/')->assertSee('Software development projects we have delivered')->assertSee('Qonsistic');
     }
 
     public function test_no_credentials_or_admin_urls_are_published(): void

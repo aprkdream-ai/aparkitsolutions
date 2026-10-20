@@ -4,7 +4,7 @@
 <x-page-hero :seo="$seo" eyebrow="About us" title="Your technology partner for building, solving, and growing"
     lead="APARK IT Solutions helps businesses turn ideas into dependable digital products. We combine practical business thinking with modern engineering to deliver technology that makes a real difference.">
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--primary" href="{{ route('contact') }}">Work With Us <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View our work</a>
     </div>
     <x-slot:aside>@include('partials.hero-stats', ['label' => config('site.slogans.0'), 'chips' => ['Laravel', 'Node.js', 'Python', 'React.js', 'React Native', 'Flutter', 'AWS']])</x-slot:aside>

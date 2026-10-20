@@ -9,44 +9,44 @@
                 @if (config('site.social'))
                     <div class="socials">
                         @foreach (config('site.social') as $network => $url)
-                            <a href="{{ $url }}" target="_blank" rel="noopener me" aria-label="{{ config('site.name') }} on {{ $network }}"><x-icon :name="$network" /></a>
+                            <a href="{{ $url }}" target="_blank" rel="noopener me"><x-icon :name="$network" /><span class="visually-hidden">Follow {{ config('site.name') }} on {{ $network }}</span></a>
                         @endforeach
                     </div>
                 @endif
             </div>
 
             <div>
-                <h2 class="footer-title">Services</h2>
+                <p class="footer-title">Services</p>
                 <ul class="footer-links">
                     @foreach ($footerServices->take(6) as $s)
-                        <li><a href="{{ route('services.show', $s['slug']) }}">{{ $s['title'] }}</a></li>
+                        <li><a href="{{ route('services.show', $s['slug']) }}">{{ $s['short'] ?? $s['title'] }}</a></li>
                     @endforeach
-                    <li><a href="{{ route('services.index') }}">All services →</a></li>
+                    <li><a href="{{ route('services.index') }}">Browse all services →</a></li>
                 </ul>
             </div>
 
             <div>
-                <h2 class="footer-title">Company</h2>
+                <p class="footer-title">Company</p>
                 <ul class="footer-links">
                     <li><a href="{{ route('about') }}">About Us</a></li>
                     @foreach ($navItems->whereNotIn('route', ['home', 'services.index', 'about', 'contact']) as $item)
-                        <li><a href="{{ route($item['route']) }}">{{ $item['label'] }}</a></li>
+                        <li><a href="{{ route($item['route']) }}">{{ $item['footer'] ?? $item['label'] }}</a></li>
                     @endforeach
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    <li><a href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>
 
             <div>
-                <h2 class="footer-title">Get in touch</h2>
+                <p class="footer-title">Get in touch</p>
                 <ul class="footer-links footer-contact">
                     @if ($contact['email'])
-                        <li><x-icon name="mail" /><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a></li>
+                        <li><x-icon name="mail" /><a href="mailto:{{ email_obfuscate($contact['email']) }}">{{ email_obfuscate($contact['email']) }}</a></li>
                     @endif
                     @if ($contact['phone'])
                         <li><x-icon name="phone" /><a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['phone']) }}">{{ $contact['phone'] }}</a></li>
                     @endif
                     @if ($contact['address'])
-                        <li><x-icon name="map-pin" /><span>{{ $contact['address'] }}</span></li>
+                        <li itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="{{ config('site.name') }}"><x-icon name="map-pin" />@include('partials.postal-address')</li>
                     @endif
                     <li><x-icon name="message" /><a href="{{ route('contact') }}">Send us your project details</a></li>
                 </ul>
@@ -55,6 +55,9 @@
 
         <div class="footer-bottom">
             <p class="mb-0">&copy; {{ date('Y') }} {{ config('site.legal_name') }}. All rights reserved.</p>
+            @unless (request()->routeIs('blog.show'))
+                @include('partials.share', ['class' => 'share--footer'])
+            @endunless
             <ul>
                 <li><a href="{{ route('legal.privacy') }}">Privacy Policy</a></li>
                 <li><a href="{{ route('legal.terms') }}">Terms &amp; Conditions</a></li>

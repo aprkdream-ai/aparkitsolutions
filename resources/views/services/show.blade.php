@@ -3,7 +3,7 @@
 @section('content')
 <x-page-hero :seo="$seo" eyebrow="Service" :title="$service['title']" :lead="$service['summary']">
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ route('contact', ['service' => $service['slug']]) }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--primary" href="{{ route('contact', ['service' => $service['slug']]) }}">Get a Project Quote <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="#approach">Our approach</a>
     </div>
     <x-slot:aside>

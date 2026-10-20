@@ -10,7 +10,7 @@
             <div class="glass">
                 <p class="glass-label">Prefer to reach us directly?</p>
                 <ul class="hero-links">
-                    @if ($contact['email'])<li><a href="mailto:{{ $contact['email'] }}"><x-icon name="mail" /><span><small>Email</small>{{ $contact['email'] }}</span></a></li>@endif
+                    @if ($contact['email'])<li><a href="mailto:{{ email_obfuscate($contact['email']) }}"><x-icon name="mail" /><span><small>Email</small>{{ email_obfuscate($contact['email']) }}</span></a></li>@endif
                     @if ($contact['phone'])<li><a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['phone']) }}"><x-icon name="phone" /><span><small>Call</small>{{ $contact['phone'] }}</span></a></li>@endif
                     @if ($wa = whatsapp_url('Hello APARK IT Solutions, I would like to discuss a project.'))<li><a href="{{ $wa }}" target="_blank" rel="noopener"><x-icon name="whatsapp" /><span><small>WhatsApp</small>Chat with us</span></a></li>@endif
                 </ul>
@@ -31,7 +31,8 @@
             @elseif (session('contact_status') === 'error')
                 <div class="alert alert--error" role="alert">
                     <x-icon name="alert" />
-                    <div><strong>Sorry, we could not send your message.</strong>Please try again in a few minutes{{ $contact['email'] ? ' or email us at '.$contact['email'] : '' }}.</div>
+                    <div><strong>Sorry, we could not send your message.</strong>Please try again in a few minutes
+                        @if ($contact['email']) or email us at <a href="mailto:{{ email_obfuscate($contact['email']) }}">{{ email_obfuscate($contact['email']) }}</a>@endif.</div>
                 </div>
             @elseif ($errors->any())
                 <div class="alert alert--error" role="alert">
@@ -121,7 +122,7 @@
                     <h2>Contact details</h2>
                     <ul class="contact-list">
                         @if ($contact['email'])
-                            <li><span class="icon-tile"><x-icon name="mail" /></span><div><span class="label">Email</span><a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a></div></li>
+                            <li><span class="icon-tile"><x-icon name="mail" /></span><div><span class="label">Email</span><a href="mailto:{{ email_obfuscate($contact['email']) }}">{{ email_obfuscate($contact['email']) }}</a></div></li>
                         @endif
                         @if ($contact['phone'])
                             <li><span class="icon-tile"><x-icon name="phone" /></span><div><span class="label">Phone</span><a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['phone']) }}">{{ $contact['phone'] }}</a></div></li>
@@ -130,7 +131,7 @@
                             <li><span class="icon-tile"><x-icon name="whatsapp" /></span><div><span class="label">WhatsApp</span><a href="{{ $wa }}" target="_blank" rel="noopener">Chat with us</a></div></li>
                         @endif
                         @if ($contact['address'])
-                            <li><span class="icon-tile"><x-icon name="map-pin" /></span><div><span class="label">Address</span>{{ $contact['address'] }}</div></li>
+                            <li><span class="icon-tile"><x-icon name="map-pin" /></span><div><span class="label">Address</span>@include('partials.postal-address')</div></li>
                         @endif
                         @if ($contact['hours'])
                             <li><span class="icon-tile"><x-icon name="clock" /></span><div><span class="label">Hours</span>{{ $contact['hours'] }}</div></li>
@@ -148,7 +149,7 @@
                     <span class="icon-tile icon-tile--solid"><x-icon name="map-pin" /></span>
                     <div>
                         <h2>Visit our office</h2>
-                        <address>{{ $contact['address'] }}</address>
+                        @include('partials.postal-address')
                     </div>
                     <a class="btn btn--outline btn--sm" href="https://www.google.com/maps/search/?api=1&amp;query={{ urlencode(config('site.name').', '.$contact['address']) }}" target="_blank" rel="noopener">Get directions <x-icon name="external" /></a>
                 </div>

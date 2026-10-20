@@ -4,18 +4,18 @@
 <x-page-hero :seo="$seo" eyebrow="Services" title="Software, web, and automation services built around your goals"
     lead="Whether you need a professional website, a custom business platform, or a smarter way to connect your systems, we deliver practical solutions with transparent communication and long-term support.">
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ route('contact') }}">Discuss your project <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--primary" href="{{ route('contact') }}">Get a Quote <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="{{ route('portfolio.index') }}">See our work</a>
     </div>
     <x-slot:aside>
-        <nav class="glass" aria-label="Services">
+        <div class="glass">
             <p class="glass-label">{{ $services->count() }} core services</p>
-            <div class="icon-grid">
+            <ul class="icon-grid icon-grid--static">
                 @foreach ($services as $s)
-                    <a href="{{ route('services.show', $s['slug']) }}"><x-icon :name="$s['icon']" />{{ \Illuminate\Support\Str::before($s['title'], ' &') }}</a>
+                    <li><x-icon :name="$s['icon']" />{{ \Illuminate\Support\Str::before($s['title'], ' &') }}</li>
                 @endforeach
-            </div>
-        </nav>
+            </ul>
+        </div>
     </x-slot:aside>
 </x-page-hero>
 

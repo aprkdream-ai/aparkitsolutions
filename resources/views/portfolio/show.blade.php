@@ -76,7 +76,7 @@
             <div class="aside-card aside-card--teal">
                 <h2>Need something similar?</h2>
                 <p>Tell us about your requirements and we will suggest the right approach.</p>
-                <a class="btn btn--light btn--block" href="{{ route('contact', ['service' => $project['services'][0] ?? null]) }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light btn--block" href="{{ route('contact', ['service' => $project['services'][0] ?? null]) }}">Build Something Similar <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         </aside>
     </div>

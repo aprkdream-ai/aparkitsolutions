@@ -4,7 +4,7 @@
         <div class="tech-group">
             <div class="tech-group-head">
                 <span class="icon-tile icon-tile--sm"><x-icon :name="$icons[$group] ?? 'layers'" /></span>
-                <h3>{{ $group }}</h3>
+                <p class="tech-group-title">{{ $group }}</p>
                 <span class="tech-count">{{ count($items) }}</span>
             </div>
             <ul class="chips">

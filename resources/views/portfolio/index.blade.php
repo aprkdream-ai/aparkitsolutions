@@ -3,7 +3,7 @@
 @section('content')
 <x-page-hero :seo="$seo" eyebrow="Portfolio" title="Our work"
     :lead="$projects->count().' projects across '.$industryCount.' industries, from trading platforms and AI-powered SaaS to CRM, ERP, e-commerce, and booking systems.'">
-    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
+    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
     <x-slot:aside>@include('partials.hero-stats', ['label' => 'Our track record', 'chips' => $categories->values()->all()])</x-slot:aside>
 </x-page-hero>
 

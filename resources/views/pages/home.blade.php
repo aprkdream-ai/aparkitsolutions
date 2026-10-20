@@ -5,11 +5,13 @@
 <section class="hero">
     <div class="container hero-grid">
         <div>
-            <p class="pill"><span class="pill-dot" aria-hidden="true"></span>{{ config('site.slogans.0') }}</p>
-            <h1>Ideas Into Technology. <span class="text-gradient">Technology Into Real Impact.</span></h1>
+            <h1>
+                <span class="pill h1-kicker"><span class="pill-dot" aria-hidden="true"></span>Custom Software Development Company</span>
+                Ideas Into Technology. <span class="text-gradient">Technology Into Real Impact.</span>
+            </h1>
             <p class="lead">We help businesses transform ideas into scalable digital solutions through custom software development, modern web applications, intelligent automation, and technology consulting.</p>
             <div class="btn-row">
-                <a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--primary" href="{{ route('contact') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
                 <a class="btn btn--outline" href="{{ route('services.index') }}">Explore Our Services</a>
             </div>
             <ul class="hero-points">
@@ -28,9 +30,8 @@
 </section>
 
 {{-- Capability highlights --}}
-<section class="highlights" aria-labelledby="highlights-title">
+<section class="highlights" aria-label="What we bring to every project">
     <div class="container">
-        <h2 class="visually-hidden" id="highlights-title">What we bring to every project</h2>
         <div class="highlights-grid">
             @foreach ([
                 ['bulb', 'Tailored solutions', 'Built around your goals, users, and processes.'],
@@ -40,7 +41,7 @@
             ] as [$icon, $title, $text])
                 <div class="highlight">
                     <span class="icon-tile"><x-icon :name="$icon" /></span>
-                    <div><h3>{{ $title }}</h3><p>{{ $text }}</p></div>
+                    <div><p class="highlight-title">{{ $title }}</p><p>{{ $text }}</p></div>
                 </div>
             @endforeach
         </div>
@@ -48,18 +49,16 @@
 </section>
 
 {{-- Delivered platforms (real project names) --}}
-@php($showcase = \App\Support\Content::projects()->filter(fn ($p) => $p['image'])->take(14))
+@php($showcase = \App\Support\Content::projects()->filter(fn ($p) => $p['image'] && ! $p['featured'])->take(14))
 @if ($showcase->count() >= 6)
-<section class="marquee-wrap" aria-labelledby="marquee-title">
+<section class="marquee-wrap" aria-label="Platforms we have designed and built">
     <div class="container">
-        <h2 class="marquee-label" id="marquee-title">Platforms we have designed &amp; built</h2>
+        <p class="marquee-label">Platforms we have designed &amp; built</p>
     </div>
     <div class="marquee">
         <ul class="marquee-track">
-            @foreach ([false, true] as $dup)
-                @foreach ($showcase as $p)
-                    <li @if ($dup) aria-hidden="true" @endif><a href="{{ route('portfolio.show', $p['slug']) }}" @if ($dup) tabindex="-1" @endif><span class="dot"></span>{{ $p['title'] }} <small>{{ $p['category'] }}</small></a></li>
-                @endforeach
+            @foreach ($showcase as $p)
+                <li><a href="{{ route('portfolio.show', $p['slug']) }}"><span class="dot"></span>{{ $p['title'] }}</a></li>
             @endforeach
         </ul>
     </div>
@@ -72,8 +71,8 @@
         <div class="section-head section-head--row">
             <div>
                 <p class="eyebrow">What we do</p>
-                <h2>Technology services that solve real business problems</h2>
-                <p class="lead">From your first website to complex business platforms, we design, build, and support digital products that are reliable and ready to grow.</p>
+                <h2>Custom software, web &amp; mobile app development services</h2>
+                <p class="lead">From your first website to complex business platforms, our software development team designs, builds, and supports digital products that are reliable and ready to grow.</p>
             </div>
             <a class="btn btn--outline" href="{{ route('services.index') }}">View all services <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
@@ -90,7 +89,7 @@
     <div class="container split split--top">
         <div>
             <p class="eyebrow">Why APARK IT Solutions</p>
-            <h2>A technology partner focused on outcomes, not just output</h2>
+            <h2>A software development partner focused on outcomes</h2>
             <p class="lead">Writing code is only part of the job. We take time to understand your business, recommend what is genuinely useful, and stay accountable for quality long after launch.</p>
             <div class="stat-row">
                 <div class="stat"><strong>{{ $projectCount }}</strong><span>Projects delivered</span></div>
@@ -112,7 +111,7 @@
             ] as [$icon, $title, $text])
                 <div class="feature">
                     <span class="icon-tile"><x-icon :name="$icon" /></span>
-                    <div><h3>{{ $title }}</h3><p>{{ $text }}</p></div>
+                    <div><p class="feature-title">{{ $title }}</p><p>{{ $text }}</p></div>
                 </div>
             @endforeach
         </div>
@@ -126,7 +125,7 @@
         <div class="section-head section-head--row">
             <div>
                 <p class="eyebrow">Featured work</p>
-                <h2>Selected projects</h2>
+                <h2>Software development projects we have delivered</h2>
                 <p class="lead">A selection from {{ $projectCount }} delivered projects: fintech, AI-powered SaaS, healthcare, real estate, and more.</p>
             </div>
             <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View portfolio <x-icon name="arrow-right" class="icon-arrow" /></a>

@@ -35,7 +35,7 @@ class SecurityHeaders
         ]));
 
         if ($request->isSecure() && app()->isProduction()) {
-            $h->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+            $h->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
         }
 
         if (! config('site.indexable')) {

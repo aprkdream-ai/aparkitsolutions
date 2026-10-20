@@ -6,7 +6,11 @@
     @include('partials.seo', ['seo' => $seo ?? \App\Support\Seo::make()])
     <link rel="preload" href="{{ asset('assets/fonts/inter-var.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('assets/fonts/montserrat-var.woff2') }}" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="{{ asset_v('assets/css/app.min.css') }}">
+    @if (config('site.inline_css'))
+        <style>{{ inline_css() }}</style>
+    @else
+        <link rel="stylesheet" href="{{ asset_v('assets/css/app.min.css') }}">
+    @endif
     <link rel="icon" href="{{ asset('assets/img/brand/favicon-48.png') }}" type="image/png" sizes="48x48">
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
     <link rel="apple-touch-icon" href="{{ asset('assets/img/brand/apple-touch-icon.png') }}">
@@ -27,8 +31,8 @@
     @include('partials.footer')
 
     @if ($wa = whatsapp_url('Hello APARK IT Solutions, I would like to discuss a project.'))
-        <a class="wa-float" href="{{ $wa }}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-            <x-icon name="whatsapp" />
+        <a class="wa-float" href="{{ $wa }}" target="_blank" rel="noopener">
+            <x-icon name="whatsapp" /><span class="visually-hidden">Chat with APARK IT Solutions on WhatsApp</span>
         </a>
     @endif
 </body>

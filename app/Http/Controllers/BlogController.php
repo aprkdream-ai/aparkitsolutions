@@ -17,8 +17,8 @@ class BlogController extends Controller
         $page = $posts->currentPage();
 
         $seo = Seo::make(
-            'Insights'.($page > 1 ? " — Page {$page}" : ''),
-            'Practical articles on custom software, web development, integrations, and automation from the APARK IT Solutions team.'.($page > 1 ? " Page {$page}." : ''),
+            'Software & Web Development Insights'.($page > 1 ? " — Page {$page}" : ''),
+            'Practical articles on custom software, web and mobile development, API integrations, and business automation from the APARK IT Solutions team.'.($page > 1 ? " Page {$page}." : ''),
             ['canonical' => $page > 1 ? $posts->url($page) : route('blog.index'), 'breadcrumbs' => ['Insights' => null]]
         );
 
@@ -37,6 +37,7 @@ class BlogController extends Controller
 
         // Category archives are thin by nature: crawlable but not indexed.
         $seo = Seo::make($name.' Articles', "Articles about {$name} from the APARK IT Solutions team.", [
+            'fillers' => ['Practical guidance on planning, building, and running software for growing businesses.'],
             'breadcrumbs' => ['Insights' => route('blog.index'), $name => null],
         ])->noindex();
 

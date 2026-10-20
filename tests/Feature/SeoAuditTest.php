@@ -118,4 +118,12 @@ class SeoAuditTest extends TestCase
             $this->assertSame(4, substr_count($html, 'Share this page on'), "{$url} should have exactly one share bar");
         }
     }
+
+    public function test_mobile_viewport_supports_edge_to_edge_browsers(): void
+    {
+        $html = $this->get('/')->getContent();
+        $this->assertStringContainsString('viewport-fit=cover', $html, 'Needed so env(safe-area-inset-top) keeps the sticky header below the status bar');
+        $this->assertStringContainsString('padding-top:env(safe-area-inset-top', str_replace(' ', '', $html));
+        $this->assertStringContainsString('overflow-x:clip', str_replace(' ', '', $html), 'overflow-x:hidden on body breaks the sticky header in some mobile browsers');
+    }
 }

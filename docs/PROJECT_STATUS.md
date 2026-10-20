@@ -38,7 +38,7 @@ Before: A- overall (On-page A+, GEO A+, Performance A-, Usability C, Links D+). 
 - Scroll smoothness (2026-10-19): removed the header `backdrop-filter`, scroll-reveal animations, and the SVG orbit rotation; the marquee pauses off-screen; hover is suspended while scrolling (`html.is-scrolling`); cards use 640px thumbnails (`*-640.webp`). Worst frame on home dropped from 583ms to ~50ms with a 4x CPU throttle. Don't reintroduce blur on sticky elements or scroll-triggered motion.
 
 ## Mobile notes
-- `body { overflow-x: clip }`, never `hidden`: `hidden` breaks the sticky header in some mobile browsers and WebViews. The header pads for `env(safe-area-inset-top)`. Grids use `minmax(0, 1fr)` so long text can't push pages wider than 320px (verified 320–768px).
+- `body { overflow-x: clip }`, never `hidden`: `hidden` breaks the sticky header in some mobile browsers and WebViews. The viewport meta has `viewport-fit=cover` and the sticky header pads for `env(safe-area-inset-top)`, with a teal strip behind the status bar (Android Chrome draws edge-to-edge; without this the header slid under the status bar). Tested with CDP `Emulation.setSafeAreaInsetsOverride`. Grids use `minmax(0, 1fr)` so long text can't push pages wider than 320px (verified 320–768px).
 
 ## Pending
 - **DNS (owner):** SPF should include Google, since mail is sent via smtp.gmail.com: `v=spf1 include:_spf.google.com include:_spf.mail.hostinger.com ~all` (DKIM google._domainkey is already present)

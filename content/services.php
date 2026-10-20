@@ -10,6 +10,7 @@ return [
 
     'custom-software-development' => [
         'enabled' => true,
+        'tech' => ['Laravel', 'Node.js', 'Python', 'Django', 'Flask', 'React.js', 'MySQL', 'PostgreSQL', 'REST APIs'],
         'title' => 'Custom Software Development',
         'icon' => 'code',
         'summary' => 'Software designed around your processes, not the other way round, from internal tools to complete business platforms.',
@@ -50,6 +51,7 @@ return [
 
     'website-design-development' => [
         'enabled' => true,
+        'tech' => ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'Laravel', 'Next.js', 'MySQL'],
         'title' => 'Website Design & Development',
         'icon' => 'globe',
         'summary' => 'Fast, accessible, search-friendly websites that present your business clearly and turn visitors into enquiries.',
@@ -90,6 +92,7 @@ return [
 
     'web-application-development' => [
         'enabled' => true,
+        'tech' => ['Laravel', 'Node.js', 'React.js', 'Next.js', 'Django', 'MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'WebSocket'],
         'title' => 'Web Application Development',
         'icon' => 'layers',
         'summary' => 'Secure, scalable browser-based applications such as portals, dashboards, and SaaS products your users can reach from anywhere.',
@@ -130,17 +133,18 @@ return [
 
     'mobile-app-development' => [
         'enabled' => true,
+        'tech' => ['React Native', 'Expo', 'Flutter', 'Android', 'iOS', 'Laravel / Node.js APIs'],
         'title' => 'Mobile App Development',
         'icon' => 'smartphone',
-        'summary' => 'Android and iOS applications with intuitive interfaces, reliable performance, and secure connections to your systems.',
+        'summary' => 'Cross-platform Android and iOS apps built with React Native (Expo) and Flutter, connected securely to your systems.',
         'meta_title' => 'Mobile App Development for Android and iOS',
-        'meta_description' => 'Mobile app development for Android and iOS: user-focused design, cross-platform or native builds, secure APIs, and app store release support.',
+        'meta_description' => 'Mobile app development for Android and iOS with React Native (Expo) and Flutter: user-focused design, secure APIs, and app store release support.',
         'intro' => [
             'A mobile app puts your service directly in your customers’ pockets, or gives field teams the tools they need away from a desk.',
-            'We plan, design, and build mobile applications that are easy to use, perform well on a wide range of devices, and connect securely to your back-end systems.',
+            'We plan, design, and build mobile applications with React Native (Expo) and Flutter. These apps are easy to use, perform well on a wide range of devices, and connect securely to your back-end systems through the REST APIs we build in Laravel, Node.js, or Python.',
         ],
         'benefits' => [
-            ['title' => 'One codebase where it fits', 'text' => 'Cross-platform frameworks can reduce cost and time to market while keeping a native feel.'],
+            ['title' => 'One codebase, two platforms', 'text' => 'React Native (Expo) and Flutter deliver Android and iOS apps from a single codebase, reducing cost and time to market while keeping a native feel.'],
             ['title' => 'User-centred design', 'text' => 'Interfaces follow platform conventions so the app feels familiar from the first launch.'],
             ['title' => 'Secure connectivity', 'text' => 'Apps communicate with your systems through authenticated, encrypted APIs.'],
             ['title' => 'Release support', 'text' => 'We help prepare store listings and builds and guide you through the review process.'],
@@ -148,20 +152,20 @@ return [
         'deliverables' => [
             'App concept and feature prioritisation',
             'UX flows and interface design',
-            'Cross-platform or native development',
+            'React Native (Expo) or Flutter development',
             'Back-end API and admin panel (if required)',
             'Push notifications and analytics setup',
             'Device testing and beta distribution',
             'App store submission support',
         ],
         'approach' => [
-            ['title' => 'Discovery', 'text' => 'We define users, key journeys, and whether cross-platform or native is the better fit.'],
+            ['title' => 'Discovery', 'text' => 'We define users and key journeys, and choose between React Native (Expo) and Flutter for your needs.'],
             ['title' => 'Prototype', 'text' => 'Clickable prototypes validate the experience before full development.'],
             ['title' => 'Build and test', 'text' => 'Features are developed in sprints and tested on real devices.'],
             ['title' => 'Release and improve', 'text' => 'We support store submission, then iterate based on feedback and usage data.'],
         ],
         'faqs' => [
-            ['q' => 'Should I build a native or cross-platform app?', 'a' => 'Cross-platform suits most business apps and reduces cost. Native development can be better for heavy device integration or graphics. We recommend an approach based on your requirements.'],
+            ['q' => 'Which technology do you use for mobile apps?', 'a' => 'We build cross-platform apps with React Native (using Expo) and Flutter, so a single codebase serves both Android and iOS. We recommend the framework that best fits your features, team, and timeline.'],
             ['q' => 'Do I need a back end for my app?', 'a' => 'Most apps that store user data, process payments, or sync between devices need a secure back end and API. We can build or integrate one.'],
             ['q' => 'Will you help publish the app?', 'a' => 'Yes. We help prepare builds, store listings, and privacy information, and guide you through the review process.'],
         ],
@@ -170,6 +174,7 @@ return [
 
     'erp-crm-solutions' => [
         'enabled' => true,
+        'tech' => ['Laravel', 'CodeIgniter', 'Django', 'React.js', 'MySQL', 'PostgreSQL', 'Multi-tenant SaaS'],
         'title' => 'ERP & CRM Solutions',
         'icon' => 'grid',
         'summary' => 'Connected systems for operations, sales, and customer relationships, with your data in one place instead of scattered across tools.',
@@ -210,6 +215,7 @@ return [
 
     'api-development-integration' => [
         'enabled' => true,
+        'tech' => ['REST APIs', 'WebSocket', 'Laravel', 'Node.js', 'Python', 'Razorpay', 'Stripe', 'PayPal', 'NSE/BSE', 'KYC & OTP', 'WhatsApp', 'Google Maps'],
         'title' => 'API Development & Integration',
         'icon' => 'plug',
         'summary' => 'Reliable APIs and integrations that connect your applications, partners, and third-party services so data flows automatically.',
@@ -250,6 +256,7 @@ return [
 
     'ai-integration-automation' => [
         'enabled' => true,
+        'tech' => ['AI / LLM APIs', 'OCR', 'n8n', 'Python', 'NumPy', 'Pandas'],
         'title' => 'AI Integration & Automation',
         'icon' => 'sparkles',
         'summary' => 'Practical automation and AI features, from document processing to smart assistants, applied where they save real time.',
@@ -290,6 +297,7 @@ return [
 
     'ecommerce-development' => [
         'enabled' => true,
+        'tech' => ['Laravel', 'Node.js', 'React.js', 'MySQL', 'Razorpay', 'Stripe', 'PayPal'],
         'title' => 'E-commerce Development',
         'icon' => 'cart',
         'summary' => 'Online stores with smooth checkout, secure payments, and the integrations needed to run day-to-day operations.',
@@ -330,6 +338,7 @@ return [
 
     'cloud-deployment-consulting' => [
         'enabled' => true,
+        'tech' => ['AWS', 'Docker', 'Nginx', 'Linux', 'CI/CD', 'Git / GitHub', 'cPanel / Hostinger'],
         'title' => 'Cloud, Deployment & Technical Consulting',
         'icon' => 'cloud',
         'summary' => 'Hosting, deployment, and architecture guidance that keeps your applications secure, reliable, and cost-effective.',

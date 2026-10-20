@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use App\Mail\ContactAcknowledgement;
 use App\Mail\ContactSubmitted;
+use App\Support\Captcha;
 use App\Support\Content;
 use App\Support\Seo;
 use Illuminate\Http\Request;
@@ -25,23 +27,33 @@ class ContactController extends Controller
                 'Contact Us — Start a Project',
                 'Tell us about your software, website, app, or automation project. APARK IT Solutions will review your requirements and get back to you.',
                 ['breadcrumbs' => ['Contact' => null]]
-            ),
+            )->schema(Seo::localBusiness() ?? []),
             'services' => Content::services(),
             'formToken' => Crypt::encryptString((string) now()->timestamp),
+            'captcha' => Captcha::make(),
             'selectedService' => Content::services()->has($request->query('service')) ? $request->query('service') : null,
         ]);
     }
 
+    /** Returns a fresh captcha question (used by the refresh button). */
+    public function captcha()
+    {
+        $captcha = Captcha::make();
+
+        return response()->json(['question' => $captcha['question'], 'token' => $captcha['token']])->header('Cache-Control', 'no-store');
+    }
+
     public function store(ContactRequest $request)
     {
+
         if ($this->looksLikeSpam($request)) {
             Log::notice('Contact form spam blocked', ['ip' => $request->ip()]);
 
             // Respond as if successful so bots get no signal.
-            return redirect()->route('contact')->with('contact_status', 'sent');
+            return $this->respond($request, 'sent');
         }
 
-        $data = $request->safe()->except('consent');
+        $data = $request->safe()->except(['consent', 'captcha']);
         $data['service_title'] = Content::find('services', $data['service'] ?? '')['title'] ?? (($data['service'] ?? null) === 'other' ? 'Other / not sure' : null);
 
         $this->storeBackup($data, $request);
@@ -57,11 +69,44 @@ class ContactController extends Controller
 
             // The enquiry is still stored when backups are enabled, so it is not lost.
             if (! config('site.contact.store_submissions')) {
-                return back()->withInput()->with('contact_status', 'error');
+                return $this->respond($request, 'error');
             }
         }
 
-        return redirect()->route('contact')->with('contact_status', 'sent');
+        // Confirmation to the visitor, sent after the response so the form stays fast.
+        if (config('site.contact.autoreply')) {
+            defer(function () use ($data) {
+                try {
+                    Mail::to($data['email'], $data['name'])->send(new ContactAcknowledgement($data));
+                } catch (Throwable $e) {
+                    Log::warning('Contact auto-reply failed: '.$e->getMessage());
+                }
+            });
+        }
+
+        return $this->respond($request, 'sent');
+    }
+
+    /** JSON for AJAX submissions (with a fresh captcha); redirect + flash for the no-JS fallback. */
+    protected function respond(Request $request, string $status)
+    {
+        if ($request->expectsJson()) {
+            $captcha = Captcha::make();
+            $email = config('site.contact.email');
+
+            return response()->json([
+                'status' => $status,
+                'title' => $status === 'sent' ? 'Thank you, your message has been sent.' : 'Sorry, we could not send your message.',
+                'message' => $status === 'sent'
+                    ? 'We have received your enquiry and will get back to you as soon as possible.'
+                    : 'Please try again in a few minutes'.($email ? ' or email us at '.$email : '').'.',
+                'captcha' => ['question' => $captcha['question'], 'token' => $captcha['token']],
+            ], $status === 'sent' ? 200 : 503);
+        }
+
+        $redirect = $status === 'sent' ? redirect()->route('contact') : back()->withInput();
+
+        return $redirect->with('contact_status', $status);
     }
 
     protected function looksLikeSpam(Request $request): bool

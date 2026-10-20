@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Support\Captcha;
 use App\Support\Content;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -15,6 +16,8 @@ class ContactRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
+        $this->merge(['captcha' => Captcha::normalise($this->input('captcha'))]);
+
         $clean = fn ($v) => is_string($v) ? trim(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $v)) : $v;
 
         $this->merge(collect($this->only(['name', 'email', 'phone', 'company', 'service', 'budget', 'message']))
@@ -33,6 +36,11 @@ class ContactRequest extends FormRequest
             'budget' => ['nullable', 'string', Rule::in(config('site.contact.budgets'))],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
             'consent' => ['accepted'],
+            'captcha' => ['bail', 'required', function (string $attribute, mixed $value, \Closure $fail) {
+                if (! Captcha::verify($value, $this->input('captcha_token'))) {
+                    $fail('The answer to the security question is incorrect. Please try the new question.');
+                }
+            }],
         ];
     }
 
@@ -48,6 +56,6 @@ class ContactRequest extends FormRequest
 
     public function attributes(): array
     {
-        return ['email' => 'email address', 'consent' => 'consent'];
+        return ['email' => 'email address', 'consent' => 'consent', 'captcha' => 'security answer'];
     }
 }

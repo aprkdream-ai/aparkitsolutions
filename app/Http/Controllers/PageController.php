@@ -11,6 +11,7 @@ class PageController extends Controller
     {
         $seo = Seo::make(null, null, ['canonical' => route('home')])
             ->schema(Seo::organization())
+            ->schema(Seo::localBusiness() ?? [])
             ->schema([
                 '@type' => 'WebSite',
                 '@id' => url('/').'#website',
@@ -22,7 +23,8 @@ class PageController extends Controller
         return view('pages.home', [
             'seo' => $seo,
             'services' => Content::services(),
-            'projects' => Content::projects()->take(3),
+            'projects' => Content::projects()->where('featured', true)->take(6),
+            'projectCount' => Content::projects()->count(),
             'industries' => Content::industries(),
             'tech' => Content::list('tech'),
             'faqs' => Content::list('faqs'),

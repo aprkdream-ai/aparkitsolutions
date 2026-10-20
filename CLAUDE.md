@@ -9,6 +9,7 @@ Read this first, then `docs/PROJECT_STATUS.md`. Open other docs only for the sec
 - Company facts, contact details, socials, SEO defaults, and feature flags: `config/site.php`, which reads `.env`.
 - Front end is hand-written CSS/JS in `public/assets`. **No Node/Vite.** CSS is minified with `php artisan assets:build`.
 - Target: shared hosting (Hostinger/cPanel). Nothing may require a long-running process.
+- `composer.json` pins `config.platform.php = 8.3.0` so dependencies (Symfony 7.4) run on the live server's PHP 8.3/8.4. Don't remove it: a local PHP 8.4+ would otherwise pull Symfony 8 (needs 8.4.1) and break production.
 
 ## Rules
 - Never invent business facts (clients, results, reviews, team, address, phone). Unverified content is marked `'draft' => true`. Drafts are hidden unless `CONTENT_SHOW_DRAFTS=true`, and are always noindexed.

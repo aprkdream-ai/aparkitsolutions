@@ -1,8 +1,11 @@
-@props(['project', 'headingLevel' => 3])
+@props(['project', 'eager' => false])
 <article class="card card--hover project-card">
     <div class="project-media @unless ($project['image']) project-media--placeholder @endunless">
         @if ($project['image'])
-            <img src="{{ asset($project['image']) }}" alt="{{ $project['image_alt'] ?? $project['title'] }}" width="800" height="500" loading="lazy" decoding="async">
+            @php($thumb = preg_replace('/\.webp$/', '-640.webp', $project['image']))
+            <img src="{{ asset(is_file(public_path($thumb)) ? $thumb : $project['image']) }}"
+                 @if (is_file(public_path($thumb))) srcset="{{ asset($thumb) }} 640w, {{ asset($project['image']) }} 1280w" sizes="(min-width: 992px) 420px, (min-width: 576px) 50vw, 100vw" @endif
+                 alt="{{ $project['image_alt'] ?? $project['title'] }}" width="640" height="400" @if ($eager) fetchpriority="high" @else loading="lazy" @endif decoding="async">
         @else
             <x-icon name="layout" />
         @endif

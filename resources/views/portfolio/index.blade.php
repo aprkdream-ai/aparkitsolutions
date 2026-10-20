@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<x-page-hero :seo="$seo" eyebrow="Portfolio" title="Our work and case studies"
-    lead="Real projects, explained honestly: the challenge, the solution we delivered, and the technology behind it." />
+<x-page-hero :seo="$seo" eyebrow="Portfolio" title="Our work"
+    :lead="$projects->count().' projects across '.$industryCount.' industries, from trading platforms and AI-powered SaaS to CRM, ERP, e-commerce, and booking systems.'">
+    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
+    <x-slot:aside>@include('partials.hero-stats', ['label' => 'Our track record', 'chips' => $categories->values()->all()])</x-slot:aside>
+</x-page-hero>
 
 <section class="section">
     <div class="container">
@@ -29,7 +32,7 @@
             <div class="grid grid-3">
                 @foreach ($projects as $project)
                     <div data-category="{{ \Illuminate\Support\Str::slug($project['category']) }}" class="{{ $active && \Illuminate\Support\Str::slug($project['category']) !== $active ? 'is-hidden' : '' }}">
-                        <x-project-card :project="$project" />
+                        <x-project-card :project="$project" :eager="$loop->index < 3" />
                     </div>
                 @endforeach
             </div>

@@ -49,17 +49,39 @@ class PagesTest extends TestCase
         $this->get('/blog?page=99')->assertNotFound();
     }
 
-    public function test_drafts_are_hidden_unless_enabled(): void
+    public function test_portfolio_and_industries_render_real_content(): void
     {
         config(['site.show_drafts' => false]);
-        $this->get('/portfolio/sample-mobile-app')->assertNotFound();
-        $this->get('/industries')->assertNotFound();
-        $this->get('/')->assertDontSee('Draft · sample')->assertDontSee(route('portfolio.index').'"', false);
-        $this->get('/portfolio')->assertOk()->assertSee('Case studies are on the way')->assertSee('noindex, follow', false);
+        $this->get('/portfolio')->assertOk()->assertSee('Bigul')->assertSee('index, follow', false)->assertSee('data-filter-bar', false);
+        $this->get('/portfolio?category=e-commerce')->assertOk()->assertSee('noindex, follow', false);
+        $this->get('/portfolio/bigul')->assertOk()->assertSee('https://bigul.co/', false)->assertSee('Key features');
+        $this->get('/industries')->assertOk()->assertSee('Healthcare');
+        $this->get('/industries/fintech')->assertOk()->assertSee('Projects we have delivered')->assertSee('Reco');
+        $this->get('/')->assertSee('Selected projects')->assertSee('Qonsistic');
+    }
 
-        config(['site.show_drafts' => true]);
-        $this->get('/portfolio/sample-mobile-app')->assertOk()->assertSee('noindex, follow', false);
-        $this->get('/industries/healthcare')->assertOk()->assertSee('noindex, follow', false);
+    public function test_no_credentials_or_admin_urls_are_published(): void
+    {
+        foreach (['/portfolio', '/portfolio/qonsistic', '/portfolio/eventbus', '/portfolio/nexoracrm', '/sitemap.xml'] as $uri) {
+            $html = $this->get($uri)->getContent();
+            $this->assertStringNotContainsString('123456', $html, $uri);
+            $this->assertStringNotContainsString('admin@gmail.com', $html, $uri);
+            $this->assertDoesNotMatchRegularExpression('#https?://[^"\s]*/(admin|login|authentication)#', $html, $uri);
+        }
+    }
+
+    public function test_draft_entries_are_hidden_unless_enabled(): void
+    {
+        $file = base_path('content/blog/2099-01-01-draft-test.md');
+        file_put_contents($file, "---\ntitle: Draft Test Post\ndate: 2026-01-01\ndraft: true\n---\nBody text for the draft.");
+        try {
+            config(['site.show_drafts' => false]);
+            $this->get('/blog/draft-test')->assertNotFound();
+            config(['site.show_drafts' => true]);
+            $this->get('/blog/draft-test')->assertOk()->assertSee('noindex, follow', false);
+        } finally {
+            unlink($file);
+        }
     }
 
     public function test_blog_pagination_and_article_schema(): void
@@ -78,6 +100,15 @@ class PagesTest extends TestCase
     public function test_breadcrumb_schema_on_inner_pages(): void
     {
         $this->get('/services/website-design-development')->assertSee('"@type":"BreadcrumbList"', false);
+    }
+
+    public function test_main_menu_order_starts_with_home(): void
+    {
+        $html = $this->get('/about')->getContent();
+        preg_match('#<nav class="nav" id="site-nav".*?</nav>#s', $html, $m);
+        preg_match_all('#class="nav-link"[^>]*>([^<]+)</a>#', $m[0], $labels);
+        $this->assertSame(['Home', 'About', 'Services', 'Portfolio', 'Industries', 'Insights', 'Contact'], array_map('trim', $labels[1]));
+        $this->assertMatchesRegularExpression('#href="[^"]*/about"\s+aria-current="page"\s*>About#', $m[0]);
     }
 
     public function test_redirects(): void

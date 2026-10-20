@@ -2,18 +2,24 @@
 
 @section('content')
 <x-page-hero :seo="$seo" eyebrow="About us" title="Your technology partner for building, solving, and growing"
-    lead="APARK IT Solutions helps businesses turn ideas into dependable digital products. We combine practical business thinking with modern engineering to deliver technology that makes a real difference." />
+    lead="APARK IT Solutions helps businesses turn ideas into dependable digital products. We combine practical business thinking with modern engineering to deliver technology that makes a real difference.">
+    <div class="btn-row">
+        <a class="btn btn--primary" href="{{ route('contact') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View our work</a>
+    </div>
+    <x-slot:aside>@include('partials.hero-stats', ['label' => config('site.slogans.0'), 'chips' => ['Laravel', 'Node.js', 'Python', 'React.js', 'React Native', 'Flutter', 'AWS']])</x-slot:aside>
+</x-page-hero>
 
 <section class="section">
     <div class="container split">
-        <div class="prose reveal">
+        <div class="prose">
             <p class="eyebrow">Who we are</p>
             <h2 class="mt-0">Technology with a clear purpose</h2>
-            <p>We are a software development and technology consulting company focused on one question: <strong>what will genuinely move your business forward?</strong></p>
+            <p>Founded in 2024, we are a software development and technology consulting company focused on one question: <strong>what will genuinely move your business forward?</strong></p>
             <p>Sometimes the answer is a new website or application. Sometimes it is connecting the systems you already have, automating repetitive work, or simplifying an overcomplicated process. We take time to understand the problem before recommending a solution, and we build with quality, security, and long-term maintainability in mind.</p>
             <p>Our name reflects how we work: <strong>Ideas, Technology, Real Impact</strong>. We start with your ideas, apply the right technology, and measure success by the impact it has on your business.</p>
         </div>
-        <div class="grid reveal">
+        <div class="grid">
             <div class="panel panel--teal">
                 <span class="icon-tile icon-tile--glass"><x-icon name="target" /></span>
                 <h3 class="mt-lg">Our mission</h3>
@@ -30,7 +36,7 @@
 
 <section class="section section--off">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">Our values</p>
             <h2>The principles behind every project</h2>
         </div>
@@ -43,7 +49,7 @@
                 ['target', 'Ownership', 'We take responsibility for outcomes and follow through on our commitments.'],
                 ['refresh', 'Continuous improvement', 'We learn from every project and keep refining how we work.'],
             ] as [$icon, $title, $text])
-                <div class="card reveal">
+                <div class="card">
                     <span class="icon-tile"><x-icon :name="$icon" /></span>
                     <h3>{{ $title }}</h3>
                     <p>{{ $text }}</p>
@@ -55,7 +61,7 @@
 
 <section class="section">
     <div class="container split split--top">
-        <div class="reveal">
+        <div>
             <p class="eyebrow">Our approach</p>
             <h2>How we deliver</h2>
             <p class="lead">A structured, collaborative process keeps every project predictable and focused on business value.</p>
@@ -67,11 +73,15 @@
                 <li><x-icon name="check-circle" /><span><strong>Long-term support:</strong> maintenance, monitoring, and continuous improvement.</span></li>
             </ul>
         </div>
-        <div class="reveal">
+        <div>
             <p class="eyebrow">Technical expertise</p>
             <h2>Capabilities across the stack</h2>
-            <p class="lead">Our work spans <a href="{{ route('services.show', 'custom-software-development') }}">custom software</a>, <a href="{{ route('services.show', 'web-application-development') }}">web applications</a>, <a href="{{ route('services.show', 'mobile-app-development') }}">mobile apps</a>, <a href="{{ route('services.show', 'api-development-integration') }}">integrations</a>, and <a href="{{ route('services.show', 'ai-integration-automation') }}">automation</a>.</p>
-            <div class="mt-lg">@include('partials.tech-compact', ['tech' => $tech])</div>
+            <p class="lead">From websites to multi-tenant platforms, we cover the full lifecycle: design, development, integration, deployment, and support.</p>
+            <div class="icon-grid icon-grid--light mt-lg">
+                @foreach (\App\Support\Content::services() as $s)
+                    <a href="{{ route('services.show', $s['slug']) }}"><x-icon :name="$s['icon']" />{{ \Illuminate\Support\Str::before($s['title'], ' &') }}</a>
+                @endforeach
+            </div>
         </div>
     </div>
 </section>
@@ -79,20 +89,20 @@
 @if (! empty($team))
 <section class="section section--off">
     <div class="container">
-        <div class="section-head center reveal"><p class="eyebrow">Our team</p><h2>The people behind the work</h2></div>
-        <div class="grid grid-4">
-            @foreach ($team as $m)
-                <div class="card center">
-                    @if (! empty($m['photo']))<img src="{{ asset($m['photo']) }}" alt="{{ $m['name'] }}" width="160" height="160" loading="lazy" class="avatar">@endif
-                    <h3>{{ $m['name'] }}</h3>
-                    <p>{{ $m['role'] }}</p>
-                    @if (! empty($m['linkedin']))<a class="link-arrow" href="{{ $m['linkedin'] }}" target="_blank" rel="noopener">LinkedIn <x-icon name="external" /></a>@endif
-                </div>
-            @endforeach
+        <div class="section-head center"><p class="eyebrow">Our team</p><h2>The people behind the work</h2></div>
+        <div class="team-grid">
+            @foreach ($team as $m)<x-team-card :member="$m" />@endforeach
         </div>
     </div>
 </section>
 @endif
+
+<section class="section">
+    <div class="container">
+        <div class="section-head center"><p class="eyebrow">Technology</p><h2>Our technology stack</h2><p class="lead">Proven tools chosen for reliability, security, and long-term maintainability.</p></div>
+        @include('partials.tech', ['tech' => $tech])
+    </div>
+</section>
 
 <x-cta title="Let’s discuss your project" text="Tell us where you are today and where you want to be. We will help you find the right path forward." />
 @endsection

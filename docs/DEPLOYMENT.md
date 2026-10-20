@@ -26,7 +26,9 @@ bash scripts/build-release.sh      # runs tests, minifies CSS, composer --no-dev
 Never place the whole project inside `public_html`: `.env` and source files would become reachable.
 
 ## 3. Configure `.env` on the server
-Copy `.env.example` to `.env`, then:
+**aparkitsolutions.com:** the zip already contains the production `.env` (copied from the local, git-ignored `.env.production`): APP_URL `https://aparkitsolutions.com`, Gmail SMTP for info@aparkitsolutions.com, `TRUSTED_PROXIES=*` (the site is behind the Hostinger CDN), and `FORCE_CANONICAL_URL=true` (www → non-www). Keep the zip private.
+
+For any other environment, copy `.env.example` to `.env`, then:
 - `APP_URL=https://www.your-domain.com` (the exact canonical host)
 - `APP_KEY`: run `php artisan key:generate`, or generate one locally and paste it in
 - `CONTACT_EMAIL`, `CONTACT_RECIPIENT`, plus phone, WhatsApp, address, and socials if verified (empty values hide their UI)
@@ -54,6 +56,7 @@ Enable the free SSL in hPanel/cPanel, confirm `https://` loads, then set `FORCE_
 - [ ] Submit the sitemap in Google Search Console
 
 ## Troubleshooting
+- **"Composer dependencies require a PHP version >= X":** the server's PHP is older than the build target. Keep `config.platform.php` at 8.3.0 in `composer.json`, run `composer update`, and rebuild. Or raise the PHP version in hPanel.
 - **500 error:** check `storage/logs/laravel-*.log`, confirm `APP_KEY` is set, `storage` is writable, and PHP is 8.3+.
 - **Redirect loop:** set `TRUSTED_PROXIES=*` (behind a proxy), or set `FORCE_CANONICAL_URL=false`.
 - **Email not sending:** check the SMTP credentials and log. Enquiries are still saved to `storage/app/private/contact/submissions.jsonl`.

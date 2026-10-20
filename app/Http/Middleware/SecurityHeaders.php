@@ -17,13 +17,16 @@ class SecurityHeaders
         $h->set('X-Frame-Options', 'SAMEORIGIN');
         $h->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $h->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()');
+        $ga = config('site.analytics.ga4') ? ' https://www.googletagmanager.com' : '';
+        $gaConnect = $ga ? ' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com' : '';
+
         $h->set('Content-Security-Policy', implode('; ', [
             "default-src 'self'",
-            "script-src 'self'",
+            "script-src 'self'".$ga,
             "style-src 'self' 'unsafe-inline'",
             "img-src 'self' data: https:",
             "font-src 'self'",
-            "connect-src 'self'",
+            "connect-src 'self'".$gaConnect,
             'frame-src https://www.google.com https://maps.google.com',
             "form-action 'self'",
             "base-uri 'self'",

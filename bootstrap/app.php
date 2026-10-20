@@ -14,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->prepend(CanonicalUrl::class);
+        // Appended (not prepended) so it runs after TrustProxies and sees the real scheme behind a CDN.
+        $middleware->append(CanonicalUrl::class);
         $middleware->append(SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

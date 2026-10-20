@@ -12,6 +12,9 @@
     <link rel="apple-touch-icon" href="{{ asset('assets/img/brand/apple-touch-icon.png') }}">
     <meta name="theme-color" content="#0F766E">
     <script src="{{ asset_v('assets/js/app.js') }}" defer></script>
+    @if (config('site.analytics.ga4') && config('site.indexable'))
+        <script src="{{ asset_v('assets/js/analytics.js') }}" data-ga4="{{ config('site.analytics.ga4') }}" defer></script>
+    @endif
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>

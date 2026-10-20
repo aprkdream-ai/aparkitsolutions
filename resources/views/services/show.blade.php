@@ -6,6 +6,18 @@
         <a class="btn btn--primary" href="{{ route('contact', ['service' => $service['slug']]) }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="#approach">Our approach</a>
     </div>
+    <x-slot:aside>
+        <div class="glass">
+            <div class="hero-feature">
+                <span class="icon-tile icon-tile--glass"><x-icon :name="$service['icon']" /></span>
+                <div><strong>{{ $service['title'] }}</strong><span>{{ count($service['deliverables']) }} deliverables · {{ count($service['approach']) }}-step approach</span></div>
+            </div>
+            @if (! empty($service['tech']))
+                <p class="glass-label">Technologies</p>
+                <ul class="chips">@foreach ($service['tech'] as $t)<li class="chip">{{ $t }}</li>@endforeach</ul>
+            @endif
+        </div>
+    </x-slot:aside>
 </x-page-hero>
 
 <section class="section">
@@ -17,11 +29,12 @@
 
             <div class="detail-section">
                 <h2>Benefits</h2>
-                <div class="grid grid-features">
+                <div class="grid grid-benefits">
                     @foreach ($service['benefits'] as $b)
-                        <div class="feature">
-                            <span class="icon-tile"><x-icon name="check" /></span>
-                            <div><h3>{{ $b['title'] }}</h3><p>{{ $b['text'] }}</p></div>
+                        <div class="benefit">
+                            <span class="benefit-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                            <h3>{{ $b['title'] }}</h3>
+                            <p>{{ $b['text'] }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -33,6 +46,13 @@
                     @foreach ($service['deliverables'] as $d)<li><x-icon name="check-circle" /><span>{{ $d }}</span></li>@endforeach
                 </ul>
             </div>
+
+            @if (! empty($service['tech']))
+                <div class="detail-section">
+                    <h2>Technologies we use</h2>
+                    <ul class="chips">@foreach ($service['tech'] as $t)<li class="chip chip--mint">{{ $t }}</li>@endforeach</ul>
+                </div>
+            @endif
 
             <div class="detail-section" id="approach">
                 <h2>Our approach</h2>

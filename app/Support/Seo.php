@@ -63,7 +63,9 @@ class Seo
 
     public function schema(array $node): static
     {
-        $this->schema[] = $node;
+        if ($node) {
+            $this->schema[] = $node;
+        }
 
         return $this;
     }
@@ -111,9 +113,58 @@ class Seo
             'slogan' => config('site.tagline'),
             'email' => $contact['email'] ?: null,
             'telephone' => $contact['phone'] ?: null,
-            'address' => $contact['address'] ?: null,
+            'address' => static::postalAddress() ?: ($contact['address'] ?: null),
             'areaServed' => config('site.seo.area_served') ?: null,
             'sameAs' => array_values(config('site.social')) ?: null,
+            'contactPoint' => $contact['phone'] ? array_filter([
+                '@type' => 'ContactPoint',
+                'telephone' => '+'.preg_replace('/\D+/', '', $contact['phone']),
+                'email' => $contact['email'] ?: null,
+                'contactType' => 'customer service',
+                'areaServed' => 'IN',
+                'availableLanguage' => $contact['languages'] ?: null,
+            ]) : null,
+        ]);
+    }
+
+    public static function postalAddress(): ?array
+    {
+        $a = config('site.contact.address_parts');
+        if (empty($a['street']) || empty($a['locality'])) {
+            return null;
+        }
+
+        return array_filter([
+            '@type' => 'PostalAddress',
+            'streetAddress' => $a['street'],
+            'addressLocality' => $a['locality'],
+            'addressRegion' => $a['region'],
+            'postalCode' => $a['postal_code'],
+            'addressCountry' => $a['country'],
+        ]);
+    }
+
+    /** LocalBusiness node, only when a verified address is configured. */
+    public static function localBusiness(): ?array
+    {
+        $address = static::postalAddress();
+        if (! $address) {
+            return null;
+        }
+        $a = config('site.contact.address_parts');
+
+        return array_filter([
+            '@type' => 'ProfessionalService',
+            '@id' => url('/').'#localbusiness',
+            'name' => config('site.name'),
+            'url' => url('/'),
+            'image' => asset(config('site.seo.default_image')),
+            'logo' => asset('assets/img/brand/apark-mark.png'),
+            'telephone' => config('site.contact.phone') ?: null,
+            'email' => config('site.contact.email') ?: null,
+            'address' => $address,
+            'geo' => ($a['lat'] && $a['lng']) ? ['@type' => 'GeoCoordinates', 'latitude' => (float) $a['lat'], 'longitude' => (float) $a['lng']] : null,
+            'parentOrganization' => ['@id' => url('/').'#organization'],
         ]);
     }
 

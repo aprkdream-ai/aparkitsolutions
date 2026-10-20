@@ -4,9 +4,9 @@
 ```
 config/site.php            Company facts, contact, socials, SEO defaults, nav, flags (reads .env)
 content/                   File-based CMS
-  services.php             9 services (enabled flag) → /services/{slug}
-  projects.php             Portfolio (currently SAMPLE drafts) → /portfolio/{slug}
-  industries.php           Industries (currently drafts) → /industries/{slug}
+  services.php             9 services (enabled flag, per-service 'tech' list) → /services/{slug}
+  projects.php             33 delivered projects → /portfolio/{slug} (images: public/assets/img/portfolio/{slug}.webp, auto-detected)
+  industries.php           10 industries (derived from projects) → /industries/{slug}
   tech.php faqs.php team.php testimonials.php
   blog/YYYY-MM-DD-slug.md  Articles (front matter + Markdown)
 app/Support/Content.php    Loads content, filters drafts, parses/caches blog Markdown
@@ -31,7 +31,7 @@ public/assets/             css/app.css (+ app.min.css), js/app.js, fonts (Inter,
 
 ## Content editing
 - **Service:** edit `content/services.php`. Set `enabled => false` to hide one.
-- **Project:** add an entry to `content/projects.php` without `draft`. Put the image (WebP, 1600×1000) in `public/assets/img/portfolio/`.
+- **Project:** add an entry to `content/projects.php` (title, category, industry, services, summary, overview, features, tech, url, featured). Save a 1280×800 WebP screenshot as `public/assets/img/portfolio/{slug}.webp`. Never add demo credentials or admin URLs.
 - **Article:** add `content/blog/2026-11-01-my-slug.md` with front matter: `title, description, date, author, category, tags[, updated, image, image_alt, draft]`.
 - **Testimonial or team member:** add entries to `testimonials.php` or `team.php`. Each section appears automatically.
 
@@ -50,6 +50,9 @@ Unique title and description, canonical, robots, OG and Twitter tags, plus a JSO
 - Server validation and sanitising; all output escaped.
 - Security headers: CSP (`script-src 'self'`), nosniff, frame options, referrer policy, and HSTS in production over HTTPS.
 - `.htaccess` blocks dotfiles and sensitive extensions.
+
+## Analytics
+GA4 is enabled by `GA_MEASUREMENT_ID` and only when `SITE_INDEXABLE=true`. There's no inline script: `assets/js/analytics.js` reads the `data-ga4` attribute.
 
 ## Database
 None. Sessions and cache use files. Enquiries are emailed and also appended to `storage/app/private/contact/submissions.jsonl` (configurable).

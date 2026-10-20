@@ -6,7 +6,7 @@
 - [x] Robots meta plus `X-Robots-Tag` on non-production; dynamic `/robots.txt`
 - [x] Dynamic `/sitemap.xml`: home, services, about, contact, blog, articles. Drafts, empty sections, and unreviewed legal pages are excluded
 - [x] OG and Twitter tags; default 1200×630 image `public/assets/img/og-default.png`; article OG metadata
-- [x] JSON-LD: Organization, WebSite, BreadcrumbList, Service, BlogPosting. No fabricated ratings or addresses
+- [x] JSON-LD: Organization (with PostalAddress), WebSite, ProfessionalService/LocalBusiness (verified address and geo, home and contact), BreadcrumbList, Service, BlogPosting. No fabricated ratings
 - [x] Breadcrumbs (visible plus schema); internal links between services, related services, articles, and contact
 - [x] 301 redirects: `/contact-us`, `/about-us`, `/insights`, trailing slash, `/index.php/*`; HTTPS and host redirect via `FORCE_CANONICAL_URL`
 - [x] Custom 404/419/429/500/503 pages (noindex)
@@ -15,7 +15,8 @@
 ## Remaining (owner)
 - [ ] Set `APP_URL` to the final https domain and `SITE_INDEXABLE=true` in production
 - [ ] Verify Search Console (`SEO_GOOGLE_VERIFICATION`) and Bing; submit the sitemap
-- [ ] Add verified contact details, socials, and `SEO_AREA_SERVED` (all feed the Organization schema)
+- [ ] Create or claim the Google Business Profile for the Waidhan address (matches the LocalBusiness schema)
+- [ ] Optional: add more socials and `SEO_AREA_SERVED`
 - [ ] Publish real case studies and the industries actually served
 - [ ] Review legal pages, then set `LEGAL_REVIEWED=true` (makes them indexable and adds them to the sitemap)
 - [ ] Publish articles regularly (1–2 per month); add WebP feature images where useful

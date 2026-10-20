@@ -29,7 +29,7 @@
                 <h2 class="footer-title">Company</h2>
                 <ul class="footer-links">
                     <li><a href="{{ route('about') }}">About Us</a></li>
-                    @foreach ($navItems->whereNotIn('route', ['services.index', 'about']) as $item)
+                    @foreach ($navItems->whereNotIn('route', ['home', 'services.index', 'about', 'contact']) as $item)
                         <li><a href="{{ route($item['route']) }}">{{ $item['label'] }}</a></li>
                     @endforeach
                     <li><a href="{{ route('contact') }}">Contact</a></li>

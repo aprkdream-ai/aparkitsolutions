@@ -39,6 +39,7 @@ class IndustryController extends Controller
             'seo' => $seo,
             'industry' => $industry,
             'services' => collect($industry['solutions'])->map(fn ($s) => Content::find('services', $s))->filter(),
+            'projects' => Content::projects()->where('industry', $slug),
         ]);
     }
 }

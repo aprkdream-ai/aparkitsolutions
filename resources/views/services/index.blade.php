@@ -5,7 +5,18 @@
     lead="Whether you need a professional website, a custom business platform, or a smarter way to connect your systems, we deliver practical solutions with transparent communication and long-term support.">
     <div class="btn-row">
         <a class="btn btn--primary" href="{{ route('contact') }}">Discuss your project <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--outline" href="{{ route('portfolio.index') }}">See our work</a>
     </div>
+    <x-slot:aside>
+        <nav class="glass" aria-label="Services">
+            <p class="glass-label">{{ $services->count() }} core services</p>
+            <div class="icon-grid">
+                @foreach ($services as $s)
+                    <a href="{{ route('services.show', $s['slug']) }}"><x-icon :name="$s['icon']" />{{ \Illuminate\Support\Str::before($s['title'], ' &') }}</a>
+                @endforeach
+            </div>
+        </nav>
+    </x-slot:aside>
 </x-page-hero>
 
 <section class="section">
@@ -21,7 +32,7 @@
 
 <section class="section section--off">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">How we work</p>
             <h2>One process across every service</h2>
             <p class="lead">Discovery, planning, iterative delivery, and careful launch, so you always know what is happening and why.</p>

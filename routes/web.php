@@ -26,6 +26,7 @@ Route::get('/blog/category/{category}', [BlogController::class, 'category'])->na
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::get('/contact/captcha', [ContactController::class, 'captcha'])->middleware('throttle:30,1')->name('contact.captcha');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
 
 Route::get('/privacy-policy', [PageController::class, 'legal'])->defaults('page', 'privacy')->name('legal.privacy');

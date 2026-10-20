@@ -5,7 +5,7 @@
 ])
 <section class="section section--tight">
     <div class="container">
-        <div class="cta-band reveal">
+        <div class="cta-band">
             <p class="eyebrow">{{ config('site.slogans.1') }}</p>
             <h2>{{ $title }}</h2>
             <p>{{ $text }}</p>

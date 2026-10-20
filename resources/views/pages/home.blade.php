@@ -47,10 +47,29 @@
     </div>
 </section>
 
+{{-- Delivered platforms (real project names) --}}
+@php($showcase = \App\Support\Content::projects()->filter(fn ($p) => $p['image'])->take(14))
+@if ($showcase->count() >= 6)
+<section class="marquee-wrap" aria-labelledby="marquee-title">
+    <div class="container">
+        <h2 class="marquee-label" id="marquee-title">Platforms we have designed &amp; built</h2>
+    </div>
+    <div class="marquee">
+        <ul class="marquee-track">
+            @foreach ([false, true] as $dup)
+                @foreach ($showcase as $p)
+                    <li @if ($dup) aria-hidden="true" @endif><a href="{{ route('portfolio.show', $p['slug']) }}" @if ($dup) tabindex="-1" @endif><span class="dot"></span>{{ $p['title'] }} <small>{{ $p['category'] }}</small></a></li>
+                @endforeach
+            @endforeach
+        </ul>
+    </div>
+</section>
+@endif
+
 {{-- Services --}}
 <section class="section" id="services">
     <div class="container">
-        <div class="section-head section-head--row reveal">
+        <div class="section-head section-head--row">
             <div>
                 <p class="eyebrow">What we do</p>
                 <h2>Technology services that solve real business problems</h2>
@@ -69,15 +88,20 @@
 {{-- Why choose --}}
 <section class="section section--off">
     <div class="container split split--top">
-        <div class="reveal">
+        <div>
             <p class="eyebrow">Why APARK IT Solutions</p>
             <h2>A technology partner focused on outcomes, not just output</h2>
             <p class="lead">Writing code is only part of the job. We take time to understand your business, recommend what is genuinely useful, and stay accountable for quality long after launch.</p>
+            <div class="stat-row">
+                <div class="stat"><strong>{{ $projectCount }}</strong><span>Projects delivered</span></div>
+                <div class="stat"><strong>{{ $industries->count() }}</strong><span>Industries served</span></div>
+                <div class="stat"><strong>2024</strong><span>Founded</span></div>
+            </div>
             <div class="btn-row mt-lg">
                 <a class="btn btn--primary" href="{{ route('about') }}">About our approach <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         </div>
-        <div class="grid grid-features reveal">
+        <div class="grid grid-features">
             @foreach ([
                 ['target', 'Business-first thinking', 'Every recommendation ties back to your goals, budget, and users.'],
                 ['layers', 'End-to-end delivery', 'Strategy, design, development, deployment, and support under one roof.'],
@@ -99,11 +123,11 @@
 @if ($projects->isNotEmpty())
 <section class="section">
     <div class="container">
-        <div class="section-head section-head--row reveal">
+        <div class="section-head section-head--row">
             <div>
                 <p class="eyebrow">Featured work</p>
                 <h2>Selected projects</h2>
-                <p class="lead">A look at the problems we have solved and the solutions we delivered.</p>
+                <p class="lead">A selection from {{ $projectCount }} delivered projects: fintech, AI-powered SaaS, healthcare, real estate, and more.</p>
             </div>
             <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View portfolio <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
@@ -120,19 +144,15 @@
 @if ($industries->isNotEmpty())
 <section class="section {{ $projects->isNotEmpty() ? 'section--mint' : '' }}">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">Industries</p>
             <h2>Solutions shaped by industry context</h2>
             <p class="lead">Different sectors face different constraints. We adapt our approach to the realities of yours.</p>
         </div>
-        <div class="grid grid-3">
+        @php($perIndustry = \App\Support\Content::projects()->countBy('industry'))
+        <div class="grid grid-industries">
             @foreach ($industries as $industry)
-                <article class="card card--hover">
-                    <span class="icon-tile"><x-icon :name="$industry['icon']" /></span>
-                    <h3><a href="{{ route('industries.show', $industry['slug']) }}">{{ $industry['title'] }}</a></h3>
-                    <p>{{ $industry['summary'] }}</p>
-                    @if ($industry['draft'])<span class="badge badge--draft">Draft · not published</span>@endif
-                </article>
+                <x-industry-tile :industry="$industry" :count="$perIndustry[$industry['slug']] ?? 0" />
             @endforeach
         </div>
     </div>
@@ -142,7 +162,7 @@
 {{-- Process --}}
 <section class="section {{ $industries->isNotEmpty() && $projects->isEmpty() ? '' : 'section--off' }}">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">How we work</p>
             <h2>A clear, collaborative development process</h2>
             <p class="lead">A structured process keeps projects predictable, with your feedback built in at every stage.</p>
@@ -154,7 +174,7 @@
 {{-- Technology --}}
 <section class="section">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">Technology</p>
             <h2>Modern, proven technology stack</h2>
             <p class="lead">We choose tools for reliability, security, and long-term maintainability, matched to each project’s needs.</p>
@@ -167,7 +187,7 @@
 @if (! empty($testimonials))
 <section class="section section--off">
     <div class="container">
-        <div class="section-head center reveal">
+        <div class="section-head center">
             <p class="eyebrow">Client feedback</p>
             <h2>What our clients say</h2>
         </div>
@@ -187,7 +207,7 @@
 @if ($posts->isNotEmpty())
 <section class="section {{ empty($testimonials) ? 'section--off' : '' }}">
     <div class="container">
-        <div class="section-head section-head--row reveal">
+        <div class="section-head section-head--row">
             <div>
                 <p class="eyebrow">Insights</p>
                 <h2>Practical guidance from our team</h2>
@@ -206,7 +226,7 @@
 {{-- FAQ --}}
 <section class="section">
     <div class="container split split--top">
-        <div class="reveal">
+        <div>
             <p class="eyebrow">FAQ</p>
             <h2>Frequently asked questions</h2>
             <p class="lead">Answers to common questions about working with us. Can’t find what you are looking for?</p>

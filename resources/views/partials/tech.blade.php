@@ -1,7 +1,12 @@
-<div class="grid grid-3 reveal">
+@php($icons = ['Backend' => 'code', 'Frontend' => 'layout', 'Mobile' => 'smartphone', 'Databases' => 'database', 'Cloud & DevOps' => 'cloud', 'Payments' => 'card', 'Integrations' => 'plug', 'AI & Automation' => 'sparkles'])
+<div class="grid grid-tech">
     @foreach ($tech as $group => $items)
         <div class="tech-group">
-            <h3>{{ $group }}</h3>
+            <div class="tech-group-head">
+                <span class="icon-tile icon-tile--sm"><x-icon :name="$icons[$group] ?? 'layers'" /></span>
+                <h3>{{ $group }}</h3>
+                <span class="tech-count">{{ count($items) }}</span>
+            </div>
             <ul class="chips">
                 @foreach ($items as $item)<li class="chip">{{ $item }}</li>@endforeach
             </ul>

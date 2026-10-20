@@ -42,14 +42,31 @@ return [
         'address' => env('CONTACT_ADDRESS'),         // single line, verified address only
         'map_embed' => env('CONTACT_MAP_EMBED_URL'), // Google Maps "embed" src URL
         'hours' => env('CONTACT_HOURS'),
+        'languages' => $csv(env('CONTACT_LANGUAGES', 'English, Hindi')),
+        'address_parts' => [
+            'street' => env('ADDRESS_STREET'),
+            'locality' => env('ADDRESS_LOCALITY'),
+            'region' => env('ADDRESS_REGION'),
+            'postal_code' => env('ADDRESS_POSTAL_CODE'),
+            'country' => env('ADDRESS_COUNTRY'),
+            'lat' => env('ADDRESS_LAT'),
+            'lng' => env('ADDRESS_LNG'),
+        ],
         'recipient' => env('CONTACT_RECIPIENT', env('CONTACT_EMAIL')),
         'store_submissions' => (bool) env('CONTACT_STORE_SUBMISSIONS', true),
+        // Send a confirmation email to the person who submitted the form
+        'autoreply' => (bool) env('CONTACT_AUTOREPLY', true),
         'budgets' => [
             'Not decided yet',
             'Small project or MVP',
             'Medium project',
             'Large or ongoing engagement',
         ],
+    ],
+
+    // Google Analytics 4 measurement ID (loaded only when the site is indexable, i.e. production)
+    'analytics' => [
+        'ga4' => env('GA_MEASUREMENT_ID'),
     ],
 
     'social' => array_filter([
@@ -84,10 +101,12 @@ return [
     ],
 
     'nav' => [
+        ['label' => 'Home', 'route' => 'home'],
+        ['label' => 'About', 'route' => 'about'],
         ['label' => 'Services', 'route' => 'services.index'],
         ['label' => 'Portfolio', 'route' => 'portfolio.index', 'requires' => 'projects'],
         ['label' => 'Industries', 'route' => 'industries.index', 'requires' => 'industries'],
-        ['label' => 'About', 'route' => 'about'],
         ['label' => 'Insights', 'route' => 'blog.index'],
+        ['label' => 'Contact', 'route' => 'contact'],
     ],
 ];

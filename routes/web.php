@@ -42,6 +42,8 @@ Route::withoutMiddleware([StartSession::class, ShareErrorsFromSession::class, Pr
         Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
         Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
         Route::get('/llms.txt', [SeoController::class, 'llms'])->name('llms');
+        // Web app manifest. Same URL the previous site used, so installed apps pick up the new icons.
+        Route::get('/manifest.json', [SeoController::class, 'manifest'])->name('manifest');
     });
 
 // Contact form (session + CSRF)

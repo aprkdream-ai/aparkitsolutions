@@ -1,4 +1,4 @@
-@props(['project', 'eager' => false])
+@props(['project', 'eager' => false, 'tag' => 'h3'])
 <article class="card card--hover project-card">
     <div class="project-media @unless ($project['image']) project-media--placeholder @endunless">
         @if ($project['image'])
@@ -13,7 +13,7 @@
     <div class="project-body">
         <span class="badge">{{ $project['category'] }}</span>
         @if ($project['draft'])<span class="badge badge--draft">Draft · sample</span>@endif
-        <h3><a href="{{ route('portfolio.show', $project['slug']) }}">{{ $project['title'] }}</a></h3>
+        <{{ $tag }} class="card-title"><a href="{{ route('portfolio.show', $project['slug']) }}">{{ $project['title'] }}</a></{{ $tag }}>
         <p>{{ $project['summary'] }}</p>
         <span class="link-arrow" aria-hidden="true">View case study <x-icon name="arrow-right" /></span>
     </div>

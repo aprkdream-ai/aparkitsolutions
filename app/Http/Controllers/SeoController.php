@@ -112,6 +112,38 @@ class SeoController extends Controller
         return response(implode("\n", $out)."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 
+    /** Web app manifest (PWA / "Add to Home screen"). */
+    public function manifest()
+    {
+        $icon = fn (string $file, string $size, string $purpose) => [
+            'src' => asset_v('assets/img/brand/'.$file), 'sizes' => $size, 'type' => 'image/png', 'purpose' => $purpose,
+        ];
+
+        return response()->json([
+            'id' => '/',
+            'name' => config('site.name'),
+            'short_name' => config('site.short_name'),
+            'description' => config('site.seo.default_description'),
+            'start_url' => '/',
+            'scope' => '/',
+            'display' => 'standalone',
+            'orientation' => 'portrait-primary',
+            'background_color' => '#FFFFFF',
+            'theme_color' => '#0F766E',
+            'lang' => 'en',
+            'categories' => ['business', 'productivity'],
+            'icons' => [
+                $icon('icon-192.png', '192x192', 'any'),
+                $icon('icon-512.png', '512x512', 'any'),
+                $icon('icon-maskable-512.png', '512x512', 'maskable'),
+            ],
+            'shortcuts' => [
+                ['name' => 'Start a Project', 'url' => '/contact', 'icons' => [$icon('icon-192.png', '192x192', 'any')]],
+                ['name' => 'Our Work', 'url' => '/portfolio', 'icons' => [$icon('icon-192.png', '192x192', 'any')]],
+            ],
+        ], 200, ['Content-Type' => 'application/manifest+json; charset=UTF-8'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
     public function robots()
     {
         $lines = config('site.indexable')

@@ -78,7 +78,7 @@
         </div>
         <div class="grid grid-3">
             @foreach ($services as $service)
-                <x-service-card :service="$service" />
+                <x-service-card :service="$service" tag="p" />
             @endforeach
         </div>
     </div>
@@ -132,7 +132,7 @@
         </div>
         <div class="grid grid-3">
             @foreach ($projects as $project)
-                <x-project-card :project="$project" />
+                <x-project-card :project="$project" tag="p" />
             @endforeach
         </div>
     </div>
@@ -215,7 +215,7 @@
         </div>
         <div class="grid grid-3">
             @foreach ($posts as $post)
-                <x-post-card :post="$post" />
+                <x-post-card :post="$post" tag="p" />
             @endforeach
         </div>
     </div>

@@ -13,7 +13,10 @@
     @endif
     <link rel="icon" href="{{ asset('assets/img/brand/favicon-48.png') }}" type="image/png" sizes="48x48">
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
-    <link rel="apple-touch-icon" href="{{ asset('assets/img/brand/apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset_v('assets/img/brand/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ route('manifest') }}">
+    <meta name="apple-mobile-web-app-title" content="{{ config('site.short_name') }}">
+    <meta name="application-name" content="{{ config('site.short_name') }}">
     <meta name="theme-color" content="#0F766E">
     <script src="{{ asset_v('assets/js/app.js') }}" defer></script>
     @if (config('site.analytics.ga4') && config('site.indexable'))

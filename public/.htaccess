@@ -38,7 +38,7 @@
 </IfModule>
 
 # Deny direct access to sensitive file types if present
-<FilesMatch "\.(env|log|sql|bak|sh|ini|lock|md|json|yml|yaml|xml\.dist)$">
+<FilesMatch "^(composer\.(json|lock)|package(-lock)?\.json)$|\.(env|log|sql|bak|sh|ini|lock|md|yml|yaml|xml\.dist)$">
     Require all denied
 </FilesMatch>
 
@@ -72,3 +72,4 @@
 </IfModule>
 
 AddType font/woff2 .woff2
+AddType application/manifest+json .webmanifest

@@ -95,14 +95,15 @@ class SeoAuditTest extends TestCase
     public function test_home_heading_count_is_proportionate(): void
     {
         $count = preg_match_all('/<h[1-6][\s>]/', $this->get('/')->getContent());
-        $this->assertLessThanOrEqual(32, $count, "Home has {$count} headings; keep card labels as plain text");
+        $this->assertLessThanOrEqual(14, $count, "Home has {$count} headings; keep card labels as plain text");
         $this->assertSame(1, preg_match_all('/<h1[\s>]/', $this->get('/')->getContent()));
     }
 
     public function test_home_anchor_texts_are_unique_and_never_empty(): void
     {
         preg_match_all('#<a\s[^>]*href="[^"]+"[^>]*>(.*?)</a>#s', $this->get('/')->getContent(), $m);
-        $texts = array_map(fn ($t) => mb_strtolower(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($t))))), $m[1]);
+        $text = fn ($t) => preg_replace('/<img[^>]*\balt="([^"]*)"[^>]*>/', ' $1 ', $t); // crawlers use alt as link text
+        $texts = array_map(fn ($t) => mb_strtolower(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($text($t)))))), $m[1]);
         $this->assertNotContains('', $texts, 'Icon-only links need visually hidden text');
         $dupes = array_keys(array_filter(array_count_values($texts), fn ($n) => $n > 1));
         $this->assertSame([], $dupes, 'Duplicate anchor texts: '.implode(', ', $dupes));
@@ -112,10 +113,11 @@ class SeoAuditTest extends TestCase
     {
         foreach (['/', '/services/custom-software-development', '/blog/website-vs-web-application'] as $url) {
             $html = $this->get($url)->getContent();
-            foreach (['linkedin.com/sharing/share-offsite', 'twitter.com/intent/tweet', 'facebook.com/sharer', 'wa.me/?text='] as $needle) {
+            foreach (['linkedin.com/sharing/share-offsite', 'facebook.com/sharer', 'wa.me/?text='] as $needle) {
                 $this->assertStringContainsString($needle, $html, "{$url} is missing {$needle}");
             }
-            $this->assertSame(4, substr_count($html, 'Share this page on'), "{$url} should have exactly one share bar");
+            $this->assertSame(3, substr_count($html, 'Share this page on'), "{$url} should have exactly one share bar");
+            $this->assertStringNotContainsString('twitter.com', $html, "{$url}: X/Twitter is disabled for now");
         }
     }
 
@@ -125,5 +127,35 @@ class SeoAuditTest extends TestCase
         $this->assertStringContainsString('viewport-fit=cover', $html, 'Needed so env(safe-area-inset-top) keeps the sticky header below the status bar');
         $this->assertStringContainsString('padding-top:env(safe-area-inset-top', str_replace(' ', '', $html));
         $this->assertStringContainsString('overflow-x:clip', str_replace(' ', '', $html), 'overflow-x:hidden on body breaks the sticky header in some mobile browsers');
+    }
+
+    public function test_every_image_has_descriptive_alt_text(): void
+    {
+        foreach (['/', '/about', '/portfolio', '/contact'] as $url) {
+            preg_match_all('/<img\b[^>]*>/', $this->get($url)->getContent(), $m);
+            foreach ($m[0] as $img) {
+                $this->assertMatchesRegularExpression('/\balt="[^"]{3,}"/', $img, "{$url}: image without descriptive alt: {$img}");
+            }
+        }
+    }
+
+    public function test_web_app_manifest_for_installed_pwa(): void
+    {
+        $res = $this->get('/manifest.json')->assertOk();
+        $this->assertStringStartsWith('application/manifest+json', $res->headers->get('Content-Type'));
+        $m = $res->json();
+        $this->assertSame('/', $m['start_url']);
+        $this->assertSame('standalone', $m['display']);
+        $this->assertSame(config('site.name'), $m['name']);
+        $purposes = array_column($m['icons'], 'purpose');
+        $this->assertContains('maskable', $purposes);
+        $this->assertContains('512x512', array_column($m['icons'], 'sizes'));
+        foreach ($m['icons'] as $icon) {
+            $path = public_path(parse_url($icon['src'], PHP_URL_PATH));
+            $this->assertFileExists($path);
+            [$w, $h] = getimagesize($path);
+            $this->assertSame($icon['sizes'], "{$w}x{$h}");
+        }
+        $this->get('/')->assertSee('<link rel="manifest" href="'.route('manifest').'">', false);
     }
 }

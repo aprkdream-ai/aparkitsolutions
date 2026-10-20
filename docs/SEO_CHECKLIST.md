@@ -23,7 +23,8 @@
 - [x] HSTS header includes `preload`
 
 ## Seobility-style checks (2026-10-20)
-- [x] Home headings 57 → 28: card, step and footer labels are styled `<p>` elements, not `<h3>`/`<h2>` (keep it that way; enforced by test)
+- [x] Home headings 57 → 10: card, step and footer labels and home card titles are styled `<p>` elements (`tag="p"` on `x-service-card`/`x-project-card`/`x-post-card`; listing pages keep `h3`). Enforced by test (≤14)
+- [x] All images have descriptive alt text; the logo alt is the link text (header and footer differ)
 - [x] Social sharing: `partials/share.blade.php` (LinkedIn, X, Facebook, WhatsApp) in the footer site-wide, and in the article on blog posts (footer copy hidden there)
 - [x] Anchor texts: no empty anchors (icon links have visually hidden text); unique CTA wording per page; footer uses short service labels (`short` in content/services.php) and footer nav labels (`footer` in config/site.nav). Only the nav "Home" + breadcrumb "Home" repeats remain on inner pages (standard)
 

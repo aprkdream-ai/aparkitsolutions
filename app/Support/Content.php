@@ -115,6 +115,7 @@ class Content
             'author' => $meta['author'] ?? 'apark-team',
             'category' => $meta['category'] ?? 'Insights',
             'tags' => array_values(array_filter(array_map('trim', explode(',', $meta['tags'] ?? '')))),
+            'services' => array_values(array_filter(array_map('trim', explode(',', $meta['services'] ?? '')))),
             'image' => $meta['image'] ?? null,
             'image_alt' => $meta['image_alt'] ?? null,
             'draft' => filter_var($meta['draft'] ?? false, FILTER_VALIDATE_BOOLEAN),

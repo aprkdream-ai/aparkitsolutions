@@ -5,6 +5,7 @@ date: 2026-09-22
 author: apark-team
 category: Web Development
 tags: websites, web applications, planning
+services: website-design-development, web-application-development, saas-product-development
 ---
 
 "We need a website" can mean very different things. Sometimes it means a fast, professional site that explains your services. Other times it means a customer portal, booking system, or dashboard. Those are web applications, and they have different costs, timelines, and technical requirements.

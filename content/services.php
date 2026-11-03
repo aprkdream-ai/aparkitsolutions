@@ -131,7 +131,49 @@ return [
             ['q' => 'Can you build a minimum viable product (MVP)?', 'a' => 'Yes. We help you identify the smallest set of features that proves the idea, then build it on a foundation that can grow.'],
             ['q' => 'Will the application be secure?', 'a' => 'Security is part of every stage: secure authentication, validation, encryption in transit, least-privilege access, and dependency updates.'],
         ],
-        'related' => ['custom-software-development', 'api-development-integration', 'cloud-deployment-consulting'],
+        'related' => ['saas-product-development', 'api-development-integration', 'cloud-deployment-consulting'],
+    ],
+
+    'saas-product-development' => [
+        'enabled' => true,
+        'short' => 'SaaS Products', // footer link text
+        'tech' => ['Laravel', 'React.js', 'Node.js', 'MySQL', 'PostgreSQL', 'Multi-tenant SaaS', 'Stripe', 'Razorpay', 'AWS'],
+        'title' => 'SaaS Product Development',
+        'icon' => 'rocket',
+        'summary' => 'Subscription software products planned, built, and launched with multi-tenant architecture, billing, and admin tools.',
+        'meta_title' => 'SaaS Product Development Services',
+        'meta_description' => 'SaaS product development from first release to growth: multi-tenant architecture, subscriptions and payments, admin portals, APIs, and ongoing improvement.',
+        'intro' => [
+            'A SaaS product is more than a web application. It needs accounts for many customers, subscription billing, onboarding, separate admin and customer portals, and a codebase that can keep shipping features after launch.',
+            'We help founders and businesses turn a product idea into a working first release, then keep improving it. Our portfolio includes AI-powered CRM, accounting, and content products built this way.',
+        ],
+        'benefits' => [
+            ['title' => 'Focused first release', 'text' => 'We scope a version that real customers can use and pay for, instead of building every feature before launch.'],
+            ['title' => 'Multi-tenant by design', 'text' => 'Customer data is separated from the start, and plans, roles, and limits are handled per account.'],
+            ['title' => 'Billing built in', 'text' => 'Subscriptions, invoices, and payment gateways such as Stripe and Razorpay are part of the product, not an afterthought.'],
+            ['title' => 'Ready to keep shipping', 'text' => 'A clean, documented codebase makes it practical to add features based on customer feedback.'],
+        ],
+        'deliverables' => [
+            'Product scope and first-release plan',
+            'Multi-tenant architecture and database design',
+            'Customer sign-up, onboarding, and account management',
+            'Subscription plans, billing, and payment gateway integration',
+            'Super-admin and customer portals',
+            'APIs for mobile apps and third-party integrations',
+            'Deployment, monitoring, and post-launch improvements',
+        ],
+        'approach' => [
+            ['title' => 'Validate', 'text' => 'We define target users, the core problem, and the smallest product that proves value.'],
+            ['title' => 'Architect', 'text' => 'Tenancy, data model, billing, and security decisions are made before features are built.'],
+            ['title' => 'Build and launch', 'text' => 'Features are delivered in short cycles on a staging environment, then released to first customers.'],
+            ['title' => 'Grow', 'text' => 'We use feedback and usage to plan the next releases and keep the platform stable as it grows.'],
+        ],
+        'faqs' => [
+            ['q' => 'How is a SaaS product different from a custom web application?', 'a' => 'A custom application usually serves one organisation. A SaaS product serves many customers from one platform, so it needs separated customer data, subscription billing, onboarding, and plan management.'],
+            ['q' => 'Can you build a first version and grow it later?', 'a' => 'Yes. We recommend launching a focused first release, then adding features based on what customers use and ask for.'],
+            ['q' => 'Who owns the product code?', 'a' => 'You do. Source code, documentation, and infrastructure access are handed over to you.'],
+        ],
+        'related' => ['web-application-development', 'api-development-integration', 'ai-integration-automation'],
     ],
 
     'mobile-app-development' => [
@@ -384,5 +426,47 @@ return [
             ['q' => 'Do you offer ongoing maintenance?', 'a' => 'Yes. Maintenance can include updates, monitoring, backups, and small improvements on an agreed schedule.'],
         ],
         'related' => ['web-application-development', 'website-design-development', 'custom-software-development'],
+    ],
+
+    'software-maintenance-support' => [
+        'enabled' => true,
+        'short' => 'Maintenance & Support', // footer link text
+        'tech' => ['PHP', 'Laravel', 'CodeIgniter', 'Django', 'React.js', 'MySQL', 'Linux', 'Git / GitHub'],
+        'title' => 'Software Maintenance & Support',
+        'icon' => 'refresh',
+        'summary' => 'Ongoing updates, fixes, monitoring, and small improvements that keep your website or application secure and working.',
+        'meta_title' => 'Software Maintenance and Support Services',
+        'meta_description' => 'Software maintenance and support for websites and web applications: security updates, bug fixes, backups, monitoring, performance work, and small improvements.',
+        'intro' => [
+            'Software keeps needing attention after launch. Frameworks release security updates, hosting changes, integrations evolve, and users find issues or ask for improvements.',
+            'We maintain the applications we build and can take over existing PHP, Laravel, and JavaScript projects, starting with a review of the code and hosting before agreeing on a support schedule.',
+        ],
+        'benefits' => [
+            ['title' => 'Fewer surprises', 'text' => 'Regular updates and monitoring catch problems before your customers do.'],
+            ['title' => 'Security kept current', 'text' => 'Framework, library, and server updates are applied and tested on a schedule.'],
+            ['title' => 'Steady improvement', 'text' => 'Small enhancements are planned alongside fixes, so the software keeps up with your business.'],
+            ['title' => 'Clear priorities', 'text' => 'Issues are logged, prioritised, and reported, so you always know what was done and what is next.'],
+        ],
+        'deliverables' => [
+            'Code and hosting review for existing projects',
+            'Framework, library, and security updates',
+            'Bug fixes and issue tracking',
+            'Backups and restore checks',
+            'Uptime and error monitoring',
+            'Performance and SEO health checks',
+            'Small feature improvements on an agreed schedule',
+        ],
+        'approach' => [
+            ['title' => 'Review', 'text' => 'We assess the codebase, dependencies, hosting, and backups, and list the risks we find.'],
+            ['title' => 'Stabilise', 'text' => 'Urgent fixes and security updates are handled first.'],
+            ['title' => 'Agree a plan', 'text' => 'We agree on the scope, schedule, and how you raise new issues.'],
+            ['title' => 'Maintain', 'text' => 'Updates, fixes, and improvements are delivered and reported regularly.'],
+        ],
+        'faqs' => [
+            ['q' => 'Do you maintain software built by another team?', 'a' => 'Often, yes. We start with a code and hosting review so we can tell you honestly what condition the project is in before taking it on.'],
+            ['q' => 'What does maintenance include?', 'a' => 'Typically updates, bug fixes, backups, monitoring, and small improvements. The exact scope is agreed with you.'],
+            ['q' => 'Can maintenance include new features?', 'a' => 'Small improvements can be part of a maintenance plan. Larger features are scoped and estimated separately.'],
+        ],
+        'related' => ['cloud-deployment-consulting', 'web-application-development', 'custom-software-development'],
     ],
 ];

@@ -38,6 +38,22 @@
                 <p>Talk to us about your software, website, or automation needs.</p>
                 <a class="btn btn--light btn--block" href="{{ route('contact') }}">Get Expert Advice <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
+            @if ($services->isNotEmpty())
+                <div class="aside-card">
+                    <h2>Related services</h2>
+                    <ul class="aside-links">
+                        @foreach ($services as $s)<li><a href="{{ route('services.show', $s['slug']) }}">{{ $s['title'] }} <x-icon name="arrow-right" /></a></li>@endforeach
+                    </ul>
+                </div>
+            @endif
+            @if ($projects->isNotEmpty())
+                <div class="aside-card">
+                    <h2>Related projects</h2>
+                    <ul class="aside-links">
+                        @foreach ($projects as $p)<li><a href="{{ route('portfolio.show', $p['slug']) }}">{{ $p['title'] }} <x-icon name="arrow-right" /></a></li>@endforeach
+                    </ul>
+                </div>
+            @endif
             @if ($related->isNotEmpty())
                 <div class="aside-card">
                     <h2>Related articles</h2>

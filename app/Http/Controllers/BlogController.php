@@ -80,7 +80,14 @@ class BlogController extends Controller
         $others = Content::posts()->where('slug', '!=', $slug);
         $related = $others->where('category', $post['category'])->merge($others->where('category', '!=', $post['category']))->take(3);
 
-        return view('blog.show', compact('seo', 'post', 'author', 'related') + ['categorySlug' => Str::slug($post['category'])]);
+        // Contextual links from the article's "services" front matter: those services and projects that used them.
+        $services = collect($post['services'])->map(fn ($s) => Content::find('services', $s))->filter();
+        $projects = Content::projects()
+            ->filter(fn ($p) => array_intersect($post['services'], $p['services'] ?? []))
+            ->sortByDesc('featured')
+            ->take(3);
+
+        return view('blog.show', compact('seo', 'post', 'author', 'related', 'services', 'projects') + ['categorySlug' => Str::slug($post['category'])]);
     }
 
     protected function paginate(Collection $items, Request $request): LengthAwarePaginator

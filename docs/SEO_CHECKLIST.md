@@ -7,7 +7,7 @@
 - [x] Dynamic `/sitemap.xml`: home, services, about, contact, blog, articles. Drafts, empty sections, and unreviewed legal pages are excluded
 - [x] OG and Twitter tags; default 1200×630 image `public/assets/img/og-default.png`; article OG metadata
 - [x] JSON-LD: Organization (with PostalAddress), WebSite, ProfessionalService/LocalBusiness (verified address and geo, home and contact), BreadcrumbList, Service, BlogPosting. No fabricated ratings
-- [x] Breadcrumbs (visible plus schema); internal links between services, related services, articles, and contact
+- [x] Breadcrumbs (visible plus schema); internal links between services, related services, articles, and contact; articles link to related services and projects (`services:` front matter)
 - [x] 301 redirects: `/contact-us`, `/about-us`, `/insights`, trailing slash, `/index.php/*`; HTTPS and host redirect via `FORCE_CANONICAL_URL`
 - [x] Custom 404/419/429/500/503 pages (noindex)
 - [x] Lighthouse 12 run locally against Apache with PHP-FPM (2026-10-19): Performance 98–100, Accessibility 100, Best Practices 100, SEO 100 (with indexing enabled)

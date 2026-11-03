@@ -1,13 +1,13 @@
 # Project status
 
-_Last updated: 2026-10-19_
+_Last updated: 2026-11-03_
 
 ## Stage
 Content complete, release built and verified locally. **Next: upload to Hostinger** (aparkitsolutions.com, PHP 8.3, behind the Hostinger CDN, SSL active).
 
 ## Done
-- Laravel 13 site, no database or Node; all pages (home, about, 9 services, portfolio, 9 industries, blog, contact, legal, errors)
-- Real content: 33 projects (28 from the owner's list + 5 from Anil's resume: AERO ERP, VerifyFirst, MitraServices, Shrigoda CRM, Multi-Vendor eCommerce; 17 with screenshots), 10 industries, tech stack from projects + resume + React Native (Expo) and Flutter (owner request), per-service technology lists, team bio from resume
+- Laravel 13 site, no database or Node; all pages (home, about, 11 services, portfolio, 9 industries, blog, contact, legal, errors)
+- Real content: 34 projects (28 from the owner's list + 5 from Anil's resume: AERO ERP, VerifyFirst, MitraServices, Shrigoda CRM, Multi-Vendor eCommerce; MediaFlow added 2026-11-03; 18 with screenshots), 10 industries, tech stack from projects + resume + React Native (Expo) and Flutter (owner request), per-service technology lists, team bio from resume
 - Contact: info@aparkitsolutions.com, +91 90094 34118 (phone and WhatsApp), LinkedIn; address College Road, Bilaunji, Waidhan, MP 486886 with a Google Map on the contact page; LocalBusiness (ProfessionalService) JSON-LD with geo
 - Contact form: AJAX submit (`form[data-ajax]` in app.js; JSON 200/422/429/419/503; no-JS fallback = normal POST + redirect). Self-hosted math captcha (`app/Support/Captcha.php`): per-form encrypted token (answer + nonce + time), single use via a cache nonce, 2h expiry, accepts Devanagari digits. Not session-based, so multiple tabs or prefetch don't break it. Refresh endpoint `/contact/captcha`. GA event `generate_lead` on success. Visitor auto-reply `App\Mail\ContactAcknowledgement` (CONTACT_AUTOREPLY, sent via `defer()` after the response; never echoes the free-text message, to prevent spam relay)
 - Layout: container 1360px; card grids fixed at 3 columns on desktop; home has a project marquee and a stat row
@@ -53,3 +53,10 @@ Before: A- overall (On-page A+, GEO A+, Performance A-, Usability C, Links D+). 
 
 ## Next recommended task
 Upload `build/aparkitsolutions-*.zip` per `DEPLOYMENT.md`, then submit `https://aparkitsolutions.com/sitemap.xml` to Search Console.
+
+## SEO & conversion pass (2026-11-03)
+- Home hero: descriptive H1 "Custom Software Development for Growing Businesses"; the slogan became the kicker `<p>` (no longer inside the H1); secondary CTA "View Our Work" → portfolio. Home service grid shows the first 9 services (3×3); `/services` lists all
+- New services: `saas-product-development` (tagged on the 5 "SaaS Products" projects) and `software-maintenance-support` (no projects tagged: none are verified as maintenance work). Both appear in the nav, sitemap, llms.txt and contact form automatically
+- Blog: `services:` front matter (comma-separated slugs) adds "Related services" and "Related projects" aside cards (`BlogController::show`)
+- 70 tests, 597 assertions passing; no overflow at 320/375 px; JSON-LD parses on changed pages
+- Local PHP: the Herd `php83` shim execs itself in a loop; use `/usr/local/bin/php` (8.4) for artisan/tests

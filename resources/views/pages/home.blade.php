@@ -5,14 +5,12 @@
 <section class="hero">
     <div class="container hero-grid">
         <div>
-            <h1>
-                <span class="pill h1-kicker"><span class="pill-dot" aria-hidden="true"></span>Custom Software Development Company</span>
-                Ideas Into Technology. <span class="text-gradient">Technology Into Real Impact.</span>
-            </h1>
-            <p class="lead">We help businesses transform ideas into scalable digital solutions through custom software development, modern web applications, intelligent automation, and technology consulting.</p>
+            <p class="pill h1-kicker"><span class="pill-dot" aria-hidden="true"></span>Ideas Into Technology. Technology Into Real Impact.</p>
+            <h1>Custom Software Development for <span class="text-gradient">Growing Businesses</span></h1>
+            <p class="lead">We build custom business software, web and mobile applications, ERP/CRM platforms, and AI-powered automation tailored to your business goals.</p>
             <div class="btn-row">
                 <a class="btn btn--primary" href="{{ route('contact') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
-                <a class="btn btn--outline" href="{{ route('services.index') }}">Explore Our Services</a>
+                <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View Our Work</a>
             </div>
             <ul class="hero-points">
                 <li><x-icon name="check-circle" /> Tailored to your business</li>
@@ -77,7 +75,7 @@
             <a class="btn btn--outline" href="{{ route('services.index') }}">View all services <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
         <div class="grid grid-3">
-            @foreach ($services as $service)
+            @foreach ($services->take(9) as $service)
                 <x-service-card :service="$service" tag="p" />
             @endforeach
         </div>

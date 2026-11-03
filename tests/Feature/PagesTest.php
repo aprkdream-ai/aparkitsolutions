@@ -41,6 +41,15 @@ class PagesTest extends TestCase
         $this->assertSame(count($titles), count(array_unique($titles)), 'Service titles must be unique');
     }
 
+    public function test_articles_link_to_related_services_and_projects(): void
+    {
+        $this->get('/blog/practical-api-integration-for-growing-businesses')->assertOk()
+            ->assertSee('Related services')
+            ->assertSee('href="'.route('services.show', 'api-development-integration').'"', false)
+            ->assertSee('Related projects')
+            ->assertSee(route('portfolio.show', 'bigul'), false);
+    }
+
     public function test_unknown_content_returns_custom_404(): void
     {
         $this->get('/services/does-not-exist')->assertNotFound()->assertSee('Page not found');

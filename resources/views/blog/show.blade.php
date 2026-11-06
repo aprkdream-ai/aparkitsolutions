@@ -36,7 +36,7 @@
             <div class="aside-card aside-card--teal">
                 <h2>Need help with a project?</h2>
                 <p>Talk to us about your software, website, or automation needs.</p>
-                <a class="btn btn--light btn--block" href="{{ route('contact') }}">Get Expert Advice <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light btn--block" href="{{ route('project-brief') }}">Get Expert Advice <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
             @if ($services->isNotEmpty())
                 <div class="aside-card">

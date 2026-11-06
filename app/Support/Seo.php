@@ -150,6 +150,7 @@ class Seo
             'url' => url('/'),
             'logo' => asset('assets/img/brand/apark-mark.png'),
             'slogan' => config('site.tagline'),
+            'description' => config('site.seo.default_description'),
             'email' => $contact['email'] ?: null,
             'telephone' => $contact['phone'] ?: null,
             'address' => static::postalAddress() ?: ($contact['address'] ?: null),

@@ -4,7 +4,7 @@
 <x-page-hero :seo="$seo" eyebrow="About us" title="Your technology partner for building, solving, and growing"
     lead="APARK IT Solutions helps businesses turn ideas into dependable digital products. We combine practical business thinking with modern engineering to deliver technology that makes a real difference.">
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ route('contact') }}">Work With Us <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--primary" href="{{ route('project-brief') }}">Work With Us <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View our work</a>
     </div>
     <x-slot:aside>@include('partials.hero-stats', ['label' => config('site.slogans.0'), 'chips' => ['Laravel', 'Node.js', 'Python', 'React.js', 'React Native', 'Flutter', 'AWS']])</x-slot:aside>
@@ -15,7 +15,7 @@
         <div class="prose">
             <p class="eyebrow">Who we are</p>
             <h2 class="mt-0">Technology with a clear purpose</h2>
-            <p>Founded in 2024, we are a software development and technology consulting company focused on one question: <strong>what will genuinely move your business forward?</strong></p>
+            <p>Founded in 2024, we are a custom software engineering and business automation company focused on one question: <strong>what will genuinely move your business forward?</strong></p>
             <p>Sometimes the answer is a new website or application. Sometimes it is connecting the systems you already have, automating repetitive work, or simplifying an overcomplicated process. We take time to understand the problem before recommending a solution, and we build with quality, security, and long-term maintainability in mind.</p>
             <p>Our name reflects how we work: <strong>Ideas, Technology, Real Impact</strong>. We start with your ideas, apply the right technology, and measure success by the impact it has on your business.</p>
         </div>

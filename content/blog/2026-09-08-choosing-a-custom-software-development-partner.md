@@ -2,6 +2,7 @@
 title: How to Choose a Custom Software Development Partner
 description: A practical checklist for evaluating software development partners, from discovery and communication to code ownership, security, and support after launch.
 date: 2026-09-08
+updated: 2026-11-06
 author: apark-team
 category: Software Development
 tags: custom software, outsourcing, project planning
@@ -54,4 +55,4 @@ When comparing proposals, score each partner from 1 to 5 on understanding of the
 
 ## Next steps
 
-If you are planning a software project and want a second opinion on scope or approach, [get in touch](/contact). We are happy to discuss what you are trying to achieve.
+If you are planning a software project and want a second opinion on scope or approach, [share a project brief](/project-brief). We are happy to discuss what you are trying to achieve, and you can see [how we approach common business challenges](/solutions) first.

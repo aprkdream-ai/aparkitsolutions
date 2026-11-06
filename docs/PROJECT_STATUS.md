@@ -1,16 +1,16 @@
 # Project status
 
-_Last updated: 2026-11-03_
+_Last updated: 2026-11-06_
 
 ## Stage
-Content complete, release built and verified locally. **Next: upload to Hostinger** (aparkitsolutions.com, PHP 8.3, behind the Hostinger CDN, SSL active).
+Live on Hostinger (aparkitsolutions.com, PHP 8.3, behind the Hostinger CDN, SSL active). Enterprise repositioning (2026-11-06) is built and verified locally. **Next: owner review, then deploy** (see that section below).
 
 ## Done
 - Laravel 13 site, no database or Node; all pages (home, about, 11 services, portfolio, 9 industries, blog, contact, legal, errors)
 - Real content: 34 projects (28 from the owner's list + 5 from Anil's resume: AERO ERP, VerifyFirst, MitraServices, Shrigoda CRM, Multi-Vendor eCommerce; MediaFlow added 2026-11-03; 18 with screenshots), 10 industries, tech stack from projects + resume + React Native (Expo) and Flutter (owner request), per-service technology lists, team bio from resume
 - Contact: info@aparkitsolutions.com, +91 90094 34118 (phone and WhatsApp), LinkedIn; address College Road, Bilaunji, Waidhan, MP 486886 with a Google Map on the contact page; LocalBusiness (ProfessionalService) JSON-LD with geo
 - Contact form: AJAX submit (`form[data-ajax]` in app.js; JSON 200/422/429/419/503; no-JS fallback = normal POST + redirect). Self-hosted math captcha (`app/Support/Captcha.php`): per-form encrypted token (answer + nonce + time), single use via a cache nonce, 2h expiry, accepts Devanagari digits. Not session-based, so multiple tabs or prefetch don't break it. Refresh endpoint `/contact/captcha`. GA event `generate_lead` on success. Visitor auto-reply `App\Mail\ContactAcknowledgement` (CONTACT_AUTOREPLY, sent via `defer()` after the response; never echoes the free-text message, to prevent spam relay)
-- Layout: container 1360px; card grids fixed at 3 columns on desktop; home has a project marquee and a stat row
+- Layout: container 1360px; card grids fixed at 3 columns on desktop
 - Brand logos cropped from the brand board; OG image
 - Redesigned sections: process timeline, 8-group tech grid, industry tiles (home) and cards (industries page), numbered benefit cards, simple team cards (photo, name, designation; 3 per row). Team from aparkitsolutions.com: Anil Prajapati, Rubina Khatoon, Mamta Pandey. The footer was kept in its original design at the owner's request
 - Inner-page hero redesigned (`components/page-hero.blade.php`): dark teal gradient, grid and AR-style arc, optional `<x-slot:aside>` panel (service tech, project screenshot in a browser frame, real stats, contact links, icon grids)
@@ -52,7 +52,7 @@ Before: A- overall (On-page A+, GEO A+, Performance A-, Usability C, Links D+). 
 - Note (local only): this Mac's IPv6 route to smtp.gmail.com times out, so local mail sends may hang; production is unaffected
 
 ## Next recommended task
-Upload `build/aparkitsolutions-*.zip` per `DEPLOYMENT.md`, then submit `https://aparkitsolutions.com/sitemap.xml` to Search Console.
+Owner review of the items under "Enterprise repositioning", then deploy per `DEPLOYMENT.md`.
 
 ## SEO & conversion pass (2026-11-03)
 - Home hero: descriptive H1 "Custom Software Development for Growing Businesses"; the slogan became the kicker `<p>` (no longer inside the H1); secondary CTA "View Our Work" → portfolio. Home service grid shows the first 9 services (3×3); `/services` lists all
@@ -60,3 +60,35 @@ Upload `build/aparkitsolutions-*.zip` per `DEPLOYMENT.md`, then submit `https://
 - Blog: `services:` front matter (comma-separated slugs) adds "Related services" and "Related projects" aside cards (`BlogController::show`)
 - 70 tests, 597 assertions passing; no overflow at 320/375 px; JSON-LD parses on changed pages
 - Local PHP: the Herd `php83` shim execs itself in a loop; use `/usr/local/bin/php` (8.4) for artisan/tests
+
+## Enterprise repositioning (2026-11-06)
+- Positioning: custom software engineering and business automation. Home H1 "We Build Intelligent Software Systems That Power Your Business."; keyword kept in the kicker, title, and H2. Primary CTA "Discuss Your Project" → `/project-brief`
+- Nav: Services, Solutions, Industries, Portfolio, Insights, About, Contact (Home removed; the logo links home). Collapses below 1200px because of the longer CTA. Desktop links are centred between the logo and CTA; the open menu uses 2 columns from 640px
+- Design: `--navy` is now #081E3E; home and inner heroes and the CTA band use `--grad-navy`. Teal stays the accent. Footer design unchanged (owner preference); only its text and one link changed
+- Home order: hero (inline SVG diagram, no image) → company overview → challenges → grouped services → industries → case studies → approach → technology → why APARK → testimonials (hidden while empty) → insights → FAQ → CTA. Marquee, float cards, and highlights strip removed
+- New `/solutions` (`content/solutions.php`): challenges mapped to services and real projects; `#slug` anchors link from home and service pages. Service grouping is in `content/service-groups.php`
+- New `/project-brief` (`ProjectBriefController`, `ProjectBriefRequest`): 3 steps, all in the HTML so it works without JS. Reuses captcha, honeypot, timing check, rate limit, backup, and mail. `/contact` is unchanged as the simple alternative. `?service=` and `?industry=` prefill it
+- GA events: `generate_lead` (`form`: contact or project_brief), `project_brief_complete`, `click_to_call`, `whatsapp_click`. No form data is sent. Mark them as key events in GA4
+- `partials.process` now shows the six discovery-first stages site-wide
+- 2 new articles; `challenge`/`solution` added to 7 featured projects, restating their documented overview and features only
+
+### Production bug fixed: `/public/` duplicate site
+The host rewrites into `/public`, so `/public/*` served an indexable, self-canonical copy of every page, and trailing-slash URLs 301'd into it. Fixed in `public/.htaccess` (uses THE_REQUEST) and in `CanonicalUrl` (base path check). Verified on Apache with a simulated root rewrite: one hop, no loops. Live until deployed.
+
+### Verification (2026-11-06, local)
+- 91 tests, 709 assertions passing; Pint clean; release zip builds with no dev packages
+- Crawl: 103 pages, 48 assets, 0 broken links, 1 H1 each, canonicals correct, JSON-LD parses, sitemap 72 URLs, no duplicates
+- No page overflow at 320/375/768/1100/1440 px; no console errors; brief tested end to end in Chrome, including no-JS
+- Lighthouse mobile, median of 3, same machine, gzip on, before → after: home 99 → 100 (LCP 1958 → 1805 ms, 143 → 134 KB, FCP 829 → 930 ms), service 100 → 100, portfolio 97 → 97, contact 100 → 100. New pages: `/solutions` 100, `/project-brief` 100. Accessibility, Best Practices, SEO 100 throughout. CLS 0
+- Not yet measured on production. Compare gzip on: without it, the inline CSS makes results misleading
+
+### Owner to confirm
+- `legacy-software-modernization` and `dedicated-development-teams` are `'draft' => true` in `content/services.php`. Remove the flag if offered; home, nav groups, sitemap, and forms pick them up automatically
+- Not on the site because they are not in the verified stack: .NET, Vue.js, SQL Server, Google Cloud, Azure, OpenAI by name. Add to `content/tech.php` only if genuine
+- Review the `challenge` and `solution` text in `content/projects.php`
+- Qonsistic's public link is `qonsistic.aaochaletaxi.com` over http: replace it if there is a production domain
+
+## Testing notes
+- Ports 8000 and 8001 are used by other local apps
+- A/B against an old copy needs a real `vendor/` copy: a symlink makes Composer load the current `app/` classes
+- Single Lighthouse runs can be wildly wrong (one production run showed TBT 9.8 s; reruns 10–20 ms). Use the median of several

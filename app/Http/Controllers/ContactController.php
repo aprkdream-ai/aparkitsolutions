@@ -20,6 +20,13 @@ class ContactController extends Controller
     /** Minimum seconds between rendering the form and submitting it (bots submit instantly). */
     public const MIN_FILL_SECONDS = 3;
 
+    /** Where the no-JS fallback returns to, and the confirmation shown after a successful submission. */
+    protected string $returnRoute = 'contact';
+
+    protected string $sentTitle = 'Thank you, your message has been sent.';
+
+    protected string $sentMessage = 'We have received your enquiry and will get back to you as soon as possible.';
+
     public function show(Request $request)
     {
         return view('pages.contact', [
@@ -31,7 +38,7 @@ class ContactController extends Controller
             'services' => Content::services(),
             'formToken' => Crypt::encryptString((string) now()->timestamp),
             'captcha' => Captcha::make(),
-            'selectedService' => Content::services()->has($request->query('service')) ? $request->query('service') : null,
+            'selectedService' => is_string($service = $request->query('service')) && Content::services()->has($service) ? $service : null,
         ]);
     }
 
@@ -56,6 +63,12 @@ class ContactController extends Controller
         $data = $request->safe()->except(['consent', 'captcha']);
         $data['service_title'] = Content::find('services', $data['service'] ?? '')['title'] ?? (($data['service'] ?? null) === 'other' ? 'Other / not sure' : null);
 
+        return $this->deliver($request, $data);
+    }
+
+    /** Stores the enquiry, emails the team, and queues the visitor's confirmation. */
+    protected function deliver(Request $request, array $data)
+    {
         $this->storeBackup($data, $request);
 
         $recipient = config('site.contact.recipient');
@@ -96,15 +109,15 @@ class ContactController extends Controller
 
             return response()->json([
                 'status' => $status,
-                'title' => $status === 'sent' ? 'Thank you, your message has been sent.' : 'Sorry, we could not send your message.',
+                'title' => $status === 'sent' ? $this->sentTitle : 'Sorry, we could not send your message.',
                 'message' => $status === 'sent'
-                    ? 'We have received your enquiry and will get back to you as soon as possible.'
+                    ? $this->sentMessage
                     : 'Please try again in a few minutes'.($email ? ' or email us at '.$email : '').'.',
                 'captcha' => ['question' => $captcha['question'], 'token' => $captcha['token']],
             ], $status === 'sent' ? 200 : 503);
         }
 
-        $redirect = $status === 'sent' ? redirect()->route('contact') : back()->withInput();
+        $redirect = $status === 'sent' ? redirect()->route($this->returnRoute) : back()->withInput();
 
         return $redirect->with('contact_status', $status);
     }

@@ -11,7 +11,7 @@ return [
     'Mobile' => ['React Native', 'Expo', 'Flutter', 'Android', 'iOS', 'Mobile app APIs'],
     'Databases' => ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis'],
     'Cloud & DevOps' => ['AWS', 'Docker', 'Nginx', 'Linux', 'CI/CD', 'Git / GitHub', 'Bash scripting'],
+    'AI & Automation' => ['AI / LLM integration', 'OCR', 'n8n workflows', 'NumPy', 'Pandas', 'Chrome extensions'],
     'Payments' => ['Razorpay', 'Stripe', 'PayPal'],
     'Integrations' => ['NSE & BSE APIs', 'eKYC / KYC', 'OTP', 'WhatsApp', 'Google Maps APIs', 'LinkedIn API & OAuth', 'Social login'],
-    'AI & Automation' => ['AI / LLM integration', 'OCR', 'n8n workflows', 'NumPy', 'Pandas', 'Chrome extensions'],
 ];

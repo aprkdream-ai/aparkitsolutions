@@ -28,6 +28,13 @@
 - [x] Social sharing: `partials/share.blade.php` (LinkedIn, X, Facebook, WhatsApp) in the footer site-wide, and in the article on blog posts (footer copy hidden there)
 - [x] Anchor texts: no empty anchors (icon links have visually hidden text); unique CTA wording per page; footer uses short service labels (`short` in content/services.php) and footer nav labels (`footer` in config/site.nav). Only the nav "Home" + breadcrumb "Home" repeats remain on inner pages (standard)
 
+## Enterprise repositioning (2026-11-06)
+- [x] `/public/*` duplicates redirect (one hop); trailing-slash redirects no longer leak `/public`
+- [x] Home title 57 characters: "Custom Software Development in India | APARK IT Solutions" (the suggested wording with "Company" is 65; limit is 60)
+- [x] Sitemap adds `/solutions`, `/project-brief`, 2 articles; draft services excluded and noindexed
+- [x] Anchor rule refined: the same text may repeat for the same URL, never for different URLs (`SeoAuditTest`)
+- [x] Internal links: service pages → challenges and articles; home and `/solutions` → services and projects
+
 ## Remaining (owner)
 - [ ] HSTS preload: after confirming every subdomain works over HTTPS, submit aparkitsolutions.com at https://hstspreload.org. This removes the http→https redirect for Chrome, Edge and Firefox. Hard to undo
 - [ ] Link building (Links grade D+): Google Business Profile; Clutch, GoodFirms, DesignRush, Justdial, IndiaMART listings; ask clients for a "Developed by APARK IT Solutions" footer link (Estate Nine already has one); LinkedIn company posts linking case studies

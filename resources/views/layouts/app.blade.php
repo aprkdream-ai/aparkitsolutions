@@ -18,6 +18,7 @@
     <meta name="apple-mobile-web-app-title" content="{{ config('site.short_name') }}">
     <meta name="application-name" content="{{ config('site.short_name') }}">
     <meta name="theme-color" content="#0F766E">
+    @stack('head')
     <script src="{{ asset_v('assets/js/app.js') }}" defer></script>
     @if (config('site.analytics.ga4') && config('site.indexable'))
         <script src="{{ asset_v('assets/js/analytics.js') }}" data-ga4="{{ config('site.analytics.ga4') }}" defer></script>

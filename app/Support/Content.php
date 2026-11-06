@@ -54,6 +54,30 @@ class Content
         return static::collection('industries');
     }
 
+    /** Business challenges (content/solutions.php) with their services and projects resolved; hidden entries drop out. */
+    public static function solutions(): Collection
+    {
+        return collect(static::list('solutions'))->map(fn (array $s, string $slug) => [
+            'slug' => $slug,
+            'services' => collect($s['services'])->map(fn ($x) => static::find('services', $x))->filter()->values(),
+            'projects' => collect($s['projects'] ?? [])->map(fn ($x) => static::find('projects', $x))->filter()->values(),
+        ] + $s);
+    }
+
+    /** Services grouped for display (content/service-groups.php); a service missing from every group goes last. */
+    public static function serviceGroups(): Collection
+    {
+        $services = static::services();
+        $groups = collect(static::list('service-groups'))->map(fn (array $g) => $g + [
+            'items' => collect($g['services'])->map(fn ($slug) => $services->get($slug))->filter()->values(),
+        ]);
+        $listed = $groups->flatMap(fn ($g) => $g['services'])->all();
+
+        return $groups->map(function (array $g, int $i) use ($groups, $services, $listed) {
+            return $i === $groups->keys()->last() ? ['items' => $g['items']->merge($services->except($listed)->values())] + $g : $g;
+        })->filter(fn ($g) => $g['items']->isNotEmpty())->values();
+    }
+
     public static function find(string $collection, string $slug): ?array
     {
         $items = $collection === 'services' ? static::services() : static::collection($collection);

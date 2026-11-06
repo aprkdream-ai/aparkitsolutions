@@ -4,14 +4,16 @@
 ```
 config/site.php            Company facts, contact, socials, SEO defaults, nav, flags (reads .env)
 content/                   File-based CMS
-  services.php             9 services (enabled flag, per-service 'tech' list) → /services/{slug}
-  projects.php             33 delivered projects → /portfolio/{slug} (images: public/assets/img/portfolio/{slug}.webp, auto-detected)
+  services.php             11 services + 2 drafts (enabled flag, per-service 'tech' list) → /services/{slug}
+  projects.php             34 delivered projects → /portfolio/{slug} (images: public/assets/img/portfolio/{slug}.webp, auto-detected)
   industries.php           10 industries (derived from projects) → /industries/{slug}
+  solutions.php            Business challenges → services and projects (/solutions#{slug})
+  service-groups.php       Service categories for home and /services
   tech.php faqs.php team.php testimonials.php
   blog/YYYY-MM-DD-slug.md  Articles (front matter + Markdown)
 app/Support/Content.php    Loads content, filters drafts, parses/caches blog Markdown
 app/Support/Seo.php        Per-page meta, canonical, robots, OG, JSON-LD graph
-app/Http/Controllers/      Page, Service, Portfolio, Industry, Blog, Contact, Seo (sitemap/robots)
+app/Http/Controllers/      Page, Service, Portfolio, Industry, Blog, Contact, ProjectBrief (extends Contact), Seo (sitemap/robots)
 app/Http/Middleware/       CanonicalUrl (https + host redirect), SecurityHeaders (CSP etc.)
 app/Http/Requests/ContactRequest.php, app/Mail/ContactSubmitted.php
 app/helpers.php            asset_v() (mtime cache-busting), whatsapp_url()
@@ -24,7 +26,7 @@ public/assets/             css/app.css (+ app.min.css), js/app.js, fonts (Inter,
 ```
 
 ## Rendering & data flow
-- **Sessions:** only `/contact*` routes use the session/CSRF middleware. All other routes are in a `withoutMiddleware([...session, cookies, CSRF])` group with `PublicPageCache` (CDN-cacheable, no cookies). Don't use `session()`, `old()` or `$errors` outside the contact page.
+- **Sessions:** only `/contact*` and `/project-brief` use the session/CSRF middleware. All other routes are in a `withoutMiddleware([...session, cookies, CSRF])` group with `PublicPageCache` (CDN-cacheable, no cookies). Don't use `session()`, `old()` or `$errors` outside the contact page.
 - **CSS:** inlined by default (`inline_css()` helper, `INLINE_CSS=true`). The CSS file is still built for `INLINE_CSS=false`.
 - Controllers build `$seo = Seo::make(title, description, ['breadcrumbs'=>…])->schema([...])` and pass content arrays to views.
 - `AppServiceProvider` shares nav items (sections with no content are hidden) and footer services, defines the `contact` rate limiter, and sets trusted proxies.

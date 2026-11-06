@@ -3,7 +3,8 @@
 /*
 | Portfolio. Keyed by URL slug: /portfolio/{slug}.
 | Fields: title, category (filter), industry (content/industries.php slug), services (service slugs),
-| summary, overview, features[], tech[], url (public link or null), image (public/assets/img/portfolio), featured.
+| summary, overview, challenge, solution, features[], tech[], url (public link or null), image (public/assets/img/portfolio), featured, spotlight.
+| 'challenge' and 'solution' restate the documented overview and features only: no invented client details or outcomes.
 | Never add demo credentials or admin URLs here. Add 'results' only with verified, client-approved outcomes.
 | 'url' is null for internal/login-only systems and for sites that were unreachable at the last check (2026-10-19).
 */
@@ -19,6 +20,8 @@ $projects = [
         'services' => ['web-application-development', 'api-development-integration'],
         'summary' => 'Trading and investment platform with an admin panel, online eKYC journey, and third-party integrations with NSE, BSE, and payment gateways.',
         'overview' => 'Bigul is a trading and investment website for traders, investors, and developers. The platform combines a public website with a full admin panel and a guided eKYC journey for opening trading and demat accounts.',
+        'challenge' => 'A trading and investment business needs to open accounts online, show live market data, and manage users and content from one place.',
+        'solution' => 'A public website, an admin panel, and a guided eKYC journey for trading and demat accounts, connected to NSE and BSE APIs and payment gateways, with live dashboards for real-time data.',
         'features' => ['Online eKYC / account-opening journey', 'NSE and BSE API integrations with real-time market data', 'Live dashboards and real-time data processing', 'Admin panel to manage content and users', 'Payment gateway integration'],
         'tech' => ['Laravel', 'Node.js', 'Python', 'MongoDB', 'WebSocket', 'REST APIs', 'AWS', 'Payment Gateway'],
         'url' => 'https://bigul.co/',
@@ -32,10 +35,13 @@ $projects = [
         'services' => ['saas-product-development', 'ai-integration-automation', 'erp-crm-solutions', 'custom-software-development'],
         'summary' => 'AI-powered CRM and sales automation platform covering leads, follow-ups, pipelines, proposals, meetings, Stripe payments, and n8n workflows.',
         'overview' => 'Qonsistic is an AI-powered CRM and sales automation platform that helps sales teams find, engage, and convert leads. It brings the full sales cycle into one product, from lead capture to proposals and payments.',
+        'challenge' => 'Sales teams need to find, engage, and convert leads, but the work spans lead capture, follow-ups, proposals, meetings, and payments.',
+        'solution' => 'One AI-powered product for the full sales cycle: lead management with automated follow-ups, pipelines and proposals, meeting scheduling, Stripe payments, and n8n workflow automation.',
         'features' => ['Lead management and automated follow-ups', 'Sales pipelines and proposals', 'Meeting scheduling', 'Stripe payment integration', 'Workflow automation with n8n', 'Separate super-admin and customer portals'],
         'tech' => ['Laravel', 'PHP', 'MySQL', 'Stripe', 'n8n', 'AI Integration'],
         'url' => 'http://qonsistic.aaochaletaxi.com/',
         'featured' => true,
+        'spotlight' => true, // full case study on the home page
     ],
 
     'reco' => [
@@ -45,10 +51,13 @@ $projects = [
         'services' => ['saas-product-development', 'custom-software-development', 'web-application-development', 'api-development-integration'],
         'summary' => 'Offline-first accounting and receivables SaaS for invoices, ledgers, expenses, payables, vouchers, bank accounts, and GST reports, with Razorpay and a mobile app.',
         'overview' => 'Reco is an accounting platform that helps businesses track income, expenses, receivables, and payables in one place, with the GST reporting Indian businesses need. A companion mobile app is also available.',
+        'challenge' => 'Businesses need income, expenses, receivables, and payables tracked in one place, with the GST reporting Indian businesses require.',
+        'solution' => 'An offline-first accounting platform covering invoices, ledgers, vouchers, and bank accounts, with GST reports, Razorpay payments, and a companion mobile app.',
         'features' => ['Offline-first design', 'Invoices, ledgers, income, and expense tracking', 'Receivables, payables, and vouchers', 'Bank account management', 'GST reports and payment workflows', 'Razorpay payment integration', 'Companion mobile app'],
         'tech' => ['Laravel', 'PHP', 'MySQL', 'JavaScript', 'REST APIs', 'Razorpay'],
         'url' => 'https://reco.aaochaletaxi.com/',
         'featured' => true,
+        'spotlight' => true, // full case study on the home page
     ],
 
     'riffora' => [
@@ -58,6 +67,8 @@ $projects = [
         'services' => ['saas-product-development', 'ai-integration-automation', 'web-application-development', 'api-development-integration'],
         'summary' => 'AI-powered SaaS that drafts and schedules LinkedIn posts from topics, notes, links, and documents, in English, Hindi, and Hinglish.',
         'overview' => 'Riffora helps professionals, founders, and teams create LinkedIn content faster. Users turn ideas, links, and documents into posts, preview them as they will appear, and publish or schedule them through LinkedIn’s official API.',
+        'challenge' => 'Professionals, founders, and teams need to turn ideas, links, and documents into LinkedIn content faster.',
+        'solution' => 'AI drafting in English, Hindi, and Hinglish with a live preview, timezone-aware scheduling, and publishing through LinkedIn’s official API, plus a Chrome extension.',
         'features' => ['AI post drafting from topics, notes, links, PDFs, DOCX files, and images', 'English, Hindi, and Hinglish support', 'Live LinkedIn-style preview', 'Timezone-aware scheduling with a calendar', 'Publishing via LinkedIn OAuth and official API, with automatic retries', 'Chrome extension'],
         'tech' => ['AI Integration', 'LinkedIn API', 'OAuth', 'Chrome Extension'],
         'url' => 'https://riffora.navayu.tech/',
@@ -83,10 +94,13 @@ $projects = [
         'services' => ['web-application-development', 'website-design-development'],
         'summary' => 'Appointment booking system that connects doctors with medical representatives (MRs) and streamlines their meetings.',
         'overview' => 'DoctorBuddy bridges the gap between doctors and medical representatives with a structured appointment booking platform, replacing ad-hoc visits with scheduled, manageable meetings.',
+        'challenge' => 'Meetings between doctors and medical representatives happened as ad-hoc visits that were hard to schedule and manage.',
+        'solution' => 'A structured appointment booking platform that replaces ad-hoc visits with scheduled meetings, supported by an admin panel and a content-managed website.',
         'features' => ['Doctor and MR appointment booking', 'Admin panel for managing users and content', 'Content-managed website with services, blogs, and testimonials'],
         'tech' => ['Laravel', 'PHP', 'MySQL'],
         'url' => 'https://doctorbuddy.in/',
         'featured' => true,
+        'spotlight' => true, // full case study on the home page
     ],
 
     'estate-nine' => [
@@ -96,6 +110,8 @@ $projects = [
         'services' => ['website-design-development'],
         'summary' => 'Real estate website for an Indore developer and consultancy, showcasing completed and ongoing projects with enquiry and WhatsApp lead capture.',
         'overview' => 'Estate Nine is a real estate developer and property consultancy in Indore. Its website presents residential and plotted projects with construction progress, along with services, gallery, testimonials, and FAQs.',
+        'challenge' => 'A real estate developer and consultancy needs to present completed and ongoing projects, and capture enquiries from interested buyers.',
+        'solution' => 'A content-managed website with project listings and construction progress, project detail pages, and enquiry forms with a WhatsApp project-enquiry flow.',
         'features' => ['Completed and ongoing project listings with progress', 'Project detail pages', 'Enquiry forms and a WhatsApp project-enquiry flow', 'Services, gallery, testimonials, and FAQ pages', 'Admin panel for content management'],
         'tech' => ['Laravel', 'PHP', 'MySQL'],
         'url' => 'https://estatenine.in/',
@@ -253,6 +269,8 @@ $projects = [
         'services' => ['ecommerce-development', 'web-application-development'],
         'summary' => 'Online grocery store for fresh groceries and dry fruits with scheduled delivery.',
         'overview' => 'SavingSmart lets customers shop groceries and dry fruits online by category, check delivery availability by location or PIN code, and choose a delivery schedule.',
+        'challenge' => 'Grocery customers need to know whether delivery reaches their location and to choose when their order arrives.',
+        'solution' => 'An online store with category-based shopping, a location and PIN-code delivery check, scheduled delivery, and customer accounts.',
         'features' => ['Category-based shopping', 'Location / PIN-code delivery check', 'Scheduled delivery', 'Customer accounts'],
         'tech' => ['REST APIs'],
         'url' => 'https://savingsmart.in/',

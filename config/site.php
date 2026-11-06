@@ -62,6 +62,25 @@ return [
             'Medium project',
             'Large or ongoing engagement',
         ],
+        // Project brief (/project-brief). 'service' links a type to its service page for ?service= prefill.
+        'project_types' => [
+            'custom-software' => ['label' => 'Custom software', 'service' => 'custom-software-development'],
+            'erp-crm' => ['label' => 'ERP / CRM', 'service' => 'erp-crm-solutions'],
+            'saas' => ['label' => 'SaaS platform', 'service' => 'saas-product-development'],
+            'web-application' => ['label' => 'Web application', 'service' => 'web-application-development'],
+            'mobile-application' => ['label' => 'Mobile application', 'service' => 'mobile-app-development'],
+            'ai-integration' => ['label' => 'AI integration', 'service' => 'ai-integration-automation'],
+            'automation' => ['label' => 'Automation & integrations', 'service' => 'api-development-integration'],
+            'legacy-modernization' => ['label' => 'Legacy modernization', 'service' => 'legacy-software-modernization'],
+            'website-ecommerce' => ['label' => 'Website or e-commerce', 'service' => 'website-design-development'],
+            'other' => ['label' => 'Other / not sure', 'service' => null],
+        ],
+        'timelines' => [
+            'As soon as possible',
+            'Within 1–3 months',
+            'Within 3–6 months',
+            'Flexible / not decided',
+        ],
     ],
 
     // Inline the minified CSS into each page instead of a render-blocking <link> (~7 KB gzipped)
@@ -83,8 +102,8 @@ return [
 
     'seo' => [
         'title_separator' => ' | ',
-        'default_title' => 'Custom Software Development Company | APARK IT Solutions',
-        'default_description' => 'APARK IT Solutions is a custom software development company in India building websites, web & mobile apps, ERP/CRM, APIs and AI automation.',
+        'default_title' => 'Custom Software Development in India | APARK IT Solutions',
+        'default_description' => 'APARK IT Solutions builds custom software, ERP/CRM platforms, SaaS products, web and mobile applications, and AI-powered business automation solutions.',
         'default_image' => 'assets/img/og-default.png',
         'twitter_handle' => env('SEO_TWITTER_HANDLE'),
         'google_verification' => env('SEO_GOOGLE_VERIFICATION'),
@@ -104,12 +123,12 @@ return [
     ],
 
     'nav' => [
-        ['label' => 'Home', 'route' => 'home'],
-        ['label' => 'About', 'route' => 'about'],
         ['label' => 'Services', 'route' => 'services.index'],
-        ['label' => 'Portfolio', 'route' => 'portfolio.index', 'requires' => 'projects', 'footer' => 'Our Work'],
+        ['label' => 'Solutions', 'route' => 'solutions', 'footer' => 'Business Challenges We Solve'],
         ['label' => 'Industries', 'route' => 'industries.index', 'requires' => 'industries', 'footer' => 'Industries We Serve'],
+        ['label' => 'Portfolio', 'route' => 'portfolio.index', 'requires' => 'projects', 'footer' => 'Our Work'],
         ['label' => 'Insights', 'route' => 'blog.index', 'footer' => 'Articles & Insights'],
+        ['label' => 'About', 'route' => 'about'],
         ['label' => 'Contact', 'route' => 'contact'],
     ],
 ];

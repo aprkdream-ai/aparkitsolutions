@@ -9,6 +9,9 @@ use Illuminate\Validation\Rule;
 
 class ContactRequest extends FormRequest
 {
+    /** Text inputs stripped of control characters and trimmed before validation. */
+    protected array $cleaned = ['name', 'email', 'phone', 'company', 'service', 'budget', 'message'];
+
     public function authorize(): bool
     {
         return true;
@@ -20,7 +23,7 @@ class ContactRequest extends FormRequest
 
         $clean = fn ($v) => is_string($v) ? trim(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $v)) : $v;
 
-        $this->merge(collect($this->only(['name', 'email', 'phone', 'company', 'service', 'budget', 'message']))
+        $this->merge(collect($this->only($this->cleaned))
             ->map($clean)
             ->all());
     }

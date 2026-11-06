@@ -18,6 +18,10 @@
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.php(?:/([^\s?]*))?[\s?]
     RewriteRule ^ /%1 [R=301,L,NE]
 
+    # Remove a directly requested /public prefix (duplicate of the whole site on rewrite-based hosts)
+    RewriteCond %{THE_REQUEST} ^[A-Z]+\s/+public(?:/([^\s?]*?))?/*[\s?]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -27,9 +31,11 @@
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
     # Redirect Trailing Slashes If Not A Folder...
+    # Uses THE_REQUEST (what the visitor typed), not REQUEST_URI: on hosts that rewrite into /public,
+    # REQUEST_URI already contains that prefix and the redirect would leak it.
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    RewriteCond %{THE_REQUEST} ^[A-Z]+\s(/[^\s?]*?)/+[\s?]
+    RewriteRule ^ %1 [L,R=301,NE]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

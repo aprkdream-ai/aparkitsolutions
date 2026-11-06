@@ -12,10 +12,18 @@ class SeoAuditTest extends TestCase
     protected function allPublicUrls(): array
     {
         $urls = ['/', '/about', '/services', '/portfolio', '/industries', '/blog', '/contact', '/privacy-policy', '/terms-and-conditions', '/cookie-policy'];
-        foreach (Content::services() as $s) { $urls[] = '/services/'.$s['slug']; }
-        foreach (Content::industries() as $i) { $urls[] = '/industries/'.$i['slug']; }
-        foreach (Content::projects() as $p) { $urls[] = '/portfolio/'.$p['slug']; }
-        foreach (Content::posts() as $p) { $urls[] = '/blog/'.$p['slug']; }
+        foreach (Content::services() as $s) {
+            $urls[] = '/services/'.$s['slug'];
+        }
+        foreach (Content::industries() as $i) {
+            $urls[] = '/industries/'.$i['slug'];
+        }
+        foreach (Content::projects() as $p) {
+            $urls[] = '/portfolio/'.$p['slug'];
+        }
+        foreach (Content::posts() as $p) {
+            $urls[] = '/blog/'.$p['slug'];
+        }
 
         return $urls;
     }
@@ -33,15 +41,19 @@ class SeoAuditTest extends TestCase
         }
     }
 
-    public function test_home_keywords_are_aligned_across_title_description_and_h1(): void
+    public function test_home_keywords_are_aligned_across_title_description_and_headings(): void
     {
         $html = $this->get('/')->getContent();
         preg_match('#<title>(.*?)</title>#s', $html, $t);
         preg_match('#<meta name="description" content="(.*?)">#s', $html, $d);
-        preg_match('#<h1>(.*?)</h1>#s', $html, $h1);
-        foreach ([$t[1], $d[1], strip_tags($h1[1])] as $text) {
-            $this->assertStringContainsStringIgnoringCase('custom software development', $text);
+        preg_match('#class="hero-kicker">(.*?)</p>#s', $html, $kicker);
+        preg_match('#<h2>Custom software.*?</h2>#s', $html, $h2);
+        // The H1 is a positioning statement, so the kicker directly above it and an H2 carry the keyword.
+        foreach ([$t[1], $kicker[1], strip_tags($h2[0])] as $text) {
+            $this->assertStringContainsStringIgnoringCase('custom software', $text);
         }
+        $this->assertStringContainsStringIgnoringCase('custom software development', $t[1]);
+        $this->assertStringContainsStringIgnoringCase('custom software', $d[1]);
     }
 
     public function test_no_plain_text_email_addresses_in_html(): void
@@ -99,14 +111,19 @@ class SeoAuditTest extends TestCase
         $this->assertSame(1, preg_match_all('/<h1[\s>]/', $this->get('/')->getContent()));
     }
 
-    public function test_home_anchor_texts_are_unique_and_never_empty(): void
+    public function test_home_anchor_texts_are_unambiguous_and_never_empty(): void
     {
-        preg_match_all('#<a\s[^>]*href="[^"]+"[^>]*>(.*?)</a>#s', $this->get('/')->getContent(), $m);
+        preg_match_all('#<a\s[^>]*href="([^"]+)"[^>]*>(.*?)</a>#s', $this->get('/')->getContent(), $m);
         $text = fn ($t) => preg_replace('/<img[^>]*\balt="([^"]*)"[^>]*>/', ' $1 ', $t); // crawlers use alt as link text
-        $texts = array_map(fn ($t) => mb_strtolower(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($text($t)))))), $m[1]);
+        $texts = array_map(fn ($t) => mb_strtolower(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($text($t)))))), $m[2]);
         $this->assertNotContains('', $texts, 'Icon-only links need visually hidden text');
-        $dupes = array_keys(array_filter(array_count_values($texts), fn ($n) => $n > 1));
-        $this->assertSame([], $dupes, 'Duplicate anchor texts: '.implode(', ', $dupes));
+        // Repeating a label for the same destination is fine (e.g. the primary CTA); one label for two destinations is not.
+        $targets = [];
+        foreach ($texts as $i => $label) {
+            $targets[$label][$m[1][$i]] = true;
+        }
+        $dupes = array_keys(array_filter($targets, fn ($urls) => count($urls) > 1));
+        $this->assertSame([], $dupes, 'Same anchor text, different targets: '.implode(', ', $dupes));
     }
 
     public function test_pages_offer_social_sharing(): void

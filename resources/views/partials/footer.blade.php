@@ -4,7 +4,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <x-brand footer />
-                <p>We help businesses turn ideas into scalable digital solutions through custom software, web and mobile applications, automation, and technology consulting.</p>
+                <p>A custom software engineering and business automation company building practical technology solutions for growing businesses and enterprises.</p>
                 <p class="footer-slogan">{{ config('site.slogans.1') }}</p>
                 @if (config('site.social'))
                     <div class="socials">
@@ -48,7 +48,7 @@
                     @if ($contact['address'])
                         <li itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="{{ config('site.name') }}"><x-icon name="map-pin" />@include('partials.postal-address')</li>
                     @endif
-                    <li><x-icon name="message" /><a href="{{ route('contact') }}">Send us your project details</a></li>
+                    <li><x-icon name="message" /><a href="{{ route('project-brief') }}">Send us your project details</a></li>
                 </ul>
             </div>
         </div>

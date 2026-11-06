@@ -8,7 +8,11 @@ Email: {{ $data['email'] }}
 @endif
 @if (! empty($data['service_title']))Service: {{ $data['service_title'] }}
 @endif
+@if (! empty($data['industry_title']))Industry: {{ $data['industry_title'] }}
+@endif
 @if (! empty($data['budget']))Budget: {{ $data['budget'] }}
+@endif
+@if (! empty($data['timeline']))Timeline: {{ $data['timeline'] }}
 @endif
 
 Message:

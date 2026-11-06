@@ -1,9 +1,9 @@
-@props(['name', 'label', 'type' => 'text', 'required' => false, 'hint' => null, 'autocomplete' => null])
+@props(['name', 'label', 'type' => 'text', 'required' => false, 'hint' => null, 'autocomplete' => null, 'rows' => 6])
 <div class="field">
     <label for="f-{{ $name }}">{{ $label }} @if ($required)<span class="req" aria-hidden="true">*</span>@else<span class="opt">(optional)</span>@endif</label>
     @php($describedBy = trim(($hint ? "f-{$name}-hint " : '').($errors->has($name) ? "f-{$name}-error" : '')))
     @if ($type === 'textarea')
-        <textarea class="input" id="f-{{ $name }}" name="{{ $name }}" rows="6" @if ($required) required @endif
+        <textarea class="input" id="f-{{ $name }}" name="{{ $name }}" rows="{{ $rows }}" @if ($required) required @endif
             @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif @error($name) aria-invalid="true" @enderror {{ $attributes }}>{{ old($name) }}</textarea>
     @elseif ($type === 'select')
         <select class="input" id="f-{{ $name }}" name="{{ $name }}" @if ($required) required @endif

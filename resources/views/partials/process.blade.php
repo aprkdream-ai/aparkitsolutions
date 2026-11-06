@@ -1,11 +1,11 @@
 <ol class="timeline">
     @foreach ([
-        ['compass', 'Discover', 'We learn about your goals, users, and constraints, and define what success looks like.'],
-        ['target', 'Plan', 'Scope, priorities, architecture, and a realistic timeline with clear milestones.'],
-        ['layout', 'Design', 'User flows, wireframes, and interface design reviewed with you before development.'],
-        ['code', 'Build', 'Iterative development with regular demos on a staging environment.'],
-        ['shield', 'Test', 'Functional, cross-device, performance, and security checks before release.'],
-        ['rocket', 'Launch & support', 'Careful deployment, handover, and ongoing improvements.'],
+        ['compass', 'Business Discovery', 'Understand business objectives, operational challenges, and requirements.'],
+        ['target', 'Requirement Analysis', 'Identify workflows, user roles, integrations, permissions, and technical requirements.'],
+        ['layers', 'Architecture & Planning', 'Define system architecture, database design, technology stack, and project milestones.'],
+        ['code', 'Design & Development', 'Create responsive interfaces and develop secure, maintainable software.'],
+        ['shield', 'Testing & Deployment', 'Perform functional testing, security checks, performance validation, and deployment.'],
+        ['refresh', 'Continuous Improvement', 'Provide maintenance, monitoring, optimization, and future enhancements.'],
     ] as $i => [$icon, $title, $text])
         <li>
             <span class="timeline-node"><x-icon :name="$icon" /></span>

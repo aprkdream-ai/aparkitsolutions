@@ -76,7 +76,7 @@
             <div class="aside-card aside-card--teal">
                 <h2>Need something similar?</h2>
                 <p>Tell us about your requirements and we will suggest the right approach.</p>
-                <a class="btn btn--light btn--block" href="{{ route('contact', ['service' => $project['services'][0] ?? null]) }}">Build Something Similar <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--light btn--block" href="{{ route('project-brief', ['service' => $project['services'][0] ?? null]) }}">Build Something Similar <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         </aside>
     </div>
@@ -86,7 +86,7 @@
 <section class="section section--off">
     <div class="container">
         <div class="section-head section-head--row">
-            <div><h2>More {{ \Illuminate\Support\Str::lower($project['category']) }}</h2></div>
+            <div><h2>More {{ $project['category'] }}</h2></div>
             <a class="btn btn--outline" href="{{ route('portfolio.index') }}">All projects <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
         <div class="grid grid-3">@foreach ($more as $p)<x-project-card :project="$p" />@endforeach</div>

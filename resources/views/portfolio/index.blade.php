@@ -3,7 +3,7 @@
 @section('content')
 <x-page-hero :seo="$seo" eyebrow="Portfolio" title="Our work"
     :lead="$projects->count().' projects across '.$industryCount.' industries, from trading platforms and AI-powered SaaS to CRM, ERP, e-commerce, and booking systems.'">
-    <div class="btn-row"><a class="btn btn--primary" href="{{ route('contact') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
+    <div class="btn-row"><a class="btn btn--primary" href="{{ route('project-brief') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a></div>
     <x-slot:aside>@include('partials.hero-stats', ['label' => 'Our track record', 'chips' => $categories->values()->all()])</x-slot:aside>
 </x-page-hero>
 
@@ -14,7 +14,7 @@
                 <span class="icon-tile"><x-icon name="folder" /></span>
                 <h2>Case studies are on the way</h2>
                 <p>We are preparing detailed case studies of recent work. In the meantime, we are happy to walk you through relevant examples on a call.</p>
-                <a class="btn btn--primary" href="{{ route('contact') }}">Request examples <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--primary" href="{{ route('project-brief') }}">Request examples <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         @else
             @if ($projects->contains('draft', true))

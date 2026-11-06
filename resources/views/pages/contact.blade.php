@@ -42,17 +42,11 @@
             @endif
             </div>
 
-            <h2 class="h3">Project enquiry</h2>
+            <h2 class="h3">Send us a message</h2>
             <p class="muted small">Fields marked <span class="req">*</span> are required.</p>
 
             <form class="form" method="POST" action="{{ route('contact.store') }}" novalidate data-loading data-ajax>
-                @csrf
-                <input type="hidden" name="form_token" value="{{ $formToken }}">
-                <input type="hidden" name="captcha_token" value="{{ $captcha['token'] }}" data-captcha-token>
-                <div class="hp" aria-hidden="true">
-                    <label for="f-website">Leave this field empty</label>
-                    <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
-                </div>
+                @include('partials.form-guard')
 
                 <div class="form-row">
                     <x-field name="name" label="Full name" required autocomplete="name" maxlength="100" />
@@ -81,24 +75,7 @@
                     hint="What are you looking to build or improve? Include goals, timeline, and any existing systems."
                     placeholder="Tell us about your project…" />
 
-                <div class="field captcha-field">
-                    <label for="f-captcha">Security check: what is <strong data-captcha-question>{{ $captcha['question'] }}</strong>? <span class="req" aria-hidden="true">*</span></label>
-                    <div class="captcha-row">
-                        <span class="captcha-q" aria-hidden="true" data-captcha-question>{{ $captcha['question'] }} =</span>
-                        <input class="input captcha-input" id="f-captcha" name="captcha" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" required
-                            @error('captcha') aria-invalid="true" aria-describedby="f-captcha-error" @enderror>
-                        <button class="captcha-refresh" type="button" data-captcha-refresh="{{ route('contact.captcha') }}" aria-label="Get a new security question"><x-icon name="refresh" /></button>
-                    </div>
-                    @error('captcha')<span class="field-error" id="f-captcha-error">{{ $message }}</span>@enderror
-                </div>
-
-                <div class="field">
-                    <label class="checkbox">
-                        <input type="checkbox" name="consent" value="1" required @checked(old('consent')) @error('consent') aria-invalid="true" aria-describedby="f-consent-error" @enderror>
-                        <span>I agree that {{ config('site.name') }} may use these details to respond to my enquiry, as described in the <a href="{{ route('legal.privacy') }}">Privacy Policy</a>. <span class="req" aria-hidden="true">*</span></span>
-                    </label>
-                    @error('consent')<span class="field-error" id="f-consent-error">{{ $message }}</span>@enderror
-                </div>
+                @include('partials.form-verify')
 
                 <div>
                     <button class="btn btn--primary" type="submit" data-loading-text="Sending…">
@@ -116,6 +93,11 @@
                     <li><x-icon name="check-circle" /><span>We reply to clarify details or arrange a call.</span></li>
                     <li><x-icon name="check-circle" /><span>You receive a recommended approach and estimate.</span></li>
                 </ol>
+            </div>
+            <div class="aside-card">
+                <h2>Planning a larger project?</h2>
+                <p>Our three-step project brief helps you share the challenge, the solution you need, and any integrations.</p>
+                <a class="link-arrow" href="{{ route('project-brief') }}">Fill in a project brief <x-icon name="arrow-right" /></a>
             </div>
             @if ($contact['email'] || $contact['phone'] || $contact['address'] || $contact['hours'] || whatsapp_url())
                 <div class="aside-card">

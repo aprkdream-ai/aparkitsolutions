@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<x-page-hero :seo="$seo" eyebrow="Services" title="Software, web, and automation services built around your goals"
+<x-page-hero :seo="$seo" eyebrow="Services" title="Software engineering and automation services built around your goals"
     lead="Whether you need a professional website, a custom business platform, or a smarter way to connect your systems, we deliver practical solutions with transparent communication and long-term support.">
     <div class="btn-row">
-        <a class="btn btn--primary" href="{{ route('contact') }}">Get a Quote <x-icon name="arrow-right" class="icon-arrow" /></a>
+        <a class="btn btn--primary" href="{{ route('project-brief') }}">Get a Quote <x-icon name="arrow-right" class="icon-arrow" /></a>
         <a class="btn btn--outline" href="{{ route('portfolio.index') }}">See our work</a>
     </div>
     <x-slot:aside>
@@ -20,13 +20,20 @@
 </x-page-hero>
 
 <section class="section">
-    <div class="container">
-        <h2 class="visually-hidden">All services</h2>
-        <div class="grid grid-3">
-            @foreach ($services as $service)
-                <x-service-card :service="$service" />
-            @endforeach
-        </div>
+    <div class="container service-sections">
+        @foreach ($groups as $group)
+            <div>
+                <div class="section-head">
+                    <h2>{{ $group['title'] }}</h2>
+                    <p class="lead">{{ $group['text'] }}</p>
+                </div>
+                <div class="grid grid-3">
+                    @foreach ($group['items'] as $service)
+                        <x-service-card :service="$service" />
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </div>
 </section>
 

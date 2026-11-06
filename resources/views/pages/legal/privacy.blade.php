@@ -7,7 +7,7 @@
 <p>This Privacy Policy explains how {{ $name }} (“we”, “us”) collects, uses, and protects personal information when you visit this website or contact us.</p>
 
 <h2>Information we collect</h2>
-<p>When you submit our contact form, we collect the details you provide: your name, email address, and message, plus optionally your phone number, company, service of interest, and budget range. We also record the date and time of submission and your IP address for security and spam prevention.</p>
+<p>When you submit our contact form, we collect the details you provide: your name, email address, and message, plus optionally your phone number, company, service of interest, and budget range. If you use our project brief form, we also collect the project type, industry, project requirements, and timeline you choose to share. We also record the date and time of submission and your IP address for security and spam prevention.</p>
 <p>Our web server automatically keeps standard technical logs (such as IP address, browser type, and pages requested) to operate and secure the website.</p>
 
 @if (config('site.analytics.ga4'))

@@ -22,14 +22,28 @@ class PageController extends Controller
 
         return view('pages.home', [
             'seo' => $seo,
-            'services' => Content::services(),
-            'projects' => Content::projects()->where('featured', true)->take(6),
+            'serviceGroups' => Content::serviceGroups(),
+            'solutions' => Content::solutions(),
+            'spotlight' => Content::projects()->where('spotlight', true)->take(3),
+            'moreWork' => Content::projects()->where('featured', true)->where('spotlight', '!=', true)->take(4),
             'projectCount' => Content::projects()->count(),
             'industries' => Content::industries(),
             'tech' => Content::list('tech'),
             'faqs' => Content::list('faqs'),
             'testimonials' => Content::list('testimonials'),
             'posts' => Content::posts()->take(3),
+        ]);
+    }
+
+    public function solutions()
+    {
+        return view('pages.solutions', [
+            'seo' => Seo::make(
+                'Business Problems We Solve With Custom Software',
+                'Disconnected systems, manual processes, weak reporting, and legacy software: see how APARK IT Solutions approaches common operational problems.',
+                ['breadcrumbs' => ['Solutions' => null]]
+            ),
+            'solutions' => Content::solutions(),
         ]);
     }
 

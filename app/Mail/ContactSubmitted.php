@@ -9,15 +9,13 @@ use Illuminate\Mail\Mailables\Envelope;
 
 class ContactSubmitted extends Mailable
 {
-    public function __construct(public array $data)
-    {
-    }
+    public function __construct(public array $data) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
             replyTo: [new Address($this->data['email'], $this->data['name'])],
-            subject: 'New enquiry from '.$this->data['name'].' — '.config('site.name'),
+            subject: (($this->data['form'] ?? null) === 'project_brief' ? 'New project brief from ' : 'New enquiry from ').$this->data['name'].' — '.config('site.name'),
         );
     }
 

@@ -50,6 +50,9 @@ Enable the free SSL in hPanel/cPanel, confirm `https://` loads, then set `FORCE_
 ## 6. Smoke tests
 - [ ] Home, `/services`, one service page, `/blog`, one article, `/contact`, and a random URL (should be a 404 page) all load
 - [ ] Submit the contact form and confirm the email arrives, with Reply-To set to the visitor
+- [ ] Submit `/project-brief` and confirm the "New project brief" email arrives with every section
+- [ ] `curl -sI https://domain/services/` and `/public/services` each return one 301 straight to `/services` (never a `/public` URL)
+- [ ] `curl -sI https://domain/project-brief` shows no `s-maxage` and no CDN cache HIT (each visitor needs their own CSRF token)
 - [ ] `/robots.txt` shows `Sitemap:`, `/sitemap.xml` lists URLs on the https canonical host
 - [ ] `/.env` returns 403/404
 - [ ] View the page source: `<meta name="robots" content="index, follow…">` and the canonical uses https

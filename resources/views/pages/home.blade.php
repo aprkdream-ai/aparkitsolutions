@@ -5,144 +5,92 @@
 <section class="hero">
     <div class="container hero-grid">
         <div>
-            <p class="pill h1-kicker"><span class="pill-dot" aria-hidden="true"></span>Ideas Into Technology. Technology Into Real Impact.</p>
-            <h1>Custom Software Development for <span class="text-gradient">Growing Businesses</span></h1>
-            <p class="lead">We build custom business software, web and mobile applications, ERP/CRM platforms, and AI-powered automation tailored to your business goals.</p>
+            <p class="hero-kicker">Custom software development &amp; business automation</p>
+            <h1>We Build Intelligent Software Systems That Power Your Business.</h1>
+            <p class="lead">From custom business applications and enterprise platforms to AI-powered automation, we turn complex business requirements into scalable software solutions.</p>
             <div class="btn-row">
-                <a class="btn btn--primary" href="{{ route('contact') }}">Start Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
-                <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View Our Work</a>
+                <a class="btn btn--light" href="{{ route('project-brief') }}">Discuss Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--ghost-light" href="{{ route('portfolio.index') }}">Explore Our Work</a>
             </div>
-            <ul class="hero-points">
-                <li><x-icon name="check-circle" /> Tailored to your business</li>
-                <li><x-icon name="check-circle" /> Transparent delivery</li>
-                <li><x-icon name="check-circle" /> You own the code</li>
-            </ul>
         </div>
-        <div class="hero-visual" aria-hidden="false">
-            @include('partials.hero-art')
-            <div class="float-card float-card--1" aria-hidden="true"><span class="ic"><x-icon name="code" /></span><span>Build<small>Software &amp; apps</small></span></div>
-            <div class="float-card float-card--2" aria-hidden="true"><span class="ic"><x-icon name="zap" /></span><span>Solve<small>Integration &amp; automation</small></span></div>
-            <div class="float-card float-card--3" aria-hidden="true"><span class="ic"><x-icon name="trending" /></span><span>Grow Together<small>Scalable platforms</small></span></div>
-        </div>
+        <div class="hero-visual">@include('partials.hero-art')</div>
     </div>
 </section>
 
-{{-- Capability highlights --}}
-<section class="highlights" aria-label="What we bring to every project">
-    <div class="container">
-        <div class="highlights-grid">
-            @foreach ([
-                ['bulb', 'Tailored solutions', 'Built around your goals, users, and processes.'],
-                ['layers', 'Modern technology', 'Proven, well-supported frameworks and tools.'],
-                ['shield', 'Security by design', 'Secure practices from the first line of code.'],
-                ['eye', 'Transparent delivery', 'Clear scope, regular demos, honest timelines.'],
-            ] as [$icon, $title, $text])
-                <div class="highlight">
-                    <span class="icon-tile"><x-icon :name="$icon" /></span>
-                    <div><p class="highlight-title">{{ $title }}</p><p>{{ $text }}</p></div>
-                </div>
-            @endforeach
-        </div>
+{{-- Company overview: verified figures only, all derived from content files --}}
+<section class="trust" aria-label="Company overview">
+    <div class="container trust-grid">
+        <p class="trust-text">APARK IT Solutions is a custom software engineering and business automation company delivering practical technology solutions for growing businesses and enterprises.</p>
+        <dl class="trust-stats">
+            <div><dt>Projects delivered</dt><dd>{{ $projectCount }}</dd></div>
+            <div><dt>Industries served</dt><dd>{{ $industries->count() }}</dd></div>
+            <div><dt>Technologies in our stack</dt><dd>{{ collect($tech)->flatten()->count() }}</dd></div>
+            <div><dt>Founded</dt><dd>2024</dd></div>
+        </dl>
     </div>
 </section>
 
-{{-- Delivered platforms (real project names) --}}
-@php($showcase = \App\Support\Content::projects()->filter(fn ($p) => $p['image'] && ! $p['featured'])->take(14))
-@if ($showcase->count() >= 6)
-<section class="marquee-wrap" aria-label="Platforms we have designed and built">
+{{-- Business challenges --}}
+<section class="section section--off" id="challenges">
     <div class="container">
-        <p class="marquee-label">Platforms we have designed &amp; built</p>
-    </div>
-    <div class="marquee">
-        <ul class="marquee-track">
-            @foreach ($showcase as $p)
-                <li><a href="{{ route('portfolio.show', $p['slug']) }}"><span class="dot"></span>{{ $p['title'] }}</a></li>
+        <div class="section-head section-head--row">
+            <div>
+                <p class="eyebrow">Business challenges we solve</p>
+                <h2>Start with the problem, not the technology</h2>
+                <p class="lead">Most software projects begin with something in the business that is not working. These are the problems we are asked to solve most often.</p>
+            </div>
+            <a class="btn btn--outline" href="{{ route('solutions') }}">See how we solve them <x-icon name="arrow-right" class="icon-arrow" /></a>
+        </div>
+        <ul class="challenges">
+            @foreach ($solutions as $s)
+                <li class="challenge">
+                    <span class="icon-tile icon-tile--sm"><x-icon :name="$s['icon']" /></span>
+                    <div>
+                        <p class="challenge-title"><a href="{{ route('solutions') }}#{{ $s['slug'] }}">{{ $s['title'] }}</a></p>
+                        <p>{{ $s['problem'] }}</p>
+                        <p class="challenge-links">
+                            @foreach ($s['services'] as $service)<a href="{{ route('services.show', $service['slug']) }}">{{ $service['title'] }}</a>@endforeach
+                        </p>
+                    </div>
+                </li>
             @endforeach
         </ul>
     </div>
 </section>
-@endif
 
 {{-- Services --}}
 <section class="section" id="services">
     <div class="container">
         <div class="section-head section-head--row">
             <div>
-                <p class="eyebrow">What we do</p>
+                <p class="eyebrow">Core services</p>
                 <h2>Custom software, web &amp; mobile app development services</h2>
-                <p class="lead">From your first website to complex business platforms, our software development team designs, builds, and supports digital products that are reliable and ready to grow.</p>
+                <p class="lead">From focused internal tools to complete enterprise platforms, we design, build, and support software that is reliable and ready to grow.</p>
             </div>
             <a class="btn btn--outline" href="{{ route('services.index') }}">View all services <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
-        <div class="grid grid-3">
-            @foreach ($services->take(9) as $service)
-                <x-service-card :service="$service" tag="p" />
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- Why choose --}}
-<section class="section section--off">
-    <div class="container split split--top">
-        <div>
-            <p class="eyebrow">Why APARK IT Solutions</p>
-            <h2>A software development partner focused on outcomes</h2>
-            <p class="lead">Writing code is only part of the job. We take time to understand your business, recommend what is genuinely useful, and stay accountable for quality long after launch.</p>
-            <div class="stat-row">
-                <div class="stat"><strong>{{ $projectCount }}</strong><span>Projects delivered</span></div>
-                <div class="stat"><strong>{{ $industries->count() }}</strong><span>Industries served</span></div>
-                <div class="stat"><strong>2024</strong><span>Founded</span></div>
-            </div>
-            <div class="btn-row mt-lg">
-                <a class="btn btn--primary" href="{{ route('about') }}">About our approach <x-icon name="arrow-right" class="icon-arrow" /></a>
-            </div>
-        </div>
-        <div class="grid grid-features">
-            @foreach ([
-                ['target', 'Business-first thinking', 'Every recommendation ties back to your goals, budget, and users.'],
-                ['layers', 'End-to-end delivery', 'Strategy, design, development, deployment, and support under one roof.'],
-                ['message', 'Clear communication', 'A single point of contact, regular updates, and no jargon.'],
-                ['shield', 'Quality and security', 'Code reviews, testing, and secure defaults on every project.'],
-                ['trending', 'Built to scale', 'Architecture that supports new users, features, and integrations.'],
-                ['users', 'Long-term partnership', 'Ongoing maintenance and improvement as your business evolves.'],
-            ] as [$icon, $title, $text])
-                <div class="feature">
-                    <span class="icon-tile"><x-icon :name="$icon" /></span>
-                    <div><p class="feature-title">{{ $title }}</p><p>{{ $text }}</p></div>
+        <div class="service-groups">
+            @foreach ($serviceGroups as $group)
+                <div class="service-group">
+                    <p class="service-group-title">{{ $group['title'] }}</p>
+                    <p class="service-group-text">{{ $group['text'] }}</p>
+                    <ul>
+                        @foreach ($group['items'] as $service)
+                            <li><a href="{{ route('services.show', $service['slug']) }}"><x-icon :name="$service['icon']" /><span>{{ $service['title'] }}</span></a></li>
+                        @endforeach
+                    </ul>
                 </div>
             @endforeach
         </div>
     </div>
 </section>
 
-{{-- Portfolio --}}
-@if ($projects->isNotEmpty())
-<section class="section">
-    <div class="container">
-        <div class="section-head section-head--row">
-            <div>
-                <p class="eyebrow">Featured work</p>
-                <h2>Software development projects we have delivered</h2>
-                <p class="lead">A selection from {{ $projectCount }} delivered projects: fintech, AI-powered SaaS, healthcare, real estate, and more.</p>
-            </div>
-            <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View portfolio <x-icon name="arrow-right" class="icon-arrow" /></a>
-        </div>
-        <div class="grid grid-3">
-            @foreach ($projects as $project)
-                <x-project-card :project="$project" tag="p" />
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
 {{-- Industries --}}
 @if ($industries->isNotEmpty())
-<section class="section {{ $projects->isNotEmpty() ? 'section--mint' : '' }}">
+<section class="section section--mint">
     <div class="container">
         <div class="section-head center">
-            <p class="eyebrow">Industries</p>
+            <p class="eyebrow">Industry solutions</p>
             <h2>Solutions shaped by industry context</h2>
             <p class="lead">Different sectors face different constraints. We adapt our approach to the realities of yours.</p>
         </div>
@@ -156,13 +104,57 @@
 </section>
 @endif
 
-{{-- Process --}}
-<section class="section {{ $industries->isNotEmpty() && $projects->isEmpty() ? '' : 'section--off' }}">
+{{-- Case studies --}}
+@if ($spotlight->isNotEmpty())
+<section class="section">
+    <div class="container">
+        <div class="section-head section-head--row">
+            <div>
+                <p class="eyebrow">Featured case studies</p>
+                <h2>Software development projects we have delivered</h2>
+                <p class="lead">A selection from {{ $projectCount }} delivered projects, from AI-powered SaaS to accounting and healthcare platforms.</p>
+            </div>
+            <a class="btn btn--outline" href="{{ route('portfolio.index') }}">View portfolio <x-icon name="arrow-right" class="icon-arrow" /></a>
+        </div>
+        <div class="cases">
+            @foreach ($spotlight as $project)
+                <article class="case">
+                    <div class="case-media">
+                        @if ($project['image'])
+                            @php($thumb = preg_replace('/\.webp$/', '-640.webp', $project['image']))
+                            <img src="{{ asset($thumb) }}" srcset="{{ asset($thumb) }} 640w, {{ asset($project['image']) }} 1280w" sizes="(min-width: 992px) 620px, 100vw"
+                                 alt="{{ $project['image_alt'] }}" width="640" height="400" loading="lazy" decoding="async">
+                        @endif
+                    </div>
+                    <div class="case-body">
+                        <span class="badge">{{ $project['category'] }}</span>
+                        <h3><a href="{{ route('portfolio.show', $project['slug']) }}">{{ $project['title'] }}</a></h3>
+                        <dl class="case-facts">
+                            <div><dt>The challenge</dt><dd>{{ $project['challenge'] }}</dd></div>
+                            <div><dt>Our solution</dt><dd>{{ $project['solution'] }}</dd></div>
+                        </dl>
+                        <ul class="chips">@foreach (array_slice($project['tech'], 0, 5) as $t)<li class="chip">{{ $t }}</li>@endforeach</ul>
+                        <a class="link-arrow" href="{{ route('portfolio.show', $project['slug']) }}">Read the {{ $project['title'] }} case study <x-icon name="arrow-right" /></a>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+        @if ($moreWork->isNotEmpty())
+            <p class="more-work"><span>More of our work:</span>
+                @foreach ($moreWork as $p)<a href="{{ route('portfolio.show', $p['slug']) }}">{{ $p['title'] }}</a>@endforeach
+            </p>
+        @endif
+    </div>
+</section>
+@endif
+
+{{-- Development approach --}}
+<section class="section section--off">
     <div class="container">
         <div class="section-head center">
-            <p class="eyebrow">How we work</p>
-            <h2>A clear, collaborative development process</h2>
-            <p class="lead">A structured process keeps projects predictable, with your feedback built in at every stage.</p>
+            <p class="eyebrow">Development approach</p>
+            <h2>Discovery first, code second</h2>
+            <p class="lead">Software fails more often from unclear requirements than from bad code. Each project moves through six stages, with your feedback built in.</p>
         </div>
         @include('partials.process')
     </div>
@@ -172,11 +164,36 @@
 <section class="section">
     <div class="container">
         <div class="section-head center">
-            <p class="eyebrow">Technology</p>
+            <p class="eyebrow">Technology capabilities</p>
             <h2>Modern, proven technology stack</h2>
             <p class="lead">We choose tools for reliability, security, and long-term maintainability, matched to each project’s needs.</p>
         </div>
         @include('partials.tech', ['tech' => $tech])
+    </div>
+</section>
+
+{{-- Why APARK --}}
+<section class="section section--navy">
+    <div class="container split split--top">
+        <div>
+            <p class="eyebrow">Why APARK</p>
+            <h2>A software partner focused on business outcomes</h2>
+            <p class="lead">Writing code is only part of the job. We take time to understand your business, recommend what is genuinely useful, and stay accountable after launch.</p>
+            <a class="btn btn--light" href="{{ route('about') }}">About our team <x-icon name="arrow-right" class="icon-arrow" /></a>
+        </div>
+        <ul class="why-list">
+            @foreach ([
+                ['Business-first development', 'Every recommendation ties back to your goals, budget, and users.'],
+                ['Custom-built solutions', 'Software shaped around your workflows, and you own the code.'],
+                ['Scalable architecture', 'Designed so new users, features, and integrations do not mean starting over.'],
+                ['Transparent process', 'Clear scope, regular demos on staging, and honest timelines.'],
+                ['Practical AI adoption', 'AI where it adds real value, with people reviewing what needs judgement.'],
+                ['Integration with existing systems', 'We extend what you already have and work alongside your team.'],
+                ['Long-term technical support', 'Maintenance, monitoring, and improvements as your business changes.'],
+            ] as [$title, $text])
+                <li><x-icon name="check-circle" /><div><p class="why-title">{{ $title }}</p><p>{{ $text }}</p></div></li>
+            @endforeach
+        </ul>
     </div>
 </section>
 

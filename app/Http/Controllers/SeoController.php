@@ -14,12 +14,14 @@ class SeoController extends Controller
         $urls = collect([
             $static('home', '1.0'),
             $static('services.index', '0.9'),
+            $static('solutions', '0.8'),
             $static('about', '0.7'),
             $static('contact', '0.8'),
+            $static('project-brief', '0.8'),
             $static('blog.index', '0.7'),
         ]);
 
-        $urls = $urls->merge(Content::services()->map(fn ($s) => ['loc' => route('services.show', $s['slug']), 'lastmod' => null, 'priority' => '0.8']));
+        $urls = $urls->merge(Content::services()->reject(fn ($s) => $s['draft'])->map(fn ($s) => ['loc' => route('services.show', $s['slug']), 'lastmod' => null, 'priority' => '0.8']));
 
         $projects = Content::projects()->reject(fn ($p) => $p['draft']);
         if ($projects->isNotEmpty()) {
@@ -54,13 +56,14 @@ class SeoController extends Controller
         $line = fn (string $title, string $url, ?string $desc = null) => "- [{$title}]({$url})".($desc ? ": {$desc}" : '');
 
         $out = ['# '.config('site.name'), ''];
-        $out[] = '> '.config('site.name').' is a custom software development company in India. We build websites, web and mobile applications, ERP/CRM systems, APIs and integrations, AI automation, and e-commerce platforms for businesses. '.config('site.slogans.0').'.';
+        $out[] = '> '.config('site.name').' is a custom software engineering and business automation company in India. We build custom software, ERP/CRM platforms, SaaS products, web and mobile applications, APIs and integrations, and AI-powered automation for growing businesses and enterprises. '.config('site.slogans.0').'.';
         $out[] = '';
         $facts = array_filter([
             'Founded: 2024',
             $c['address'] ? 'Address: '.$c['address'] : null,
             $c['phone'] ? 'Phone / WhatsApp: '.$c['phone'] : null,
             'Contact form: '.route('contact'),
+            'Project brief: '.route('project-brief'),
             'Languages: '.implode(', ', $c['languages'] ?: ['English']),
             'Projects delivered: '.Content::projects()->count().' across '.Content::industries()->count().' industries',
         ]);
@@ -70,8 +73,14 @@ class SeoController extends Controller
 
         $out[] = '';
         $out[] = '## Services';
-        foreach (Content::services() as $s) {
+        foreach (Content::services()->reject(fn ($s) => $s['draft']) as $s) {
             $out[] = $line($s['title'], route('services.show', $s['slug']), $s['summary']);
+        }
+
+        $out[] = '';
+        $out[] = '## Business challenges we solve';
+        foreach (Content::solutions() as $s) {
+            $out[] = $line($s['title'], route('solutions').'#'.$s['slug'], $s['problem']);
         }
 
         $out[] = '';
@@ -138,7 +147,7 @@ class SeoController extends Controller
                 $icon('icon-maskable-512.png', '512x512', 'maskable'),
             ],
             'shortcuts' => [
-                ['name' => 'Start a Project', 'url' => '/contact', 'icons' => [$icon('icon-192.png', '192x192', 'any')]],
+                ['name' => 'Discuss Your Project', 'url' => '/project-brief', 'icons' => [$icon('icon-192.png', '192x192', 'any')]],
                 ['name' => 'Our Work', 'url' => '/portfolio', 'icons' => [$icon('icon-192.png', '192x192', 'any')]],
             ],
         ], 200, ['Content-Type' => 'application/manifest+json; charset=UTF-8'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

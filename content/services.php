@@ -469,4 +469,94 @@ return [
         ],
         'related' => ['cloud-deployment-consulting', 'web-application-development', 'custom-software-development'],
     ],
+
+    /*
+    | The two entries below are drafts: hidden in production and noindexed. They are based on the existing
+    | statements that APARK reviews and takes over code and works alongside in-house teams.
+    | Owner: remove 'draft' => true once you confirm these are offered as services.
+    */
+    'legacy-software-modernization' => [
+        'enabled' => true,
+        'draft' => true,
+        'short' => 'Legacy Modernization',
+        'tech' => ['PHP', 'Laravel', 'CodeIgniter', 'Zend Framework', 'MySQL', 'REST APIs', 'Docker', 'AWS'],
+        'title' => 'Legacy Software Modernization',
+        'icon' => 'refresh',
+        'summary' => 'Stabilise, extend, or replace ageing business software in stages, without stopping the operations that depend on it.',
+        'meta_title' => 'Legacy Software Modernization Services',
+        'meta_description' => 'Modernize ageing business software in stages: code and architecture review, stabilisation, integration, and phased replacement from APARK IT Solutions.',
+        'intro' => [
+            'Older software often holds years of business rules. It also tends to be hard to change, hard to connect to newer tools, and dependent on a small number of people who understand it.',
+            'A full rewrite is rarely the safest first step. We begin by reviewing the code and architecture, then recommend what to stabilise, what to extend, and what to replace, in an order that keeps the business running.',
+        ],
+        'benefits' => [
+            ['title' => 'Lower delivery risk', 'text' => 'Work happens in stages with a way back, instead of one large cut-over.'],
+            ['title' => 'Business rules preserved', 'text' => 'Existing logic is documented before it is changed, so nothing important is lost.'],
+            ['title' => 'Easier to integrate', 'text' => 'APIs around the old system let newer tools connect to it while it is being replaced.'],
+            ['title' => 'Less key-person risk', 'text' => 'Documentation and cleaner code mean the system no longer depends on one person’s memory.'],
+        ],
+        'deliverables' => [
+            'Code and architecture review',
+            'Written findings and a staged recommendation',
+            'Security and dependency updates',
+            'APIs around existing systems',
+            'Data migration planning and execution',
+            'Phased replacement of modules',
+            'Documentation and handover',
+        ],
+        'approach' => [
+            ['title' => 'Review', 'text' => 'We read the code, map dependencies, and identify what is risky and what is still sound.'],
+            ['title' => 'Stabilise', 'text' => 'Backups, urgent fixes, and updates come first, so the system is safe to change.'],
+            ['title' => 'Replace in stages', 'text' => 'Modules move one at a time, each tested against how the old version behaved.'],
+            ['title' => 'Retire and support', 'text' => 'Old components are switched off once their replacements have proven themselves.'],
+        ],
+        'faqs' => [
+            ['q' => 'Do we have to rewrite everything?', 'a' => 'Usually not. Many systems can be stabilised and extended, and only the parts that block the business need replacing.'],
+            ['q' => 'Can you work on code another team wrote?', 'a' => 'Yes. We start with a review so that we understand the code and can tell you honestly what condition it is in.'],
+            ['q' => 'Will the system go offline during the work?', 'a' => 'The plan is built to avoid it. Staged changes are tested first, and any required downtime is agreed with you in advance.'],
+        ],
+        'related' => ['custom-software-development', 'api-development-integration', 'software-maintenance-support'],
+    ],
+
+    'dedicated-development-teams' => [
+        'enabled' => true,
+        'draft' => true,
+        'short' => 'Dedicated Teams',
+        'tech' => ['Laravel', 'Node.js', 'Python', 'React.js', 'Next.js', 'React Native', 'Flutter', 'AWS'],
+        'title' => 'Dedicated Development Teams',
+        'icon' => 'users',
+        'summary' => 'Add engineering capacity that works alongside your in-house team, on your roadmap and in your tools.',
+        'meta_title' => 'Dedicated Software Development Teams',
+        'meta_description' => 'Extend your in-house team with dedicated developers for Laravel, Node.js, Python, React, and mobile projects, working to your roadmap and processes.',
+        'intro' => [
+            'Some projects need more engineering capacity than an in-house team has, or a skill the team does not yet have. Hiring for a short-term need is slow and hard to reverse.',
+            'We work alongside your existing developers, in your repositories and tools, and follow your roadmap. You keep product decisions and ownership of the code.',
+        ],
+        'benefits' => [
+            ['title' => 'Capacity when you need it', 'text' => 'Add skills for a release or a roadmap phase, without a long hiring cycle.'],
+            ['title' => 'Works your way', 'text' => 'We join your stand-ups, tools, and review process rather than asking you to change them.'],
+            ['title' => 'You keep control', 'text' => 'Priorities stay with you, and all code is committed to repositories you own.'],
+            ['title' => 'Clear communication', 'text' => 'Regular progress updates and one point of contact keep the work visible.'],
+        ],
+        'deliverables' => [
+            'Skills and capacity planning',
+            'Onboarding to your codebase and tools',
+            'Feature development and code reviews',
+            'Testing and release support',
+            'Regular progress reporting',
+            'Documentation and knowledge transfer',
+        ],
+        'approach' => [
+            ['title' => 'Scope', 'text' => 'We agree the skills, capacity, and duration your roadmap actually needs.'],
+            ['title' => 'Onboard', 'text' => 'We get access, learn the codebase, and start with a small, well-defined task.'],
+            ['title' => 'Deliver', 'text' => 'Work follows your sprints, reviews, and release process.'],
+            ['title' => 'Hand over', 'text' => 'Documentation and knowledge transfer leave your team fully in control.'],
+        ],
+        'faqs' => [
+            ['q' => 'Who owns the code?', 'a' => 'You do. Work is committed to your repositories under your accounts.'],
+            ['q' => 'Can you work with our existing developers?', 'a' => 'Yes. We can extend an existing codebase and work alongside your in-house team.'],
+            ['q' => 'Which technologies can you cover?', 'a' => 'The technologies listed on this page and on our home page, which come from projects we have delivered.'],
+        ],
+        'related' => ['custom-software-development', 'web-application-development', 'software-maintenance-support'],
+    ],
 ];

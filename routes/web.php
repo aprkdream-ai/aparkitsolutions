@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProjectBriefController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Middleware\PublicPageCache;
@@ -21,6 +22,7 @@ Route::withoutMiddleware([StartSession::class, ShareErrorsFromSession::class, Pr
     ->group(function () {
         Route::get('/', [PageController::class, 'home'])->name('home');
         Route::get('/about', [PageController::class, 'about'])->name('about');
+        Route::get('/solutions', [PageController::class, 'solutions'])->name('solutions');
 
         Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
         Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
@@ -46,10 +48,12 @@ Route::withoutMiddleware([StartSession::class, ShareErrorsFromSession::class, Pr
         Route::get('/manifest.json', [SeoController::class, 'manifest'])->name('manifest');
     });
 
-// Contact form (session + CSRF)
+// Contact form and project brief (session + CSRF)
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::get('/contact/captcha', [ContactController::class, 'captcha'])->middleware('throttle:30,1')->name('contact.captcha');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
+Route::get('/project-brief', [ProjectBriefController::class, 'show'])->name('project-brief');
+Route::post('/project-brief', [ProjectBriefController::class, 'submit'])->middleware('throttle:contact')->name('project-brief.store');
 
 // 301 redirects for changed or common alternate URLs.
 Route::permanentRedirect('/contact-us', '/contact');

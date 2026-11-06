@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\Middleware\TrustProxies;
 use Tests\TestCase;
 
 class SeoTest extends TestCase
@@ -100,14 +101,28 @@ class SeoTest extends TestCase
         $this->get('http://example.com/services?x=1')->assertStatus(301)->assertRedirect('https://www.example.com/services?x=1');
     }
 
+    public function test_public_prefix_redirects_to_the_real_url(): void
+    {
+        config(['site.force_canonical' => true, 'app.url' => 'https://aparkitsolutions.com']);
+        $server = ['SCRIPT_NAME' => '/public/index.php', 'SCRIPT_FILENAME' => public_path('index.php'), 'HTTPS' => 'on', 'HTTP_HOST' => 'aparkitsolutions.com'];
+
+        $this->call('GET', 'https://aparkitsolutions.com/public/services?x=1', [], [], [], $server + ['REQUEST_URI' => '/public/services?x=1'])
+            ->assertStatus(301)->assertRedirect('https://aparkitsolutions.com/services?x=1');
+    }
+
+    public function test_sitemap_lists_new_pages(): void
+    {
+        $this->get('/sitemap.xml')->assertSee(route('solutions'), false)->assertSee(route('project-brief'), false);
+    }
+
     public function test_canonical_redirect_respects_trusted_proxy_https(): void
     {
         config(['site.force_canonical' => true, 'app.url' => 'https://aparkitsolutions.com']);
-        \Illuminate\Http\Middleware\TrustProxies::at('*');
+        TrustProxies::at('*');
         $headers = ['X-Forwarded-Proto' => 'https', 'X-Forwarded-Port' => '443'];
         $this->get('http://aparkitsolutions.com/about', $headers)->assertOk();
         $this->get('http://www.aparkitsolutions.com/about', $headers)->assertRedirect('https://aparkitsolutions.com/about');
-        \Illuminate\Http\Middleware\TrustProxies::flushState();
+        TrustProxies::flushState();
     }
 
     public function test_canonical_redirect_disabled_by_default(): void

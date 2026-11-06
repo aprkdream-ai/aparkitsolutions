@@ -40,7 +40,7 @@
       if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
     });
     nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
-    window.matchMedia('(min-width: 1100px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', function (m) { if (m.matches) setOpen(false); });
   }
 
   // Portfolio filters: instant client-side filtering, server-side fallback via ?category=
@@ -147,6 +147,58 @@
       if (label) label.textContent = busy ? (submitBtn.getAttribute('data-loading-text') || 'Sending…') : labelText;
     };
 
+    // Project brief: one step at a time. Without JS every step is visible and the form posts normally.
+    var stepper = null, stepEls = ajaxForm.querySelectorAll('[data-step]');
+    if (ajaxForm.hasAttribute('data-steps') && stepEls.length) {
+      var labels = ajaxForm.querySelectorAll('[data-step-label]'), current = 0;
+      var stepOf = function (el) {
+        for (var i = 0; i < stepEls.length; i++) if (stepEls[i].contains(el)) return i;
+        return 0;
+      };
+      var show = function (i, focus) {
+        current = i;
+        stepEls.forEach(function (s, n) { s.hidden = n !== i; });
+        labels.forEach(function (l, n) {
+          l.classList.toggle('is-done', n < i);
+          if (n === i) l.setAttribute('aria-current', 'step'); else l.removeAttribute('aria-current');
+        });
+        if (focus) {
+          var legend = stepEls[i].querySelector('legend');
+          if (legend) legend.focus({ preventScroll: true });
+          ajaxForm.scrollIntoView({ block: 'start' });
+        }
+      };
+      // Checks one step in the browser for fast feedback; the server validates everything again.
+      var validStep = function (i) {
+        var errors = {}, seen = {};
+        stepEls[i].querySelectorAll('[required]').forEach(function (el) {
+          if (seen[el.name] || el.checkValidity()) return;
+          seen[el.name] = true;
+          errors[el.name] = [el.getAttribute('data-msg') || el.validationMessage];
+        });
+        clearErrors();
+        var first = showErrors(errors);
+        if (first) first.focus();
+        return !first;
+      };
+      ajaxForm.addEventListener('click', function (e) {
+        if (e.target.closest('[data-step-next]')) { if (validStep(current)) { clearErrors(); show(current + 1, true); } }
+        else if (e.target.closest('[data-step-back]')) { clearErrors(); show(current - 1, true); }
+      });
+      // Capture phase: runs before the loading-state and AJAX handlers, and stops them when the step is not ready.
+      ajaxForm.addEventListener('submit', function (e) {
+        if (current < stepEls.length - 1) {
+          e.preventDefault(); e.stopImmediatePropagation();
+          if (validStep(current)) show(current + 1, true);
+        } else if (!validStep(current)) {
+          e.preventDefault(); e.stopImmediatePropagation();
+        }
+      }, true);
+      stepper = { reveal: function (el) { show(stepOf(el), false); } };
+      var firstInvalid = ajaxForm.querySelector('[aria-invalid="true"]');
+      show(firstInvalid ? stepOf(firstInvalid) : 0, false);
+    }
+
     ajaxForm.addEventListener('submit', function (e) {
       e.preventDefault();
       if (submitBtn.disabled) return;
@@ -160,12 +212,16 @@
           var d = res.d;
           if (res.code === 200 && d.status === 'sent') {
             ajaxForm.reset();
+            if (stepper) ajaxForm.hidden = true;
             showAlert('success', d.title, ' ' + d.message);
-            if (window.gtag) window.gtag('event', 'generate_lead', { form: 'contact' });
+            if (window.gtag) {
+              window.gtag('event', 'generate_lead', { form: ajaxForm.getAttribute('data-form-name') || 'contact' });
+              if (stepper) window.gtag('event', 'project_brief_complete');
+            }
           } else if (res.code === 422) {
             var first = showErrors(d.errors), n = Object.keys(d.errors || {}).length;
             showAlert('error', 'Please check the highlighted fields.', ' ' + (n === 1 ? 'One field needs' : n + ' fields need') + ' your attention.');
-            if (first) first.focus({ preventScroll: false });
+            if (first) { if (stepper) stepper.reveal(first); first.focus({ preventScroll: false }); }
           } else if (res.code === 429) {
             showAlert('error', 'Too many attempts.', ' Please wait a few minutes and try again.');
           } else if (res.code === 419) {
@@ -188,20 +244,12 @@
   var invalid = document.querySelector('[aria-invalid="true"]');
   if (invalid) invalid.focus();
 
-  // Pause the project marquee while it is off-screen (saves GPU/battery while scrolling)
-  var marquee = document.querySelector('.marquee');
-  if (marquee) {
-    var track = marquee.querySelector('.marquee-track');
-    Array.prototype.slice.call(track.children).forEach(function (li) {
-      var c = li.cloneNode(true);
-      c.setAttribute('aria-hidden', 'true');
-      c.querySelectorAll('a').forEach(function (a) { a.setAttribute('tabindex', '-1'); });
-      track.appendChild(c);
-    });
-  }
-  if (marquee && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { marquee.classList.toggle('is-offscreen', !en.isIntersecting); });
-    }).observe(marquee);
-  }
+  // Conversion clicks. Only the type of link and page area are sent, never contact details.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || !window.gtag) return;
+    var href = a.getAttribute('href'), area = a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : 'page';
+    if (href.indexOf('tel:') === 0) window.gtag('event', 'click_to_call', { link_area: area });
+    else if (href.indexOf('https://wa.me/') === 0) window.gtag('event', 'whatsapp_click', { link_area: area });
+  });
 })();

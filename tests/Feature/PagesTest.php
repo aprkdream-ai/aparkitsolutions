@@ -13,7 +13,7 @@ class PagesTest extends TestCase
         return [
             ['/'], ['/about'], ['/services'], ['/services/custom-software-development'], ['/blog'],
             ['/blog/website-vs-web-application'], ['/blog/category/web-development'], ['/contact'],
-            ['/privacy-policy'], ['/terms-and-conditions'], ['/cookie-policy'], ['/portfolio'],
+            ['/privacy-policy'], ['/terms-and-conditions'], ['/cookie-policy'], ['/portfolio'], ['/solutions'], ['/project-brief'],
         ];
     }
 
@@ -48,6 +48,57 @@ class PagesTest extends TestCase
             ->assertSee('href="'.route('services.show', 'api-development-integration').'"', false)
             ->assertSee('Related projects')
             ->assertSee(route('portfolio.show', 'bigul'), false);
+    }
+
+    public function test_home_positioning_and_primary_calls_to_action(): void
+    {
+        $this->get('/')->assertOk()
+            ->assertSee('We Build Intelligent Software Systems That Power Your Business.')
+            ->assertSee('Explore Our Work')
+            ->assertSee('Have a Business Challenge?')
+            ->assertSee('href="'.route('project-brief').'"', false);
+    }
+
+    public function test_solutions_link_to_services_and_real_projects(): void
+    {
+        $this->get('/solutions')->assertOk()
+            ->assertSee('id="disconnected-applications"', false)
+            ->assertSee('href="'.route('services.show', 'api-development-integration').'"', false)
+            ->assertSee('href="'.route('portfolio.show', 'bigul').'"', false);
+
+        foreach (require base_path('content/solutions.php') as $slug => $s) {
+            foreach ($s['projects'] as $project) {
+                $this->assertNotNull(Content::find('projects', $project), "{$slug}: unknown project {$project}");
+            }
+        }
+    }
+
+    public function test_every_service_appears_in_a_group_exactly_once(): void
+    {
+        $grouped = Content::serviceGroups()->flatMap(fn ($g) => $g['items']->pluck('slug'));
+        $this->assertSame(Content::services()->keys()->sort()->values()->all(), $grouped->sort()->values()->all());
+    }
+
+    public function test_draft_services_stay_hidden_until_confirmed(): void
+    {
+        foreach (['legacy-software-modernization', 'dedicated-development-teams'] as $slug) {
+            $this->get("/services/{$slug}")->assertNotFound();
+            $this->get('/sitemap.xml')->assertDontSee($slug);
+            $this->get('/')->assertDontSee(route('services.show', $slug), false);
+        }
+
+        config(['site.show_drafts' => true, 'site.indexable' => true]);
+        $this->get('/services/legacy-software-modernization')->assertOk()->assertSee('noindex, follow', false);
+        $this->get('/sitemap.xml')->assertDontSee('legacy-software-modernization');
+    }
+
+    public function test_service_pages_link_to_challenges_and_articles(): void
+    {
+        $this->get('/services/api-development-integration')
+            ->assertSee('Challenges this solves')
+            ->assertSee(route('solutions').'#disconnected-applications', false)
+            ->assertSee('Related articles')
+            ->assertSee(route('blog.show', 'practical-api-integration-for-growing-businesses'), false);
     }
 
     public function test_unknown_content_returns_custom_404(): void
@@ -111,12 +162,12 @@ class PagesTest extends TestCase
         $this->get('/services/website-design-development')->assertSee('"@type":"BreadcrumbList"', false);
     }
 
-    public function test_main_menu_order_starts_with_home(): void
+    public function test_main_menu_order(): void
     {
         $html = $this->get('/about')->getContent();
         preg_match('#<nav class="nav" id="site-nav".*?</nav>#s', $html, $m);
         preg_match_all('#class="nav-link"[^>]*>([^<]+)</a>#', $m[0], $labels);
-        $this->assertSame(['Home', 'About', 'Services', 'Portfolio', 'Industries', 'Insights', 'Contact'], array_map('trim', $labels[1]));
+        $this->assertSame(['Services', 'Solutions', 'Industries', 'Portfolio', 'Insights', 'About', 'Contact'], array_map('trim', $labels[1]));
         $this->assertMatchesRegularExpression('#href="[^"]*/about"\s+aria-current="page"\s*>About#', $m[0]);
     }
 

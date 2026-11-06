@@ -1,25 +1,27 @@
-<svg class="hero-art" viewBox="0 0 540 500" role="img" aria-labelledby="hero-art-title">
-    <title id="hero-art-title">Abstract geometric illustration featuring the APARK AR mark</title>
-    <defs>
-        <linearGradient id="ha-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14A397"/><stop offset=".45" stop-color="#0F766E"/><stop offset="1" stop-color="#064E4A"/></linearGradient>
-        <linearGradient id="ha-b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDEDE8"/><stop offset="1" stop-color="#E9F6F3" stop-opacity="0"/></linearGradient>
-    </defs>
-    <rect x="135" y="115" width="270" height="270" rx="48" transform="rotate(45 270 250)" fill="url(#ha-b)"/>
-    <g class="orbit" fill="none">
-        <circle cx="270" cy="250" r="214" stroke="#0F766E" stroke-opacity=".18" stroke-dasharray="3 9"/>
-        <circle cx="270" cy="36" r="7" fill="#0F766E"/>
-        <circle cx="484" cy="250" r="5" fill="#14A397"/>
-        <circle cx="118" cy="400" r="6" fill="#064E4A" fill-opacity=".6"/>
+<svg class="hero-art" viewBox="0 0 560 440" width="560" height="440" role="img" aria-labelledby="hero-art-title">
+    <title id="hero-art-title">Diagram of web, mobile, and portal applications connected through one business platform to ERP, CRM, payments, and AI automation</title>
+    <g fill="none" stroke="#5FD0C3" stroke-opacity=".55" stroke-width="1.5">
+        <path d="M150 70 C 195 70, 190 220, 215 220"/>
+        <path d="M150 220 H 215"/>
+        <path d="M150 370 C 195 370, 190 220, 215 220"/>
+        <path d="M345 220 C 370 220, 365 70, 410 70"/>
+        <path d="M345 220 C 370 220, 365 170, 410 170"/>
+        <path d="M345 220 C 370 220, 365 270, 410 270"/>
+        <path d="M345 220 C 370 220, 365 370, 410 370"/>
     </g>
-    <circle cx="270" cy="250" r="160" fill="none" stroke="#0F766E" stroke-opacity=".12"/>
-    <g stroke="#0F766E" stroke-opacity=".35" stroke-width="1.5">
-        <path d="M270 112 L120 170 M270 112 L430 150 M410 392 L470 330 M130 392 L80 300"/>
+    <g fill="#5FD0C3">
+        <circle cx="150" cy="70" r="4"/><circle cx="150" cy="220" r="4"/><circle cx="150" cy="370" r="4"/>
+        <circle cx="410" cy="70" r="4"/><circle cx="410" cy="170" r="4"/><circle cx="410" cy="270" r="4"/><circle cx="410" cy="370" r="4"/>
     </g>
-    <g fill="#fff" stroke="#0F766E" stroke-width="2.5">
-        <circle cx="120" cy="170" r="9"/><circle cx="430" cy="150" r="9"/><circle cx="470" cy="330" r="8"/><circle cx="80" cy="300" r="8"/>
+    <g fill="#0F2A52" stroke="#FFFFFF" stroke-opacity=".18">
+        <rect x="10" y="44" width="140" height="52" rx="10"/><rect x="10" y="194" width="140" height="52" rx="10"/><rect x="10" y="344" width="140" height="52" rx="10"/>
+        <rect x="410" y="44" width="140" height="52" rx="10"/><rect x="410" y="144" width="140" height="52" rx="10"/><rect x="410" y="244" width="140" height="52" rx="10"/><rect x="410" y="344" width="140" height="52" rx="10"/>
     </g>
-    <circle cx="270" cy="250" r="128" fill="#fff" stroke="#0F766E" stroke-opacity=".12"/>
-    <image href="{{ asset('assets/img/brand/ar-mark.webp') }}" x="140" y="174" width="260" height="153"/>
-    <rect x="452" y="70" width="34" height="34" rx="8" fill="#0F766E" fill-opacity=".14" transform="rotate(20 469 87)"/>
-    <rect x="60" y="80" width="22" height="22" rx="6" fill="#14A397" fill-opacity=".25"/>
+    <rect x="215" y="150" width="130" height="140" rx="16" fill="#0F766E" stroke="#5FD0C3" stroke-opacity=".7"/>
+    <g font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#FFFFFF" text-anchor="middle">
+        <text x="80" y="75">Web app</text><text x="80" y="225">Mobile app</text><text x="80" y="375">Client portal</text>
+        <text x="480" y="75">ERP</text><text x="480" y="175">CRM</text><text x="480" y="275">Payments</text><text x="480" y="375">AI automation</text>
+        <text x="280" y="212" font-size="16" font-weight="700">Your business</text><text x="280" y="234" font-size="16" font-weight="700">platform</text>
+        <text x="280" y="258" font-size="12" font-weight="500" fill="#CDEDE8">APIs · workflows</text>
+    </g>
 </svg>

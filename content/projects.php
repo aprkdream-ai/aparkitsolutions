@@ -98,7 +98,7 @@ $projects = [
         'solution' => 'A structured appointment booking platform that replaces ad-hoc visits with scheduled meetings, supported by an admin panel and a content-managed website.',
         'features' => ['Doctor and MR appointment booking', 'Admin panel for managing users and content', 'Content-managed website with services, blogs, and testimonials'],
         'tech' => ['Laravel', 'PHP', 'MySQL'],
-        'url' => 'https://doctorbuddy.in/',
+        'url' => 'https://uat.doctorbuddy.in/',
         'featured' => true,
         'spotlight' => true, // full case study on the home page
     ],

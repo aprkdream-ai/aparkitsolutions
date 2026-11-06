@@ -86,6 +86,7 @@ The host rewrites into `/public`, so `/public/*` served an indexable, self-canon
 - `legacy-software-modernization` and `dedicated-development-teams` are `'draft' => true` in `content/services.php`. Remove the flag if offered; home, nav groups, sitemap, and forms pick them up automatically
 - Not on the site because they are not in the verified stack: .NET, Vue.js, SQL Server, Google Cloud, Azure, OpenAI by name. Add to `content/tech.php` only if genuine
 - Review the `challenge` and `solution` text in `content/projects.php`
+- DoctorBuddy links to `uat.doctorbuddy.in` with a screenshot from it, at the owner's request (2026-11-06). The UAT site is patient-facing, while the case study text describes doctor and MR meetings: update the text if the product has changed, and switch the link to production when ready
 - Qonsistic's public link is `qonsistic.aaochaletaxi.com` over http: replace it if there is a production domain
 
 ## Testing notes

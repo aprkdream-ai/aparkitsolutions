@@ -11,6 +11,8 @@
 
 <section class="section">
     <div class="container solutions">
+        {{-- Each destination is linked once, at its first mention, so anchor texts stay unique. --}}
+        @php($linked = [])
         @foreach ($solutions as $s)
             <article class="solution" id="{{ $s['slug'] }}">
                 <div class="solution-head">
@@ -25,14 +27,24 @@
                     <p class="glass-label">Relevant services</p>
                     <ul class="aside-links">
                         @foreach ($s['services'] as $service)
-                            <li><a href="{{ route('services.show', $service['slug']) }}">{{ $service['title'] }} <x-icon name="arrow-right" /></a></li>
+                            @if (in_array('s:'.$service['slug'], $linked))
+                                <li><span>{{ $service['title'] }}</span></li>
+                            @else
+                                @php($linked[] = 's:'.$service['slug'])
+                                <li><a href="{{ route('services.show', $service['slug']) }}">{{ $service['title'] }} <x-icon name="arrow-right" /></a></li>
+                            @endif
                         @endforeach
                     </ul>
                     @if ($s['projects']->isNotEmpty())
                         <p class="glass-label">Related work</p>
                         <ul class="aside-links">
                             @foreach ($s['projects'] as $project)
-                                <li><a href="{{ route('portfolio.show', $project['slug']) }}">{{ $project['title'] }} <x-icon name="arrow-right" /></a></li>
+                                @if (in_array('p:'.$project['slug'], $linked))
+                                    <li><span>{{ $project['title'] }}</span></li>
+                                @else
+                                    @php($linked[] = 'p:'.$project['slug'])
+                                    <li><a href="{{ route('portfolio.show', $project['slug']) }}">{{ $project['title'] }} <x-icon name="arrow-right" /></a></li>
+                                @endif
                             @endforeach
                         </ul>
                     @endif

@@ -18,7 +18,7 @@
                 @endforeach
             </ul>
             <div class="nav-cta">
-                <a class="btn btn--primary btn--sm" href="{{ route('project-brief') }}">Discuss Your Project <x-icon name="arrow-right" class="icon-arrow" /></a>
+                <a class="btn btn--primary btn--sm" href="{{ route('project-brief') }}">Start a Project <x-icon name="arrow-right" class="icon-arrow" /></a>
             </div>
         </nav>
     </div>

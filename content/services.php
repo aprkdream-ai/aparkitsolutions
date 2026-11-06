@@ -136,7 +136,7 @@ return [
 
     'saas-product-development' => [
         'enabled' => true,
-        'short' => 'SaaS Products', // footer link text
+        'short' => 'SaaS Development', // footer link text
         'tech' => ['Laravel', 'React.js', 'Node.js', 'MySQL', 'PostgreSQL', 'Multi-tenant SaaS', 'Stripe', 'Razorpay', 'AWS'],
         'title' => 'SaaS Product Development',
         'icon' => 'rocket',

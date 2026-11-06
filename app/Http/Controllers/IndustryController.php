@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Support\Content;
 use App\Support\Seo;
+use Illuminate\Support\Str;
 
 class IndustryController extends Controller
 {
@@ -31,10 +32,10 @@ class IndustryController extends Controller
         $count = Content::projects()->where('industry', $slug)->count();
         $seo = Seo::make($industry['title'].' Software Solutions', $industry['summary'], [
             'fillers' => [
-                "See {$count} ".\Illuminate\Support\Str::plural('project', $count).' we have delivered in this sector.',
+                "See {$count} ".Str::plural('project', $count).' we have delivered in this sector.',
                 'Custom software, web and mobile apps by APARK IT Solutions.',
             ],
-            'breadcrumbs' => ['Industries' => route('industries.index'), $industry['title'] => null],
+            'breadcrumbs' => ['All Industries' => route('industries.index'), $industry['title'] => null],
         ]);
         if ($industry['draft']) {
             $seo->noindex();

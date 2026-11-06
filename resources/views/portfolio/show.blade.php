@@ -87,7 +87,7 @@
     <div class="container">
         <div class="section-head section-head--row">
             <div><h2>More {{ $project['category'] }}</h2></div>
-            <a class="btn btn--outline" href="{{ route('portfolio.index') }}">All projects <x-icon name="arrow-right" class="icon-arrow" /></a>
+            <a class="btn btn--outline" href="{{ route('portfolio.index') }}">See more projects <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
         <div class="grid grid-3">@foreach ($more as $p)<x-project-card :project="$p" />@endforeach</div>
     </div>

@@ -38,7 +38,7 @@ class BlogController extends Controller
         // Category archives are thin by nature: crawlable but not indexed.
         $seo = Seo::make($name.' Articles', "Articles about {$name} from the APARK IT Solutions team.", [
             'fillers' => ['Practical guidance on planning, building, and running software for growing businesses.'],
-            'breadcrumbs' => ['Insights' => route('blog.index'), $name => null],
+            'breadcrumbs' => ['All Insights' => route('blog.index'), $name => null],
         ])->noindex();
 
         return view('blog.index', [
@@ -58,7 +58,7 @@ class BlogController extends Controller
             'type' => 'article',
             'image' => $post['image'],
             'article' => ['published_time' => $post['date'], 'modified_time' => $post['updated'] ?? $post['date'], 'section' => $post['category'], 'tags' => $post['tags']],
-            'breadcrumbs' => ['Insights' => route('blog.index'), $post['title'] => null],
+            'breadcrumbs' => ['All Insights' => route('blog.index'), $post['title'] => null],
         ])->schema([
             '@type' => 'BlogPosting',
             'headline' => $post['title'],

@@ -62,7 +62,7 @@ Owner review of the items under "Enterprise repositioning", then deploy per `DEP
 - Local PHP: the Herd `php83` shim execs itself in a loop; use `/usr/local/bin/php` (8.4) for artisan/tests
 
 ## Enterprise repositioning (2026-11-06)
-- Positioning: custom software engineering and business automation. Home H1 "We Build Intelligent Software Systems That Power Your Business."; keyword kept in the kicker, title, and H2. Primary CTA "Discuss Your Project" → `/project-brief`
+- Positioning: custom software engineering and business automation. Home H1 "We Build Intelligent Software Systems That Power Your Business."; keyword kept in the kicker, title, and H2. CTAs → `/project-brief`: hero "Discuss Your Project", header "Start a Project", CTA band "Send Your Project Brief" (labels differ so anchors stay unique)
 - Nav: Services, Solutions, Industries, Portfolio, Insights, About, Contact (Home removed; the logo links home). Collapses below 1200px because of the longer CTA. Desktop links are centred between the logo and CTA; the open menu uses 2 columns from 640px
 - Design: `--navy` is now #081E3E; home and inner heroes and the CTA band use `--grad-navy`. Teal stays the accent. Footer design unchanged (owner preference); only its text and one link changed
 - Home order: hero (inline SVG diagram, no image) → company overview → challenges → grouped services → industries → case studies → approach → technology → why APARK → testimonials (hidden while empty) → insights → FAQ → CTA. Marquee, float cards, and highlights strip removed

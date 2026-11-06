@@ -25,7 +25,7 @@ class ServiceController extends Controller
         $service = Content::find('services', $slug) ?? abort(404);
 
         $seo = Seo::make($service['meta_title'], $service['meta_description'], [
-            'breadcrumbs' => ['Services' => route('services.index'), $service['title'] => null],
+            'breadcrumbs' => ['All Services' => route('services.index'), $service['title'] => null],
         ])->schema([
             '@type' => 'Service',
             'name' => $service['title'],

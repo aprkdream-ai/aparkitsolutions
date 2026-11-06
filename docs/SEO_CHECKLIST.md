@@ -32,7 +32,8 @@
 - [x] `/public/*` duplicates redirect (one hop); trailing-slash redirects no longer leak `/public`
 - [x] Home title 57 characters: "Custom Software Development in India | APARK IT Solutions" (the suggested wording with "Company" is 65; limit is 60)
 - [x] Sitemap adds `/solutions`, `/project-brief`, 2 articles; draft services excluded and noindexed
-- [x] Anchor rule refined: the same text may repeat for the same URL, never for different URLs (`SeoAuditTest`)
+- [x] Home anchors are unique, enforced by `SeoAuditTest`: header CTA "Start a Project", hero "Discuss Your Project", band "Send Your Project Brief"; challenge service names are plain text; `/solutions` links each destination once; breadcrumb parents use "All …"
+- [x] All H1 words appear in the home body text (tested)
 - [x] Internal links: service pages → challenges and articles; home and `/solutions` → services and projects
 
 ## Remaining (owner)

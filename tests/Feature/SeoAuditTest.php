@@ -111,19 +111,32 @@ class SeoAuditTest extends TestCase
         $this->assertSame(1, preg_match_all('/<h1[\s>]/', $this->get('/')->getContent()));
     }
 
-    public function test_home_anchor_texts_are_unambiguous_and_never_empty(): void
+    public function test_home_anchor_texts_are_unique_and_never_empty(): void
     {
         preg_match_all('#<a\s[^>]*href="([^"]+)"[^>]*>(.*?)</a>#s', $this->get('/')->getContent(), $m);
         $text = fn ($t) => preg_replace('/<img[^>]*\balt="([^"]*)"[^>]*>/', ' $1 ', $t); // crawlers use alt as link text
         $texts = array_map(fn ($t) => mb_strtolower(trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($text($t)))))), $m[2]);
         $this->assertNotContains('', $texts, 'Icon-only links need visually hidden text');
-        // Repeating a label for the same destination is fine (e.g. the primary CTA); one label for two destinations is not.
-        $targets = [];
-        foreach ($texts as $i => $label) {
-            $targets[$label][$m[1][$i]] = true;
+        $dupes = array_keys(array_filter(array_count_values($texts), fn ($n) => $n > 1));
+        $this->assertSame([], $dupes, 'Duplicate anchor texts: '.implode(', ', $dupes));
+    }
+
+    public function test_home_h1_words_appear_in_the_body_text(): void
+    {
+        $html = $this->get('/')->getContent();
+        preg_match('#<h1>(.*?)</h1>#s', $html, $h1);
+        preg_match_all('#<p[^>]*>(.*?)</p>#s', substr($html, strpos($html, '</h1>')), $paragraphs);
+        $body = mb_strtolower(strip_tags(implode(' ', $paragraphs[1])));
+        foreach (str_word_count(mb_strtolower(strip_tags($h1[1])), 1) as $word) {
+            $this->assertStringContainsString($word, $body, "H1 word \"{$word}\" is missing from the body text");
         }
-        $dupes = array_keys(array_filter($targets, fn ($urls) => count($urls) > 1));
-        $this->assertSame([], $dupes, 'Same anchor text, different targets: '.implode(', ', $dupes));
+    }
+
+    public function test_solutions_page_links_each_destination_once(): void
+    {
+        preg_match('#<main.*?</section>.*?</section>#s', $this->get('/solutions')->getContent(), $m);
+        preg_match_all('#href="([^"]+/(?:services|portfolio)/[^"]+)"#', $m[0], $links);
+        $this->assertSame(array_unique($links[1]), $links[1]);
     }
 
     public function test_pages_offer_social_sharing(): void

@@ -42,7 +42,7 @@ class PortfolioController extends Controller
                 'View the full case study.',
             ],
             'image' => $project['image'] ?? null,
-            'breadcrumbs' => ['Portfolio' => route('portfolio.index'), $project['title'] => null],
+            'breadcrumbs' => ['All Projects' => route('portfolio.index'), $project['title'] => null],
         ]);
         if ($project['draft']) {
             $seo->noindex();

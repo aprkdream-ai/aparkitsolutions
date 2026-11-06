@@ -20,7 +20,7 @@
 {{-- Company overview: verified figures only, all derived from content files --}}
 <section class="trust" aria-label="Company overview">
     <div class="container trust-grid">
-        <p class="trust-text">APARK IT Solutions is a custom software engineering and business automation company delivering practical technology solutions for growing businesses and enterprises.</p>
+        <p class="trust-text">APARK IT Solutions is a custom software engineering and business automation company. We build intelligent software systems that power your business, delivering practical technology solutions for growing businesses and enterprises.</p>
         <dl class="trust-stats">
             <div><dt>Projects delivered</dt><dd>{{ $projectCount }}</dd></div>
             <div><dt>Industries served</dt><dd>{{ $industries->count() }}</dd></div>
@@ -48,9 +48,7 @@
                     <div>
                         <p class="challenge-title"><a href="{{ route('solutions') }}#{{ $s['slug'] }}">{{ $s['title'] }}</a></p>
                         <p>{{ $s['problem'] }}</p>
-                        <p class="challenge-links">
-                            @foreach ($s['services'] as $service)<a href="{{ route('services.show', $service['slug']) }}">{{ $service['title'] }}</a>@endforeach
-                        </p>
+                        <p class="challenge-links">{{ $s['services']->pluck('title')->implode(' · ') }}</p>
                     </div>
                 </li>
             @endforeach
@@ -65,7 +63,7 @@
             <div>
                 <p class="eyebrow">Core services</p>
                 <h2>Custom software, web &amp; mobile app development services</h2>
-                <p class="lead">From focused internal tools to complete enterprise platforms, we design, build, and support software that is reliable and ready to grow.</p>
+                <p class="lead">From focused internal tools to complete enterprise platforms, we design, build, and support intelligent systems that power daily operations and are ready to grow.</p>
             </div>
             <a class="btn btn--outline" href="{{ route('services.index') }}">View all services <x-icon name="arrow-right" class="icon-arrow" /></a>
         </div>
